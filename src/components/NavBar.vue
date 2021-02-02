@@ -24,9 +24,9 @@
         <template #end>
             <b-navbar-item tag="div">
                 <div class="buttons">
-                    <a class="button is-discord">
+                    <b-button tag="router-link" icon-left="discord" pack="fab" type="is-discord" inverted :to="{ path: 'login' }">
                         Log in with Discord
-                    </a>
+                    </b-button>
                 </div>
             </b-navbar-item>
         </template>
@@ -49,9 +49,7 @@ export default {
   },
   methods: {
     toggleSidebar() {
-      console.log(this.$store.state.nav.open)
-      this.$store.state.nav.open = !this.$store.state.nav.open
-      if (this.debug) console.log('toggled nav: ', this.$store.state.nav.open)
+        this.$emit('toggleSidebar')
     }
   }
 }

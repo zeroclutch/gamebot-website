@@ -1,6 +1,13 @@
 
 // Import Bulma's core
 @import "~bulma/sass/utilities/_all";
+@import 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
+
+
+// Fonts
+$family-sans-serif: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+$family-secondary: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+
 
 // Primary
 $primary: #52D9E9;
@@ -20,9 +27,54 @@ $dark-invert: #52D9E9;
 
 // Discord
 $discord: #7289DA;
-$discord-invert: findColorInvert($discord);
+$discord-invert: #fff;
 $discord-gray: #2C2F33;
 $discord-dark: #23272A;
+$discord-header-primary: #fff;
+$discord-header-secondary: #b9bbbe;
+$discord-text-normal: #dcddde;
+$discord-text-muted: #72767d;
+$discord-text-link: #00b0f4;
+$discord-channels-default: #8e9297;
+$discord-interactive-normal: #b9bbbe;
+$discord-interactive-hover: #dcddde;
+$discord-interactive-active: #fff;
+$discord-interactive-muted: #4f545c;
+$discord-background-primary: #36393f;
+$discord-background-secondary: #2f3136;
+$discord-background-secondary-alt: #292b2f;
+$discord-background-tertiary: #202225;
+$discord-background-accent: #4f545c;
+$discord-background-floating: #18191c;
+$discord-background-mobile-primary: #36393f;
+$discord-background-mobile-secondary: #2f3136;
+$discord-background-modifier-hover: rgba(79,84,92,0.16);
+$discord-background-modifier-active: rgba(79,84,92,0.24);
+$discord-background-modifier-selected: rgba(79,84,92,0.32);
+$discord-background-modifier-accent: hsla(0,0%,100%,0.06);
+$discord-background-mentioned: rgba(250,166,26,0.05);
+$discord-background-mentioned-hover: rgba(250,166,26,0.08);
+$discord-background-message-hover: rgba(4,4,5,0.07);
+$discord-background-help-warning: rgba(250,166,26,0.1);
+$discord-background-help-info: rgba(0,176,244,0.1);
+$discord-scrollbar-thin-thumb: #202225;
+$discord-scrollbar-thin-track: transparent;
+$discord-scrollbar-auto-thumb: #202225;
+$discord-scrollbar-auto-track: #2e3338;
+$discord-scrollbar-auto-scrollbar-color-thumb: #202225;
+$discord-scrollbar-auto-scrollbar-color-track: #2f3136;
+$discord-elevation-stroke: 0 0 0 1px rgba(4,4,5,0.15);
+$discord-elevation-low: 0 1px 0 rgba(4,4,5,0.2),0 1.5px 0 rgba(6,6,7,0.05),0 2px 0 rgba(4,4,5,0.05);
+$discord-elevation-medium: 0 4px 4px rgba(0,0,0,0.16);
+$discord-elevation-high: 0 8px 16px rgba(0,0,0,0.24);
+$discord-logo-primary: #fff;
+$discord-focus-primary: #00b0f4;
+$discord-radio-group-dot-foreground: #8ea1e1;
+$discord-guild-header-text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+$discord-channeltextarea-background: #40444b;
+$discord-activity-card-background: #202225;
+$discord-textbox-markdown-syntax: #8e9297;
+
 
 // Responsiveness
 $navbar-breakpoint: $tablet;

@@ -12,9 +12,9 @@
     <div class="menu-list-wrapper">
         <b-menu>
             <b-menu-list label="Navigation">
-                <b-menu-item :active="activeRoute === '/'" v-on:click="closeNav" label="Home" tag="router-link" to="/"></b-menu-item>
-                <b-menu-item :active="activeRoute === '/commands'" v-on:click="closeNav" label="Commands" tag="router-link" to="/commands"></b-menu-item>
-                <b-menu-item :active="activeRoute === '/shop'" v-on:click="closeNav" label="Shop" tag="router-link" to="/shop"></b-menu-item>
+                <b-menu-item :active="activeRoute === '/'" @click="closeNav()" label="Home" tag="router-link" to="/"></b-menu-item>
+                <b-menu-item :active="activeRoute === '/commands'" @click="closeNav()" label="Commands" tag="router-link" to="/commands"></b-menu-item>
+                <b-menu-item :active="activeRoute === '/shop'" @click="closeNav()" label="Shop" tag="router-link" to="/shop"></b-menu-item>
             </b-menu-list>
         </b-menu>
     </div>
@@ -26,17 +26,13 @@
 export default {
   name: 'NavSidebar',
   props: {
+    open: Boolean,
     activeRoute: String
   },
   methods: {
       closeNav() {
-        if(this.debug) console.log(`this.$store.state.nav.open ${this.$store.state.nav.open}`)
-        this.$store.state.nav.open = false
-      }
-  },
-  computed: {
-      open() {
-        return this.$store.state.nav.open
+          console.log('close')
+          this.$emit('close')
       }
   }
 }

@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div class="navbar-wrapper">
-      <NavBar />
+      <NavBar @toggleSidebar="toggleSidebar" />
     </div>
     <router-view/>
-    <NavSidebar :active-route="activeRoute" />
+    <NavSidebar :active-route="activeRoute" :open="navOpen" @close="closeNav"/>
   </div>
 </template>
 
@@ -17,22 +17,38 @@ export default {
     NavBar,
     NavSidebar
   },
+  data() {
+    return {
+      navOpen: false
+    }
+  },
   computed: {
     activeRoute() {
-      if(this.debug) console.log('route ' + this.$route.path)
       return this.$route.path
+    }
+  },
+  methods: {
+    toggleSidebar() {
+      this.navOpen = !this.navOpen
+    },
+    closeNav() {
+      this.navOpen = false
     }
   }
 }
 </script>
 
 <style lang="scss">
-
+// Global styles
 #app {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  .is-hidden-mobile, .is-0-mobile {
+      @include mobile {
+          display: none;
+      }
+  }
 }
 
 .navbar-wrapper {

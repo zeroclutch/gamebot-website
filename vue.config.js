@@ -2,10 +2,11 @@ module.exports =
 {
   devServer: {
     proxy: {
-        '^/api': {
-            target: 'http://localhost:8080',
-            pathRewrite: {'^/api' : ''},
-        },
+      '^/api': {
+          target: 'https://gamebot.rocks',
+          pathRewrite: {'^/api' : ''},
+          changeOrigin: true
+      },
     }
   },
   // Make variables available in SASS for every components

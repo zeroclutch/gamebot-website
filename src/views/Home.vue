@@ -1,20 +1,23 @@
 <template>
   <div class="home">
-    <HeroHomepage faded-text="Play fun multiplayer games on Discord with " title="Gamebot!"/>
-    <StatusBar />
+    <HomeHero faded-text="Play fun multiplayer games on Discord with " title="Gamebot!"/>
+    <HomeStatusBar />
+    <HomeGamesList />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HeroHomepage from '@/components/HeroHomepage.vue'
-import StatusBar from '@/components/StatusBar.vue'
+import HomeHero from '@/components/Home/HomeHero.vue'
+import HomeStatusBar from '@/components/Home/HomeStatusBar.vue'
+import HomeGamesList from '../components/Home/HomeGamesList.vue'
 
 export default {
   name: 'Home',
   components: {
-    HeroHomepage,
-    StatusBar
+    HomeHero,
+    HomeStatusBar,
+    HomeGamesList
   }
 }
 </script>
