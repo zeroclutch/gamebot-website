@@ -75,7 +75,7 @@ export default {
     width: 56px;
     border-radius: 100%;
     border: 4px solid #5168C8;
-    overflow:hidden;
+    overflow: hidden;
     display: inline-block;
 }
 

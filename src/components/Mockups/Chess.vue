@@ -2,7 +2,7 @@
 <template>
     <div class="discord-mockup-content">
         <DiscordMessage
-            username="a tiny bunny"
+            username="a smol bunny"
             role-color="#abcdef"
             avatar="https://i.imgur.com/gx0AN39.gif">
             it's a king's pawn kind of day<br>
@@ -24,7 +24,7 @@
         <DiscordMessage
             username="a real-life person"
             role-color="#febaca"
-            avatar="https://i.imgur.com/KwrDil8.gif">
+            :avatar="require(`@/assets/images/mockup/anime.jpg`)">
             wow, feeling adventurous, huh?
         </DiscordMessage>
     </div>

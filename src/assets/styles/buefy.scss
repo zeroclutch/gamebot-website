@@ -1,13 +1,14 @@
+// Add animations
+@use "./styles" as *;
 
 // Import Bulma's core
 @import "~bulma/sass/utilities/_all";
-@import 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
-
+@import "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap";
 
 // Fonts
 $family-sans-serif: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
 $family-secondary: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
-
+$family-primary: $family-sans-serif;
 
 // Primary
 $primary: #52D9E9;
@@ -20,6 +21,27 @@ $secondary: #79eac1;
 $secondary-light: findLightColor($primary);
 $secondary-dark: findDarkColor($primary);
 $secondary-invert: findColorInvert($primary);
+
+//Info
+$info: #32a6de;
+
+//Info
+$success: #38d06d;
+//$dropdown-background-color: $info;
+
+// Tiers
+$rare: linear-gradient(52deg, rgb(112, 204, 223) 6%, rgb(82, 137, 197) 94%);
+$epic: linear-gradient(52deg, rgba(131,121,234,1) 30%, rgba(185,150,214,1) 94%);
+$legendary: linear-gradient(52deg, rgba(255,73,51,1) 0%, rgba(234,201,121,1) 28%, rgb(238, 121, 92) 50%, rgba(238,92,92,1) 78%, rgba(238,147,92,1) 100%);
+$mythical: linear-gradient(52deg, rgba(51,255,244,1) 0%, rgba(234,121,219,1) 20%, rgba(92,225,238,1) 44%, rgba(216,133,225,1) 61%, rgba(92,225,238,1) 79%, rgba(234,121,219,1) 96%);
+
+.is-rare { background: $rare; }
+
+.is-epic { background: $epic; }
+
+.is-legendary { background: $legendary; }
+
+.is-mythical { background: $mythical; }
 
 // Dark
 $dark: #23272A;
@@ -78,6 +100,12 @@ $discord-textbox-markdown-syntax: #8e9297;
 
 // Responsiveness
 $navbar-breakpoint: $tablet;
+
+@mixin mini-phone {
+    @media (max-width: 410px) {
+        @content;
+    }
+}
 
 // Lists and maps
 $custom-colors: (

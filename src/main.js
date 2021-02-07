@@ -12,10 +12,9 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 import VueAnimateOnScroll from 'vue-animate-onscroll'
 
-
 Vue.use(Buefy, {
   defaultIconComponent: 'vue-fontawesome',
-  defaultIconPack: 'fab',
+  defaultIconPack: 'fas',
 })
 Vue.use(VueAnimateOnScroll)
 

@@ -38,7 +38,6 @@
             border-radius: 5px;
             height: auto;
             max-width: 240px;
-            height: 240px;
         }
         
         .embed-footer {

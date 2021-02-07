@@ -1,59 +1,30 @@
 <template>
     <section class="info-section dark-mode">
         <div class="content-wrapper">
-            <h2 class="section-heading">A wide array of games</h2>
             <div class="columns">
                 <div class="column is-5 is-0-mobile">
                     <Discord
-                        channel="play" 
-                        class="discord-holder">
-                        <DiscordMessage
-                            username="Gamebot"
-                            content="This round's black card"
-                            bot
-                            role-color="#52d9e9"
-                            avatar="https://cdn.discordapp.com/avatars/620307267241377793/636c2aa0886239a8c795a90706bf6a23.png?size=128">
-                            <DiscordMessageEmbed
-                                title=""
-                                description=""
-                                color="#52d9e9"
-                                image="https://gamebot.rocks/shop-items/cah-shop/unicorn-display.png"
-                            >
-                            </DiscordMessageEmbed>
-                            <DiscordMessageEmbed
-                                title="Choose the best card, Card Czar"
-                                color="#52d9e9"
-                                footer="Type the number of the card.">
-                                <div>
-                                    <b>1. </b>Extremely tight pants.<br>
-                                    <b>2. </b>Crystal meth.<br>
-                                    <b>3. </b>Smoking crack, for instance.<br>
-                                    <b>4. </b>Sexy pillow fights.<br>
-                                    <b>5. </b>Menstrual rage.<br>
-                                </div>                        
-                            </DiscordMessageEmbed>
-                        </DiscordMessage>
-                        <DiscordMessage
-                            username="a tiny bunny"
-                            content="i gotta say i like crystal meth"
-                            role-color="#abcdef"
-                            avatar="https://i.imgur.com/gx0AN39.gif">
-                            I gotta say I like crystal meth<br>
-                            wait that came out wrong
-                        </DiscordMessage>
-                        <DiscordMessage
-                            username="a real-life person"
-                            role-color="#febaca"
-                            avatar="https://i.imgur.com/KwrDil8.gif">
-                            oh dear
-                        </DiscordMessage>
+                        channel="gamebot" 
+                        v-animate-onscroll="'fade-in-delayed'"
+                        class="discord-holder faded-out">
+                        <div class="discord-mockup-wrapper">
+                            <CardsAgainstHumanity />
+                        </div>
                     </Discord>
                 </div>
                 <div class="column is-7">
+                    <h2 
+                        v-animate-onscroll="'fade-in-delayed'"
+                        class="faded-out section-heading">A wide array of games</h2>
                     <div class="game-holder content-holder">
                         <ul class="game-list">
-                            <li v-for="game in games" :key="game.name"><b>{{ game.name }}, </b>{{ game.description }}</li>
-                            <li>With plenty more on the way...</li>
+                            <li v-for="game in games" 
+                            v-animate-onscroll="'fade-in-delayed'"
+                            class="faded-out"
+                            :key="game.name"><b>{{ game.name }}, </b>{{ game.description }}</li>
+                            <li
+                            v-animate-onscroll="'fade-in-delayed'"
+                            class="faded-out">With plenty more on the way...</li>
                         </ul>
                     </div>
                 </div>
@@ -107,15 +78,15 @@
 
 <script>
 import Discord from '@/components/Discord/Discord.vue'
-import DiscordMessage from '@/components/Discord/DiscordMessage.vue'
-import DiscordMessageEmbed from '@/components/Discord/DiscordMessageEmbed.vue'
+import CardsAgainstHumanity from '@/components/Mockups/CardsAgainstHumanity.vue'
+
 export default {
     name: 'HomeGamesList.vue',
     props: {
 
     },
     components: {
-        Discord, DiscordMessage, DiscordMessageEmbed,
+        Discord, CardsAgainstHumanity,
     },
     data() {
         return {

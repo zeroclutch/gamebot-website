@@ -1,25 +1,29 @@
 <template>
   <div id="app">
     <div class="navbar-wrapper">
-      <NavBar @toggleSidebar="toggleSidebar" />
+      <NavBar :class="{ pinned: scrollPosition > 1}" @toggleSidebar="toggleSidebar" />
     </div>
     <router-view/>
     <NavSidebar :active-route="activeRoute" :open="navOpen" @close="closeNav"/>
+    <Footer />
   </div>
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue'
-import NavSidebar from '@/components/NavSidebar.vue'
+import NavBar from '@/components/Nav/NavBar.vue'
+import NavSidebar from '@/components/Nav/NavSidebar.vue'
+import Footer from '@/components/Page/PageFooter.vue'
 
 export default {
   components: {
     NavBar,
-    NavSidebar
+    NavSidebar,
+    Footer
   },
   data() {
     return {
-      navOpen: false
+      navOpen: false,
+      scrollPosition: 0
     }
   },
   computed: {
@@ -33,8 +37,21 @@ export default {
     },
     closeNav() {
       this.navOpen = false
-    }
+    },
+    updateScroll() {
+      this.scrollPosition = window.scrollY
+    },
+  },
+  beforeMount() {
+    this.$store.dispatch('fetchAllUserInfo')
+  },
+  mounted() {
+    window.addEventListener('scroll', this.updateScroll);
+  },
+  destroy() {
+    window.removeEventListener('scroll', this.updateScroll)
   }
+
 }
 </script>
 
@@ -56,6 +73,19 @@ export default {
   max-height: 4rem;
   nav {
     background-color: unset;
+    transition: all 0.2s;
+    &.pinned {
+      position: fixed;
+      top: 0; left: 0;
+      background-color: rgba(78, 77, 83, 0.7);
+      width: 100vw;
+      backdrop-filter: blur(10px);
+      color: black;
+      .navbar-end {
+        padding-right: 20px;
+      }
+    }
   }
 }
+
 </style>

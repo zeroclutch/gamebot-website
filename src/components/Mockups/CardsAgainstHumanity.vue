@@ -28,8 +28,7 @@
             </DiscordMessageEmbed>
         </DiscordMessage>
         <DiscordMessage
-            username="a tiny bunny"
-            content="i gotta say i like crystal meth"
+            username="a smol bunny"
             role-color="#abcdef"
             avatar="https://i.imgur.com/gx0AN39.gif">
             I gotta say I like crystal meth<br>
@@ -38,7 +37,7 @@
         <DiscordMessage
             username="a real-life person"
             role-color="#febaca"
-            avatar="https://i.imgur.com/KwrDil8.gif">
+            :avatar="require(`@/assets/images/mockup/anime.jpg`)">
             oh dear
         </DiscordMessage>
     </div>

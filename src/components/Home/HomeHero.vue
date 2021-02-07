@@ -9,22 +9,26 @@
                 <div class="button-container">
                     <div class="button-holder">
                         <b-button
+                        class="button-home"
                         icon-pack="fab"
                         icon-left="discord"
                         type="is-primary" inverted
                         size="is-large is-medium-mobile"  
                         onclick="gtag('event', 'add_to_guild', {'event_category': 'guild_update','event_label': 'Homepage'})"
+                        tag="a"
                         href="/invite?ref=homepage">
                             <span>Add to Discord</span>
                         </b-button>
                     </div>
                     <div class="button-holder">
                         <b-button
+                        class="button-home"
                         icon-pack="fas"
                         icon-left="users"
                         type="is-dark" 
                         size="is-large"  
                         onclick="gtag('event', 'join_community', {'event_category': 'community_update','event_label': 'Homepage'})"
+                        tag="a"
                         href="/discord?ref=homepage">
                             <span>Join the community</span>
                         </b-button>
@@ -36,10 +40,11 @@
                     :channel="channel" 
                     blur
                     class="discord-holder hero-holder">
-                    <div class="discord-mockup">
+                    <div class="discord-animated">
                     <CardsAgainstHumanity v-if="mockup === 0" />
                     <Chess v-if="mockup === 1" />
                     <Anagrams v-if="mockup === 2" />
+                    <SurveySays v-if="mockup === 3" />
                     </div>
                 </Discord>
             </div>
@@ -55,6 +60,7 @@ import Discord from '@/components/Discord/Discord.vue'
 import CardsAgainstHumanity from '@/components/Mockups/CardsAgainstHumanity.vue'
 import Chess from '@/components/Mockups/Chess.vue'
 import Anagrams from '@/components/Mockups/Anagrams.vue'
+import SurveySays from '@/components/Mockups/SurveySays.vue'
 
 export default {
   name: 'HeroHomepage',
@@ -62,7 +68,8 @@ export default {
       Discord,
       Anagrams,
       Chess,
-      CardsAgainstHumanity
+      CardsAgainstHumanity,
+      SurveySays
   },
   props: {
     title: String,
@@ -71,25 +78,26 @@ export default {
   },
   data() {
       return {
-          mockups: ['cards-against-humanity', 'chess' , 'anagrams'],
+          mockups: ['cards-against-humanity', 'chess' , 'anagrams', 'survey-says'],
           mockupIndex: 0
       }
   },
   methods: {
       updateHeight() {
-          let wrapper = document.querySelector('.discord-mockup')
+          let wrapper = document.querySelector('.discord-animated')
           let content = document.querySelector('.discord-mockup-content')
-          let style = getComputedStyle(content)
-          wrapper.style.height = style.getPropertyValue('height')
-          console.log(style.getPropertyValue('height'))
+          if(wrapper && content) {
+            let style = getComputedStyle(content)
+            wrapper.style.height = style.getPropertyValue('height')
+          }
       },
       async loadIn() {
+          this.updateHeight()
           let ms = 200;
-          let els = document.querySelectorAll('.discord-holder .discord-mockup-content > *')
+          let els = document.querySelectorAll('.discord-holder .discord-animated .discord-mockup-content > *')
           for(let i = 0; i < els.length; i++) {
                 let el = els[i]
                 await this.sleep(ms)
-                console.log(el, i)
                 el.classList.add('fade-in')
                 el.classList.remove('fade-out')
                 // Get new height of wrapper
@@ -102,11 +110,10 @@ export default {
       
       async loadOut() {
           let ms = 200;
-          let els = document.querySelectorAll('.discord-holder .discord-mockup-content > *')
+          let els = document.querySelectorAll('.discord-holder .discord-animated .discord-mockup-content > *')
           for(let i = 0; i < els.length; i++) {
                 let el = els[i]
                 await this.sleep(ms)
-                console.log(el, i)
                 el.classList.add('fade-out')
                 el.classList.remove('fade-in')
           }
@@ -117,9 +124,9 @@ export default {
           return new Promise(resolve => setTimeout(resolve, ms))
       },
       async nextMockup() {
-        await this.sleep(250)
+        await this.sleep(100)
         this.mockupIndex++
-        await this.sleep(250)
+        await this.sleep(100)
         this.updateHeight()
         this.loadIn()
       },
@@ -134,6 +141,7 @@ export default {
   },
    mounted() {
     this.loadIn()
+    setInterval(this.updateHeight, 100)
   }
 }
 </script>
@@ -167,53 +175,19 @@ export default {
 	}
 }
 
-@keyframes fade-in {
-    0% {
-        top: 20px;
-        opacity: 0;
-    }
-    100% {
-        top: 0;
-        opacity: 1;
-    }
-}
-@keyframes fade-out {
-    0% {
-        top: 0;
-        opacity: 1;
-    }
-    100% {
-        top: -20px;
-        opacity: 0;
-    }
-}
-
-
-.fade-in {
-    position: relative;
-    animation: fade-in ease-out 0.5s forwards;
-    -webkit-animation: fade-in ease-out 0.5s forwards;
-}
-
-.fade-out {
-    position: relative;
-    animation: fade-out ease-out 0.5s forwards;
-    -webkit-animation: fade-out ease-out 0.5s forwards;
-}
-
-.discord-mockup {
+.discord-animated {
     transition: all 0.5s;
 }
 
-.discord-mockup .discord-mockup-content > * {
+.discord-animated .discord-mockup-content > * {
     opacity: 0;
 }
 
-.discord-mockup .discord-mockup-content > .fade-in {
+.discord-animated .discord-mockup-content > .fade-in {
     opacity: 0;
 }
 
-.discord-holder .discord-mockup-content > .fade-out {
+.discord-animated .discord-mockup-content > .fade-out {
     opacity: 0;
 }
 
@@ -256,20 +230,18 @@ export default {
     margin-bottom: 100px;
     .button-holder {
         margin: 20px 0;
-        >>> button {
-            transition: linear all 0.2s;
-            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2));
-            -webkit-filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2));
-            &:hover {
-                filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.25));
-                -webkit-filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.25));
-            }
-        }
 
         span, span.icon.is-medium {
             font-weight: bold;
         }
         .button.is-large {
+            transition: linear all 0.1s;
+            filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
+            -webkit-filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
+            &:hover {
+                filter: drop-shadow(0px 8px 8px rgba(0, 0, 0, 0.5));
+                -webkit-filter: drop-shadow(0px 8px 8px rgba(0, 0, 0, 0.5));
+            }
             @include mobile {
                 font-size: 1rem;
             }
@@ -279,12 +251,6 @@ export default {
         font-size: 14px;
         margin-bottom: 10px;
     }
-}
-
-
-.button-holder:hover {
-    filter: drop-shadow(0px 6px 6px rgba(0, 0, 0, 0.25));
-    -webkit-filter: drop-shadow(0px 6px 6px rgba(0, 0, 0, 0.25));
 }
 
 .discord-holder {

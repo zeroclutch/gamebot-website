@@ -4,7 +4,7 @@
             username="Gamebot"
             role-color="#52d9e9"
             bot
-            avatar="https://i.imgur.com/gx0AN39.gif">
+            :avatar="require(`@/assets/images/brand/128x128.png`)">
             <DiscordMessageEmbed
                 color="#52d9e9"
                 title="Anagrams"
@@ -22,7 +22,7 @@
             username="Gamebot"
             bot
             role-color="#52d9e9"
-            avatar="https://cdn.discordapp.com/avatars/620307267241377793/636c2aa0886239a8c795a90706bf6a23.png?size=128">
+            :avatar="require(`@/assets/images/brand/128x128.png`)">
             <DiscordMessageEmbed
                 color="#52d9e9"
             >
@@ -40,7 +40,7 @@
             username="Gamebot"
             bot
             role-color="#52d9e9"
-            avatar="https://cdn.discordapp.com/avatars/620307267241377793/636c2aa0886239a8c795a90706bf6a23.png?size=128">
+            :avatar="require(`@/assets/images/brand/128x128.png`)">
             <DiscordMessageEmbed
                 color="#52d9e9"
             >
@@ -51,7 +51,7 @@
             username="Gamebot"
             bot
             role-color="#52d9e9"
-            avatar="https://cdn.discordapp.com/avatars/620307267241377793/636c2aa0886239a8c795a90706bf6a23.png?size=128">
+            :avatar="require(`@/assets/images/brand/128x128.png`)">
             <DiscordMessageEmbed
                 title="The game is over!"
                 color="#52d9e9"

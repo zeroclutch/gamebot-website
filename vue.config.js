@@ -1,9 +1,15 @@
+let target = 'https://gamebot.rocks' 
+
+if(process.env.NODE_ENV === 'development') {
+  target = 'http://localhost:5000'
+}
+
 module.exports = 
 {
   devServer: {
     proxy: {
       '^/api': {
-          target: 'https://gamebot.rocks',
+          target,
           pathRewrite: {'^/api' : ''},
           changeOrigin: true
       },
