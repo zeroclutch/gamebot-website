@@ -3,10 +3,70 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+import checkout from './modules/checkout.js'
+
 export default new Vuex.Store({
   state: {
     nav: {
       open: false
+    },
+    purchase: {
+      modalOpen: false,
+      modalItems: 'credits',
+      gold: {
+        items: [{
+            value: '1',
+            unit: 'GOLD',
+            price: '$0.99',
+            id: 'gold_1',
+            title: 'STARTER',
+            quantity: 1,
+            tier: 1,
+          },{
+            value: '5',
+            unit: 'GOLD',
+            price: '$4.49',
+            id: 'gold_1',
+            title: 'SAVE 10%',
+            quantity: 5,
+            tier: 2,
+          },{
+            value: '20',
+            unit: 'GOLD',
+            price: '$14.99',
+            id: 'gold_1',
+            title: 'SAVE 20%',
+            quantity: 20,
+            tier: 3,
+        }]
+      },
+      credits: {
+        items: [{
+            value: '750',
+            unit: 'CREDITS',
+            price: '$0.99',
+            id: 'credit_0001',
+            quantity: 750,
+            title: 'STARTER',
+            tier: 1,
+          },{
+            value: '5000',
+            unit: 'CREDITS',
+            price: '$4.99',
+            id: 'credit_0001',
+            quantity: 5000,
+            title: 'SAVE 33%',
+            tier: 2,
+          },{
+            value: '16500',
+            unit: 'CREDITS',
+            price: '$14.99',
+            id: 'credit_0001',
+            quantity: 16500,
+            title: 'SAVE 40%',
+            tier: 3,
+        }]
+      }
     },
     user: {
       token: null,
@@ -33,7 +93,10 @@ export default new Vuex.Store({
       return token
     },
     getUser: state => state.user,
-    getdbInfo: state => state.dbInfo
+    getdbInfo: state => state.dbInfo,
+    getItems: state => {
+      return state.purchase[state.purchase.modalItems].items
+    }
   },
   mutations: {
     setToken(state, token) {
@@ -48,6 +111,12 @@ export default new Vuex.Store({
     setDBInfo(state, dbInfo) {
       state.dbInfo.credits = dbInfo.balance || 0
       state.dbInfo.gold = dbInfo.goldBalance || 0
+    },
+    togglePurchaseModal(state) {
+      state.purchase.modalOpen = !state.purchase.modalOpen
+    },
+    setModalItems(state, modalItems) {
+      state.purchase.modalItems = modalItems
     }
   },
   actions: {
@@ -89,8 +158,9 @@ export default new Vuex.Store({
     async fetchAllUserInfo({ dispatch }) {
       await dispatch('fetchUserInfo')
       await dispatch('fetchDBInfo')
-    }
+    },
   },
   modules: {
+    checkout
   }
 })

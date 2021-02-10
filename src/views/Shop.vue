@@ -1,6 +1,6 @@
 <template>
     <div class="shop">
-        <b-modal @close="closeModal" v-model="activeModal">
+        <b-modal class="shop-item-modal" @close="closeModal" v-model="activeModal">
             <shop-item @cancel="closeModal" :buy-state="buyState" @buy="buy(activeItem)" class="is-dark is-modal" :item="activeItem"/>
         </b-modal>
         <page-hero title="Shop" subtitle="Unlock new content to use in games! "/>
@@ -24,7 +24,7 @@
 </template>
 
 <style lang="scss">
-.animation-content.modal-content {
+.shop-item-modal .animation-content.modal-content {
     max-width: 340px !important;
 }
 
@@ -50,6 +50,7 @@ import ShopHeader from '../components/Shop/ShopHeader.vue'
 import ShopItem from '../components/Shop/ShopItem.vue'
 import PageHero from '../components/Page/PageHero.vue'
 import ShopItemViewer from '../components/Shop/ShopItemViewer.vue'
+
 export default {
     name: 'Shop',
     components: {

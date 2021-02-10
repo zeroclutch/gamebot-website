@@ -193,7 +193,7 @@ const names = {
     'Othello': 'oth',
     'Survey Says': 'sus',
     'Wisecracks': 'wis',
-    'All Board Games': 'board',
+    'All Board Games': 'bgme',
     'Profile': 'profile',
     'Boxes': 'boxes',
 }

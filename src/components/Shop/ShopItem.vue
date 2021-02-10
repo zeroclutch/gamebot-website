@@ -1,7 +1,7 @@
 <template>
         <div class="item columns is-multiline is-mobile" @click="$emit('open', item.itemID)" :class="getTierClass">
             <KinesisContainer class="image-wrapper">
-                <KinesisElement :strength="15" type="depth" class="item-image column is-4-mobile is-3-tablet is-12-desktop" :style="{ backgroundImage: `url('https://gamebot.rocks/shop-items/${item.game}-shop/${item.image || item.type + '.png'}')` }">
+                <KinesisElement :strength="15" type="depth" class="item-image column is-4-mobile is-3-tablet is-12-desktop" :style="{ backgroundImage: getBackgroundImage(item) }">
                 </KinesisElement>
             </KinesisContainer>
             <div class="item-info-wrapper column p-0">
@@ -12,12 +12,12 @@
                             <b-tag type="is-white" class="is-tiered" :class="getTierClass" rounded ><span class="icon-label">OWNED</span>&nbsp;<b-icon class="" icon="check" pack="fas" /></b-tag>
                         </span>
                         <span v-else>
-                            <span v-if="item.cost">
-                                {{ item.cost }} <img class="currency-icon" src="https://gamebot.rocks/images/currency/credit.png">
+                            <span v-if="item.cost && item.cost > 0">
+                                {{ item.cost }} <img class="currency-icon" src="@/assets/images/currency/credit-icon.png">
                             </span>
                             
-                            <span v-if="item.goldCost">
-                                {{ item.goldCost }} <img class="currency-icon" src="https://gamebot.rocks/images/currency/coin.gif">
+                            <span v-if="item.goldCost && item.goldCost > 0">
+                                {{ item.goldCost }} <img class="currency-icon" src="@/assets/images/currency/coin.gif">
                             </span>
                         </span>
                     </div>
@@ -95,17 +95,20 @@ export default {
     },
     computed: {
         getTierClass() {
-            if(!this.tier) {
-                let tier = TIER_LIST.find(tier => tier.price <= this.item.cost)
-                let classList = {}
-                classList[tier.name] = true
-                return classList
-            } else return this.tier
+            let tier = this.getTier
+            let classList = {}
+            classList[tier.name] = true
+            return classList
         },
         getTier() {
-            if(!this.tier) {
+            if(!this.item.tier) {
                 return TIER_LIST.find(tier => tier.price <= this.item.cost)
-            } else return this.tier
+            } else return TIER_LIST.find(tier => tier.display === this.item.tier.toUpperCase())
+        },
+    },
+    methods: {
+        getBackgroundImage(item) {
+            return `url('${require(`@/assets/images/shop-items/${item.game}-shop/${item.image || item.type + '.png'}`)}')`
         }
     }
 }
@@ -142,6 +145,7 @@ export default {
     &.is-tiered {
         .tag.is-tiered {
             background: white;
+            &.is-common { color: rgb(82, 197, 126) }
             &.is-rare { color: rgb(82, 137, 197) }
             &.is-epic { color: rgba(131,121,234,1); }
             &.is-legendary { color: rgb(238, 121, 92); }

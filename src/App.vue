@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <b-modal class="purchase-modal-wrapper" :active="$store.state.purchase.modalOpen" @close="$store.commit('togglePurchaseModal')">
+      <PurchaseModal />
+    </b-modal>
     <div class="navbar-wrapper">
       <NavBar :class="{ pinned: scrollPosition > 1}" @toggleSidebar="toggleSidebar" />
     </div>
@@ -13,12 +16,14 @@
 import NavBar from '@/components/Nav/NavBar.vue'
 import NavSidebar from '@/components/Nav/NavSidebar.vue'
 import Footer from '@/components/Page/PageFooter.vue'
+import PurchaseModal from '@/components/Purchase/PurchaseModal.vue'
 
 export default {
   components: {
     NavBar,
     NavSidebar,
-    Footer
+    Footer,
+    PurchaseModal
   },
   data() {
     return {
@@ -41,9 +46,13 @@ export default {
     updateScroll() {
       this.scrollPosition = window.scrollY
     },
+    async initialize() {
+      await this.$store.dispatch('fetchAllUserInfo')
+      await this.$store.dispatch('checkout/init')
+    }
   },
   beforeMount() {
-    this.$store.dispatch('fetchAllUserInfo')
+    this.initialize()
   },
   mounted() {
     window.addEventListener('scroll', this.updateScroll);
