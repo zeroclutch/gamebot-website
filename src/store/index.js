@@ -137,7 +137,6 @@ export default new Vuex.Store({
           }).catch(console.error)
           let response = await res.json()
           // Update user
-          console.log(response)
           context.commit('setUser', response)
       }
     },
@@ -151,7 +150,6 @@ export default new Vuex.Store({
         }).catch(console.error)
         let response = await res.json()
         // Update user
-        console.log(response)
         context.commit('setDBInfo', response)
       }
     },

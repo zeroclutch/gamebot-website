@@ -65,12 +65,10 @@ export default {
     methods: {
         purchase(item) {
             this.$emit('close')
-            console.log(item)
             this.$store.dispatch('checkout/createNew', item)
         },
     },
     mounted() {
-        console.log(this.editableItem)
     }
 }
 </script>

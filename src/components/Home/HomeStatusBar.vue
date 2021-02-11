@@ -46,7 +46,6 @@ export default {
     },
     methods: {
         async fetchStatus() {
-            console.log(this)
             let res = await fetch('/api/guilds')
             this.status = await res.json()
         }

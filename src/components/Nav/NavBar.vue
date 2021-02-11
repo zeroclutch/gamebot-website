@@ -78,7 +78,6 @@ export default {
   },
   methods: {
     toggleSidebar() {
-        console.log(this.$route)
         this.$emit('toggleSidebar')
     },
   }

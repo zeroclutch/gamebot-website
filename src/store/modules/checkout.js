@@ -43,7 +43,7 @@ export default {
                           })
                           if(res.redirect) { window.location = res.redirect }
                         })
-                        
+
                         return promise
                     },
 
@@ -67,7 +67,6 @@ export default {
                         })
                         .catch(console.error)
                         // api checks if chargebee purchase is valid
-                        console.log(hostedPageID)
                     },
                     loaded: function() {
                         // Optional
