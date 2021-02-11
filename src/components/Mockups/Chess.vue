@@ -14,10 +14,10 @@
             bot
             role-color="#52d9e9"
 
-            avatar="https://cdn.discordapp.com/avatars/620307267241377793/636c2aa0886239a8c795a90706bf6a23.png?size=128">
+            :avatar="require(`@/assets/images/brand/128x128.png`)">
             <DiscordMessageEmbed
                 color="#000000"
-                image="@/assets/images/mockup/chess.png"
+                :image="require('@/assets/images/mockup/chess.png')"
             >
             </DiscordMessageEmbed>
         </DiscordMessage>

@@ -1,4 +1,6 @@
 /* eslint-disable no-undef, no-unused-vars */
+import { SnackbarProgrammatic as Snackbar } from 'buefy'
+
 export default {
     namespaced: true,
     state: () => ({
@@ -35,10 +37,13 @@ export default {
                         .then(res => res.json())
                         .then(json => json.hosted_page)
                         .catch(res => {
-                            if(res.redirect) { window.location = res.redirect }
+                          Snackbar.open({
+                            message: res.error,
+                            type: 'is-danger'
+                          })
+                          if(res.redirect) { window.location = res.redirect }
                         })
-
-                        promise.then(console.log)
+                        
                         return promise
                     },
 

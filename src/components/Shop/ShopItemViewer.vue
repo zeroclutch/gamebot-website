@@ -249,7 +249,7 @@ export default {
             // Sort
             if(this.sortBy === 'cost') {
                 items.sort((a, b) => {
-                    return a.cost - b.cost
+                    return a.goldCost - b.goldCost || a.cost - b.cost
                 })
             } else {
                 // Default to name

@@ -24,6 +24,7 @@
                 </div>
                 <div class="item-taglist">
                     <span class="tag is-tiered is-rounded" :class="getTierClass">{{ getTier.display }}</span>
+                    <b-tag type="is-white" v-for="tag in item.tags" :key="tag" rounded ><span class="icon-label">{{ tag }}</span></b-tag>
                 </div>
                 <div class="item-description">
                     {{ item.description }}

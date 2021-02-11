@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <b-modal class="purchase-modal-wrapper" :active="$store.state.purchase.modalOpen" @close="$store.commit('togglePurchaseModal')">
-      <PurchaseModal />
+      <PurchaseModal :class="{ 'is-dark-mode': $store.state.purchase.modalItems === 'gold' }"  />
     </b-modal>
     <div class="navbar-wrapper">
       <NavBar :class="{ pinned: scrollPosition > 1}" @toggleSidebar="toggleSidebar" />
