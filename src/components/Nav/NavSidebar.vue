@@ -15,8 +15,11 @@
                         <b-menu-item :active="activeRoute === '/commands'" @click="closeNav()" label="Commands" tag="router-link" to="/commands"></b-menu-item>
                         <b-menu-item :active="activeRoute === '/shop'" @click="closeNav()" label="Shop" tag="router-link" to="/shop"></b-menu-item>
                     </b-menu-list>
-                    <b-menu-list label="Actions">
-                        <b-menu-item icon="discord" icon-pack="fab" :active="activeRoute === '/login'" class="login-button" @click="closeNav()" label="Login with Discord" tag="router-link" to="/login"></b-menu-item>
+                    <b-menu-list label="User" v-if="!$store.getters.getToken">
+                        <b-menu-item  icon="discord" icon-pack="fab" class="login-button" @click="closeNav()" label="Login with Discord" tag="router-link" to="/login"></b-menu-item>
+                    </b-menu-list>
+                    <b-menu-list label="User" v-else>
+                        <b-menu-item  icon="sign-out-alt" icon-pack="fas"  class="logout-button" @click="$store.dispatch('logout')" label="Logout"></b-menu-item>
                     </b-menu-list>
                 </b-menu>
             </div>
@@ -33,7 +36,6 @@ export default {
   },
   methods: {
       closeNav() {
-          console.log('close')
           this.$emit('close')
       }
   }
@@ -51,6 +53,13 @@ export default {
             color: #fff;
             &:hover {
                 background-color: $discord;
+            }
+        }
+        .menu-list .logout-button a {
+            background-color: $danger;
+            color: #fff;
+            &:hover {
+                background-color: $danger-dark;
             }
         }
     }

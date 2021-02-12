@@ -7,18 +7,17 @@
             :opened-detailed="defaultOpenedDetails"
             detailed
             detail-key="name"
-            @details-open="(row) => $buefy.toast.open(`Expanded ${row.user.first_name}`)"
             sort-icon="arrow-up"
             icon-pack="fas"
             sort-icon-size="is-small"
             :mobile-cards="false"
-            :show-detail-icon="showDetailIcon">
+            :show-detail-icon="true">
 
             <b-table-column searchable field="name" label="Name" sortable v-slot="props">
                 {{ props.row.name }}
             </b-table-column>
             
-            <b-table-column searchable field="category" label="Category" sortable v-slot="props">
+            <b-table-column field="category" label="Category" sortable v-slot="props">
                 {{ props.row.category }}
             </b-table-column>
             
@@ -26,7 +25,7 @@
                 {{ prefix }}{{ props.row.usage }}
             </b-table-column>
 
-            <b-table-column field="games" label="Games" sortable v-slot="props">
+            <!--b-table-column field="games" label="Games" sortable v-slot="props">
                 <b-taglist>
                     <span class="tag-wrapper"  v-for="game in props.row.games" :key="game" >
                     <b-tooltip :label="games[game]" position="is-top">
@@ -34,15 +33,23 @@
                     </b-tooltip>
                     </span>
                 </b-taglist>
-            </b-table-column>
+            </b-table-column-->
 
             <template #detail="props">
                 <article class="media">
                     <div class="media-content">
-                        <div class="content">
-                                <strong>{{ props.row.aliases.join(', ') }}</strong>
+                        <div class="columns">
+                            <div class="column content">
+                                <strong>Aliases</strong>
+                                <br>
+                                {{ props.row.aliases.join(', ') || 'None' }}
+                            </div>
+                            
+                            <div class="column content">
+                                <strong>Description</strong>
                                 <br>
                                 {{ props.row.description }}
+                            </div>
                         </div>
                     </div>
                 </article>
@@ -121,16 +128,19 @@
         },
         methods: {
             async loadData() {
-                await fetch('/api/commands', {
+                let data = await fetch('/api/fetchCommands', {
                     method: 'GET',
                     headers: {
                         authorization: 'gamebot!'
                     }
                 })
+                console.log(data)
+                let json = await data.json()
+                this.data = json
             }
         },
         mounted() {
-            // this.loadData()
+            this.loadData()
             //
         }
     }

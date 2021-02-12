@@ -5,6 +5,8 @@ import Commands from '../views/Commands.vue'
 import Shop from '../views/Shop.vue'
 import Authenticate from '../views/Authenticate.vue'
 import Login from '../views/Login.vue'
+import Privacy from '../views/Privacy.vue'
+import Terms from '../views/Terms.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +35,16 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/terms',
+    name: 'Terms',
+    component: Terms
+  },
+  {
+    path: '/privacy',
+    name: 'privacy',
+    component: Privacy
   },
 ]
 
