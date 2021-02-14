@@ -3,19 +3,24 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Buefy from 'buefy'
+import VueGtag from "vue-gtag";
 
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
 import VueAnimateOnScroll from 'vue-animate-onscroll'
 
 Vue.use(Buefy, {
   defaultIconComponent: 'vue-fontawesome',
   defaultIconPack: 'fas',
 })
+
+Vue.use(VueGtag, {
+  config: { id: process.env.VUE_APP_GA_ID }
+}, router);
+
 Vue.use(VueAnimateOnScroll)
 
 library.add(fab, fas)

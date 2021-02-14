@@ -13,9 +13,9 @@
                         icon-pack="fab"
                         icon-left="discord"
                         type="is-primary" inverted
-                        size="is-large is-medium-mobile"  
-                        onclick="gtag('event', 'add_to_guild', {'event_category': 'guild_update','event_label': 'Homepage'})"
+                        size="is-large is-medium-mobile"
                         tag="a"
+                        :target="isEmbed ? '_blank' : ''"
                         href="/invite?ref=homepage">
                             <span>Add to Discord</span>
                         </b-button>
@@ -27,7 +27,8 @@
                         icon-left="users"
                         type="is-dark" 
                         size="is-large"  
-                        onclick="gtag('event', 'join_community', {'event_category': 'community_update','event_label': 'Homepage'})"
+                        :target="isEmbed ? '_blank' : ''"
+                        @click="$gtag.event('join_community', {'event_category': 'community_update','event_label': 'Homepage'})"
                         tag="a"
                         href="/discord?ref=homepage">
                             <span>Join the community</span>
@@ -136,8 +137,13 @@ export default {
         return this.mockupIndex % this.mockups.length
       },
       channel() {
-          return this.mockups[this.mockup]
+        return this.mockups[this.mockup]
       },
+      isEmbed() {
+        const params = new URLSearchParams(window.location.search);
+        const ref = params.get('ref')
+        return ref === 'embed'
+      }
   },
    mounted() {
     this.loadIn()

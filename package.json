@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-staging": "vue-cli-service build --mode staging",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -16,6 +17,7 @@
     "buefy": "^0.9.4",
     "vue": "^2.6.11",
     "vue-animate-onscroll": "^1.0.8",
+    "vue-gtag": "^1.11.0",
     "vue-kinesis": "^1.2.3",
     "vue-router": "^3.2.0",
     "vue-sequential-entrance": "^1.1.3",

@@ -1,22 +1,17 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
-let target = 'https://gamebot.rocks' 
-
-if(process.env.NODE_ENV === 'development') {
-  target = 'http://localhost:5000'
-}
+// let target = process.env.BASE_URL
 
 module.exports = 
 {
-  devServer: {
+  /* devServer: {
     proxy: {
       '^/api': {
           target,
-          pathRewrite: {'^/api' : ''},
           changeOrigin: true
       },
     }
-  },
+  }, */
+  outputDir: '../gamebot/dist',
   // Make variables available in SASS for every components
   css: {
     loaderOptions: {

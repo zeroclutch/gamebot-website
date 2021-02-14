@@ -22,7 +22,7 @@ export default {
         document.cookie = cookie;
         this.$store.commit('setToken', token)
         window.location = decodeURIComponent(fragment.get('state') || '%2Fshop')
-        //gtag('event', 'login')
+        this.$gtag.event('login')
     }
 }
 </script>

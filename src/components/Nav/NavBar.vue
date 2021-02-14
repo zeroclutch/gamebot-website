@@ -35,7 +35,6 @@
                                 icon-left="user" icon-pack="fas" type="is-discord"
                                 :icon-right="active ? 'caret-up' : 'caret-down'" />
                         </template>
-                        <b-dropdown-item aria-role="listitem" >Dashboard</b-dropdown-item>
                         <b-dropdown-item @click="$store.dispatch('logout')" class="has-background-danger has-text-white" aria-role="listitem">Log out</b-dropdown-item>
                     </b-dropdown>
                 </div>

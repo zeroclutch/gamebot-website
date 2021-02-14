@@ -1,12 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
+// Nav pages
 import Home from '../views/Home.vue'
 import Commands from '../views/Commands.vue'
 import Shop from '../views/Shop.vue'
-import Authenticate from '../views/Authenticate.vue'
-import Login from '../views/Login.vue'
+
+// Other pages
 import Privacy from '../views/Privacy.vue'
 import Terms from '../views/Terms.vue'
+
+// Redirect pagges
+import Authenticate from '../views/Authenticate.vue'
+import Login from '../views/Login.vue'
+import Invite from '../views/Invite.vue'
+import Discord from '../views/Discord.vue'
+import PageNotFound from '../views/404.vue'
 
 Vue.use(VueRouter)
 
@@ -45,6 +54,21 @@ const routes = [
     path: '/privacy',
     name: 'privacy',
     component: Privacy
+  },
+  {
+    path: '/invite',
+    name: 'invite',
+    component: Invite
+  },
+  {
+    path: '/discord',
+    name: 'discord',
+    component: Discord
+  },
+  {
+    path: '*',
+    name: '404',
+    component: PageNotFound
   },
 ]
 
