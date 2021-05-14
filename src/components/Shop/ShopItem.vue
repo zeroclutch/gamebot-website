@@ -156,6 +156,7 @@ export default {
         background-size: 250% 250%;
         animation: gradient 5s ease-in-out infinite alternate;
         &:hover {
+            animation: gradient 5s ease-in-out infinite alternate;
             animation-duration: 2s;
         }
         .item-buttons-wrapper {

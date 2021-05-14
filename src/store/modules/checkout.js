@@ -14,7 +14,7 @@ export default {
     actions: {
         init() {
             this.state.chargebee = Chargebee.init({
-                site: "gamebot-test"
+                site: "gamebot"
             });
             //context.commit('initCheckout', chargebee)
         },
