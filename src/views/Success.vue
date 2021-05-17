@@ -1,11 +1,11 @@
 <template>
-    <div class="is-404">
+    <div class="is-aligned-hero">
         <div class="vertical-centered">
             <h1 class="title is-1">
-                404!
+                Submission successful!
             </h1>
             <h3 class="title is-3">
-                Your page was not found. Sorry about that!
+                You can now close this page and return to Discord.
             </h3>
             <b-button tag="router-link" type="is-primary" :to="{ path: '/' }">Return to home</b-button>
         </div>
@@ -13,7 +13,7 @@
 </template>
 
 <style lang="scss" scoped>
-.is-404 {
+.is-aligned-hero {
     height: calc(100vh - 144px);
     text-align: center;
 }
@@ -27,7 +27,7 @@
 
 <script>
 export default {
-    name: 'PageNotFound',
+    name: 'Success',
     beforeMount() {
         
     }

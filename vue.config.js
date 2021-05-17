@@ -1,6 +1,3 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-// let target = process.env.BASE_URL
-
 module.exports = 
 {
   /* devServer: {
@@ -11,7 +8,7 @@ module.exports =
       },
     }
   }, */
-  outputDir: '../gamebot/dist',
+  outputDir: `../${process.env.NODE_ENV}/dist`,
   // Make variables available in SASS for every components
   css: {
     loaderOptions: {
@@ -21,8 +18,5 @@ module.exports =
     },
   },
   configureWebpack: {
-    // plugins: [
-    //   new HtmlWebpackPlugin()
-    // ]
   }
 }

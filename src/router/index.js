@@ -16,6 +16,7 @@ import Login from '../views/Login.vue'
 import Invite from '../views/Invite.vue'
 import Discord from '../views/Discord.vue'
 import PageNotFound from '../views/404.vue'
+import Success from '../views/Success.vue'
 
 Vue.use(VueRouter)
 
@@ -64,6 +65,11 @@ const routes = [
     path: '/discord',
     name: 'discord',
     component: Discord
+  },
+  {
+    path: '/success',
+    name: 'success',
+    component: Success
   },
   {
     path: '*',
