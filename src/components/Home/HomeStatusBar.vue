@@ -1,5 +1,5 @@
 <template>
-    <section class="status-bar">
+    <section class="status-bar has-background-discord">
         <div class="columns is-mobile">
             <div class="column is-4-desktop is-4-tablet is-paddingless status-column">
                 <!--Status and tag-->
@@ -60,7 +60,6 @@ export default {
 <style lang="scss" scoped>
 
 .status-bar {
-    background-color: #7789D4;
     padding: 5px;
     .columns {
         margin: 0 auto;

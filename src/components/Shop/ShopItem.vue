@@ -154,10 +154,9 @@ export default {
         }
         color: #fff;
         background-size: 250% 250%;
-        animation: gradient 5s ease-in-out infinite alternate;
+        // animation: gradient 5s ease-in-out infinite alternate;
         &:hover {
-            animation: gradient 5s ease-in-out infinite alternate;
-            animation-duration: 2s;
+            animation: gradient 2s ease-in-out infinite alternate;
         }
         .item-buttons-wrapper {
             .button.is-primary {
