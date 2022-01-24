@@ -19,7 +19,7 @@ export default {
     },
     beforeMount() {
         let clientId = process.env.VUE_APP_DISCORD_CLIENT_ID
-        let redirectURI = process.env.VUE_APP_BASE_URL + `/authenticate`
+        let redirectURI = process.env.VUE_APP_REDIRECT_URL + `/authenticate`
         window.location = `https://discord.com/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectURI)}&response_type=token&scope=identify`
     }
 }
