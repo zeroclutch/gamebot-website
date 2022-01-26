@@ -175,7 +175,7 @@ export default {
 
     .tag.is-tiered{
         color: white;
-        animation: gradient 5s ease-in-out infinite alternate;
+        // animation: gradient 5s ease-in-out infinite alternate;
         background-size: 250% 250%;
     }
 

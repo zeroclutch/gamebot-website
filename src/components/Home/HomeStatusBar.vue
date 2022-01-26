@@ -47,7 +47,7 @@ export default {
     methods: {
         async fetchStatus() {
             let res = await fetch('/api/guilds')
-            this.status = await res.json()
+            this.status = (await res.json()) || { guilds: '??', shards: '??'}
         }
     },
 

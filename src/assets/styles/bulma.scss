@@ -1,0 +1,18 @@
+@import "./variables.scss";
+// Import Bulma's core
+
+// Import only what is needed from Bulma
+// Import files that Buefy needs as well
+@import "bulma/sass/base/_all.sass";
+
+@import "bulma/sass/components/_all.sass";
+
+@import "bulma/sass/elements/_all.sass";
+
+@import "bulma/sass/form/_all.sass";
+
+@import "bulma/sass/grid/_all.sass";
+
+@import "bulma/sass/helpers/_all.sass";
+
+@import "bulma/sass/layout/_all.sass";
