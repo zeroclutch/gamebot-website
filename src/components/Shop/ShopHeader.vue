@@ -13,13 +13,11 @@
 }
 
 .box.shop-header {
-    margin: 0 auto;
     &:not(:last-child) {
         margin-bottom: 0px;
     }
     padding: 20px;
     padding-bottom: 40px;
-    max-width: $tablet;
     .title {
         text-align: left;
         font-weight: bold;

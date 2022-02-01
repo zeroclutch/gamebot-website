@@ -202,14 +202,17 @@ export default {
         }
         h1 {
             padding: 20px 20px 20px 0px;
-            font-size: 4rem;
+            // font-size: 4rem;
             color: white;
             font-weight: bold;
             margin-bottom: 40px;
+            font-size: 3.75rem;
+
             @include mobile {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
         }
+
         .faded-text {
             opacity: 0.8;
         }

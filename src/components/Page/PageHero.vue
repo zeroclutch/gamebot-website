@@ -39,6 +39,7 @@ export default {
     max-height: 400px;
     width: 100%;
     margin-bottom: -6px;
+    z-index: 0;
 }
 
 .gb-hero {

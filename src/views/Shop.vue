@@ -6,17 +6,21 @@
         <page-hero title="Shop" subtitle="Unlock new content to use in games! "/>
         <div class="shop-content">
             <div class="columns header-wrapper is-multiline">
-                <shop-header class="header column" title="Top items" icon="award" pack="fas">
-                    <div class="shop-item-wrapper column is-12" v-for="item in top" :key="item.itemID">
-                        <shop-item @open="open" class="is-tiered is-small is-clickable" :item="item"/>
-                    </div>
-                </shop-header>
-                <div class="column divider is-0-desktop is-12-tablet"></div>
-                <shop-header class="header column" title="Trending items"  icon="chart-line" pack="fas">
-                    <div class="shop-item-wrapper column is-12" v-for="item in trending" :key="item.itemID">
-                        <shop-item @open="open" class="is-tiered is-small is-clickable" :item="item" />
-                    </div>
-                </shop-header>
+                <div class="shop-header-wrapper column">
+                    <shop-header class="shop-header" title="Top items" icon="award" pack="fas">
+                        <div class="shop-item-wrapper column is-12" v-for="item in top" :key="item.itemID">
+                            <shop-item @open="open" class="is-tiered is-small is-clickable" :item="item"/>
+                        </div>
+                    </shop-header>
+                </div>
+                <div class="column p-0 m-0 divider is-0-desktop is-12-tablet"></div>
+                <div class="shop-header-wrapper column">
+                    <shop-header class="shop-header column" title="Trending items"  icon="chart-line" pack="fas">
+                        <div class="shop-item-wrapper column is-12" v-for="item in trending" :key="item.itemID">
+                            <shop-item @open="open" class="is-tiered is-small is-clickable" :item="item" />
+                        </div>
+                    </shop-header>
+                </div>
             </div>
             <shop-item-viewer @open="open" :data="data" :loading="loading" />
         </div>
@@ -31,17 +35,19 @@
 .snackbar .text {
     color: white;
 }
-</style>
 
-<style scoped lang="scss">
 .shop {
     background-color: #eee;
+    .shop-content {
+        position: relative;
+        max-width: $widescreen;
+        padding: 20px;
+        margin: 0 auto;
+        z-index: 2;
+    }
 }
 
-.shop-content {
-    max-width: $widescreen;
-    padding: 20px;
-    margin: 0 auto;
+.shop-header {
 }
 </style>
 
@@ -164,4 +170,5 @@ export default {
         }
     }
 }
+
 </script>
