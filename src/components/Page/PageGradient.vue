@@ -585,4 +585,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.page-gradient {
+    background: linear-gradient(52deg,#79eac1,#33ceff 20%,#e550d3 44%,#79eac1 61%,#5865F2 79%,#79eac1 100%);
+    background-size: 200%;
+    animation: reverse-gradient 20s infinite alternate ease-in-out;
+    -webkit-animation: reverse-gradient 20s infinite alternate ease-in-out;
+}
 </style>
