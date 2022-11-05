@@ -1,61 +1,61 @@
 <template>
     <b-navbar transparent>
-        <!-- <div class="container"> -->
-            <template #brand>
-                <b-navbar-item tag="router-link" :to="{ path: '/' }">
-                    <img
-                        src="@/assets/images/brand/logo.png"
-                        alt="Gamebot Logo"
-                    >
-                </b-navbar-item>
-            </template>
+        <template #brand>
+            <b-navbar-item class="navbar-brand" tag="router-link" :to="{ path: '/' }">
+                <img
+                    src="@/assets/images/brand/logo.png"
+                    alt="Gamebot Logo"
+                >
+            </b-navbar-item>
+        </template>
 
-            <template #start>
-                <b-navbar-item class="has-text-white" tag="router-link" :to="{ path: '/' }">
-                    Home
-                </b-navbar-item>
-                <b-navbar-item class="has-text-white" tag="router-link" :to="{ path: '/commands' }">
-                    Commands
-                </b-navbar-item>
-                <b-navbar-item  class="has-text-white" tag="router-link" :to="{ path: '/shop' }">
-                    Shop
-                </b-navbar-item>
-            </template>
+        <template #start>
+            <b-navbar-item class="has-text-white" tag="router-link" :to="{ path: '/' }">
+                Home
+            </b-navbar-item>
+            <b-navbar-item class="has-text-white" tag="router-link" :to="{ path: '/commands' }">
+                Commands
+            </b-navbar-item>
+            <b-navbar-item  class="has-text-white" tag="router-link" :to="{ path: '/shop' }">
+                <!-- <b-button type="is-warning" inverted> -->
+                    Shop<b-tag rounded class="tag is-small" type="is-danger">NEW!</b-tag>
+                <!-- </b-button> -->
+            </b-navbar-item>
+        </template>
 
-            <template #end>
-                <b-navbar-item>
-                    <nav-balance v-if="$store.getters.getToken && $route.path === '/shop'" :credits="$store.state.dbInfo.credits" :gold="$store.state.dbInfo.gold" />
-                    <div class="buttons">
-                        <b-button v-if="!$store.getters.getToken" tag="router-link" icon-left="discord" icon-pack="fab" type="is-discord" inverted :to="{ path: '/login' }">
-                            Log in with Discord
-                        </b-button>
-                        <b-dropdown aria-role="list" class="user-actions" position="is-bottom-left" :mobile-modal="false" v-else>
-                            <template #trigger="{ active }">
-                                <b-button
-                                    :label="getUserTag"
-                                    icon-left="user" icon-pack="fas" type="is-discord"
-                                    :icon-right="active ? 'caret-up' : 'caret-down'" />
-                            </template>
-                            <b-dropdown-item @click="$store.dispatch('logout')" class="has-background-danger has-text-white" aria-role="listitem">Log out</b-dropdown-item>
-                        </b-dropdown>
-                    </div>
-                </b-navbar-item>
-            </template>
-
-            <template #burger>
-                <div class="navbar-end is-burger">
-                <a class="navbar-item">
-                    <nav-balance size="is-small" v-if="$store.getters.getToken && $route.path === '/shop'"  :credits="$store.state.dbInfo.credits" :gold="$store.state.dbInfo.gold" />
-
-                    <a role="button" v-on:click="toggleSidebar" aria-label="menu" class="navbar-burger burger">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    </a>
-                </a>
+        <template #end>
+            <b-navbar-item>
+                <nav-balance v-if="$store.getters.getToken && $route.path === '/shop'" :credits="$store.state.dbInfo.credits" :gold="$store.state.dbInfo.gold" />
+                <div class="buttons">
+                    <b-button v-if="!$store.getters.getToken" tag="router-link" icon-left="discord" icon-pack="fab" type="is-discord" inverted :to="{ path: '/login' }">
+                        Log in with Discord
+                    </b-button>
+                    <b-dropdown aria-role="list" class="user-actions" position="is-bottom-left" :mobile-modal="false" v-else>
+                        <template #trigger="{ active }">
+                            <b-button
+                                :label="getUserTag"
+                                icon-left="user" icon-pack="fas" type="is-discord"
+                                :icon-right="active ? 'caret-up' : 'caret-down'" />
+                        </template>
+                        <b-dropdown-item @click="$store.dispatch('logout')" class="has-background-danger has-text-white" aria-role="listitem">Log out</b-dropdown-item>
+                    </b-dropdown>
                 </div>
-            </template>
-        <!-- </div> -->
+            </b-navbar-item>
+        </template>
+
+        <template #burger>
+            <div class="navbar-end is-burger">
+            <a class="navbar-item">
+                <nav-balance size="is-small" v-if="$store.getters.getToken && $route.path === '/shop'"  :credits="$store.state.dbInfo.credits" :gold="$store.state.dbInfo.gold" />
+
+                <a role="button" v-on:click="toggleSidebar" aria-label="menu" class="navbar-burger burger">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                </a>
+            </a>
+            </div>
+        </template>
     </b-navbar>
 </template>
 
@@ -87,13 +87,29 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-nav.navbar { background-color: unset ; }
+nav.navbar {
+    background-color: unset;
+    max-width: $widescreen;
+    margin: 0 auto;
+}
+nav.navbar .navbar-brand {
+    margin-right: 15px;
+    margin-top: -6px;
+}
+
 nav .navbar-burger {
   color: white;
 }
 
+
 a.navbar-item {
     padding: 0 8px;
+}
+
+.tag.is-small {
+    font-size: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    margin-left: 5px;
 }
 
 .user-actions {
