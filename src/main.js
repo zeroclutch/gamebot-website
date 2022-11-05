@@ -9,7 +9,7 @@ import VueGtag from "vue-gtag";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
 import {
-  faHashtag, faArrowUp, faArrowDown, faCheck, faUsers, faUser, faSignOutAlt, faTimes, faSortAlphaDown, faMoneyBillWave, faEye, faEyeSlash, faAward, faChartLine, faAngleRight, faStore, faTags, faCaretDown
+  faHashtag, faArrowUp, faArrowDown, faSortDown, faCaretUp, faCaretDown, faCheck, faUsers, faUser, faSignOutAlt, faTimes, faSortAlphaDown, faMoneyBillWave, faEye, faEyeSlash, faAward, faChartLine, faAngleRight, faStore, faTags, faTag, faSearch, faPlusCircle
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueAnimateOnScroll from 'vue-animate-onscroll'
@@ -25,7 +25,11 @@ Vue.use(VueGtag, {
 
 Vue.use(VueAnimateOnScroll)
 
-library.add(faDiscord, faHashtag, faArrowUp, faArrowDown, faCaretDown, faCheck, faUsers, faUser, faSignOutAlt, faTimes, faSortAlphaDown, faMoneyBillWave, faEye, faEyeSlash, faAward, faChartLine, faAngleRight, faStore, faTags)
+library.add(
+  // fab
+  faDiscord,
+  // fas
+  faHashtag, faArrowUp, faArrowDown, faSortDown, faCaretUp, faCaretDown, faCheck, faUsers, faUser, faSignOutAlt, faTimes, faSortAlphaDown, faMoneyBillWave, faEye, faEyeSlash, faAward, faChartLine, faAngleRight, faStore, faTags, faTag, faSearch, faPlusCircle)
 Vue.component('vue-fontawesome', FontAwesomeIcon);
 
 Vue.config.productionTip = false

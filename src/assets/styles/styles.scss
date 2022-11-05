@@ -9,6 +9,7 @@
         opacity: 1;
     }
 }
+
 @keyframes fade-out {
     0% {
         top: 0;
@@ -17,6 +18,15 @@
     100% {
         top: -20px;
         opacity: 0;
+    }
+}
+
+@keyframes fade-in-static {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
 

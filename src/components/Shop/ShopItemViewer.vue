@@ -220,16 +220,23 @@ export default {
         categories() {
             if(this.loading) return
             let categories = []
-            this.data.items.forEach(item => {
-                // Convert id to name
-                let name = this.getName(item.game)
-                let category = categories.find(category => category.name == name)
-                if(!category) {
-                    categories.push({name, types: [item.type]})
-                } else if(!category.types.includes(item.type)) {
-                    category.types.push(item.type)
-                }
-            })
+            if(this.data.items) {
+                this.data.items.forEach(item => {
+                    // Convert id to name
+                    let name = this.getName(item.game)
+                    let category = categories.find(category => category.name == name)
+                    if(!category) {
+                        categories.push({name, types: [item.type]})
+                    } else if(!category.types.includes(item.type)) {
+                        category.types.push(item.type)
+                    }
+                })
+            } else {
+                this.$buefy.snackbar.open({
+                    message: 'The shop items could not be loaded.',
+                    type: 'is-danger'
+                })
+            }
 
             // Sort in place
             categories.sort((a, b) => a.name.localeCompare(b.name))

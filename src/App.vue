@@ -6,7 +6,9 @@
     <div class="navbar-wrapper">
       <NavBar :class="{ pinned: scrollPosition > 1}" @toggleSidebar="toggleSidebar" />
     </div>
-    <router-view/>
+    <div class="router-wrapper" :class="{ pinned: scrollPosition > 1}">
+      <router-view/>
+    </div>
     <NavSidebar :active-route="activeRoute" :open="navOpen" @close="closeNav"/>
     <Footer />
   </div>
@@ -66,6 +68,8 @@ export default {
 
 <style lang="scss">
 // Global styles
+@import "@/assets/styles/buefy.scss";
+
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -77,22 +81,29 @@ export default {
   }
 }
 
+.router-wrapper {
+  margin-top: 0;
+  &.pinned {
+    margin-top: -3.5rem;
+  }
+}
+
 .navbar-wrapper {
   margin-bottom: -3.5rem;
   max-height: 4rem;
   nav {
     background-color: unset;
     transition: all 0.2s;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    .navbar-end {
+      padding-right: 20px;
+    }
     &.pinned {
-      position: fixed;
-      top: 0; left: 0;
       background-color: rgba(78, 77, 83, 0.7);
-      width: 100vw;
       backdrop-filter: blur(10px);
       color: black;
-      .navbar-end {
-        padding-right: 20px;
-      }
     }
   }
 }

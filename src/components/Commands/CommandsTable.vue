@@ -2,6 +2,7 @@
     <section class="table-wrapper">
 
         <b-table
+            class="box commands-table"
             :data="data"
             ref="table"
             :opened-detailed="defaultOpenedDetails"
@@ -62,12 +63,18 @@
 <style lang="scss" scoped>
     .table-wrapper {
         text-align: left;
-        max-width: $widescreen;
         padding: 40px;
         overflow: hidden;
     }
     .tag-wrapper {
         margin-right: 5px;
+    }
+
+    .commands-table {
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+        max-width: 1024px;
     }
 </style>
 

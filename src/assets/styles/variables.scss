@@ -1,0 +1,191 @@
+// Import global variables, mixins
+@import "bulma/sass/utilities/_all.sass";
+
+// Fonts
+$family-sans-serif: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+$family-secondary: "Inter", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+$family-primary: $family-sans-serif;
+
+// Primary
+$primary: #52D9E9;
+$primary-light: #fff;
+$primary-dark: findDarkColor($primary);
+$primary-invert: #fff;
+
+// Dark
+$secondary: #79eac1;
+$secondary-light: findLightColor($primary);
+$secondary-dark: findDarkColor($primary);
+$secondary-invert: findColorInvert($primary);
+
+//Info
+$info: #32a6de;
+
+//Info
+$success: #38d06d;
+
+$warning: #EBD26C;
+//$dropdown-background-color: $info;
+
+// Tiers
+$common: linear-gradient(52deg, rgba(83,196,151,1) 20%, rgba(77,167,98,1) 84%);
+$rare: linear-gradient(52deg, rgb(112, 204, 223) 6%, rgb(82, 137, 197) 94%);
+$epic: linear-gradient(52deg, rgba(131,121,234,1) 30%, rgba(185,150,214,1) 94%);
+$legendary: linear-gradient(52deg, rgba(255,73,51,1) 0%, rgba(234,201,121,1) 28%, rgb(238, 121, 92) 50%, rgba(238,92,92,1) 78%, rgba(238,147,92,1) 100%);
+$mythical: linear-gradient(52deg, rgba(51,255,244,1) 0%, rgba(234,121,219,1) 20%, rgba(92,225,238,1) 44%, rgba(216,133,225,1) 61%, rgba(92,225,238,1) 79%, rgba(234,121,219,1) 96%);
+
+
+.is-common { background: $common; }
+
+.is-rare { background: $rare; }
+
+.is-epic { background: $epic; }
+
+.is-legendary { background: $legendary; }
+
+.is-mythical { background: $mythical; }
+
+// Dark
+$dark: #23272A;
+$dark-invert: #52D9E9;
+
+// Discord
+$discord: #5865F2;
+$discord-invert: #fff;
+$discord-gray: #2C2F33;
+$discord-dark: #23272A;
+$discord-header-primary: #fff;
+$discord-header-secondary: #b9bbbe;
+$discord-text-normal: #dcddde;
+$discord-text-muted: #72767d;
+$discord-text-link: #00b0f4;
+$discord-channels-default: #8e9297;
+$discord-interactive-normal: #b9bbbe;
+$discord-interactive-hover: #dcddde;
+$discord-interactive-active: #fff;
+$discord-interactive-muted: #4f545c;
+$discord-background-primary: #36393f;
+$discord-background-secondary: #2f3136;
+$discord-background-secondary-alt: #292b2f;
+$discord-background-tertiary: #202225;
+$discord-background-accent: #4f545c;
+$discord-background-floating: #18191c;
+$discord-background-mobile-primary: #36393f;
+$discord-background-mobile-secondary: #2f3136;
+$discord-background-modifier-hover: rgba(79,84,92,0.16);
+$discord-background-modifier-active: rgba(79,84,92,0.24);
+$discord-background-modifier-selected: rgba(79,84,92,0.32);
+$discord-background-modifier-accent: hsla(0,0%,100%,0.06);
+$discord-background-mentioned: rgba(250,166,26,0.05);
+$discord-background-mentioned-hover: rgba(250,166,26,0.08);
+$discord-background-message-hover: rgba(4,4,5,0.07);
+$discord-background-help-warning: rgba(250,166,26,0.1);
+$discord-background-help-info: rgba(0,176,244,0.1);
+$discord-scrollbar-thin-thumb: #202225;
+$discord-scrollbar-thin-track: transparent;
+$discord-scrollbar-auto-thumb: #202225;
+$discord-scrollbar-auto-track: #2e3338;
+$discord-scrollbar-auto-scrollbar-color-thumb: #202225;
+$discord-scrollbar-auto-scrollbar-color-track: #2f3136;
+$discord-elevation-stroke: 0 0 0 1px rgba(4,4,5,0.15);
+$discord-elevation-low: 0 1px 0 rgba(4,4,5,0.2),0 1.5px 0 rgba(6,6,7,0.05),0 2px 0 rgba(4,4,5,0.05);
+$discord-elevation-medium: 0 4px 4px rgba(0,0,0,0.16);
+$discord-elevation-high: 0 8px 16px rgba(0,0,0,0.24);
+$discord-logo-primary: #fff;
+$discord-focus-primary: #00b0f4;
+$discord-radio-group-dot-foreground: #3846df;
+$discord-guild-header-text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+$discord-channeltextarea-background: #40444b;
+$discord-activity-card-background: #202225;
+$discord-textbox-markdown-syntax: #8e9297;
+
+
+// Responsiveness
+$navbar-breakpoint: $tablet;
+
+@mixin mini-phone {
+    @media (max-width: 410px) {
+        @content;
+    }
+}
+
+// Lists and maps
+$custom-colors: (
+    "discord": (
+        $discord,
+        $discord-invert,
+        $discord-gray,
+        $discord-dark,
+    ),
+    "secondary": (
+        $secondary,
+        $secondary-light,
+        $secondary-dark,
+        $secondary-invert,
+    )
+);
+$custom-shades: null !default;
+
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: mergeColorMaps(
+    (
+        "white": (
+            $white,
+            $black,
+        ),
+        "black": (
+            $black,
+            $white,
+        ),
+        "light": (
+            $light,
+            $light-invert,
+        ),
+        "dark": (
+            $dark,
+            $dark-invert,
+        ),
+        "primary": (
+            $primary,
+            $primary-invert,
+            $primary-light,
+            $primary-dark,
+        ),
+        "link": (
+            $link,
+            $link-invert,
+            $link-light,
+            $link-dark,
+        ),
+        "info": (
+            $info,
+            $info-invert,
+            $info-light,
+            $info-dark,
+        ),
+        "success": (
+            $success,
+            $success-invert,
+            $success-light,
+            $success-dark,
+        ),
+        "warning": (
+            $warning,
+            $warning-invert,
+            $warning-light,
+            $warning-dark,
+        ),
+        "danger": (
+            $danger,
+            $danger-invert,
+            $danger-light,
+            $danger-dark,
+        ),
+    ),
+    $custom-colors
+);
+
+// Links
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;

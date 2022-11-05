@@ -1,9 +1,9 @@
 <template>
-<section class="gb-hero-background">
-    <section class="gb-hero  m-0">
+<section>
+    <section class="gb-hero m-0">
         <div class="hero-content-wrapper columns">
             <div class="column is-7">
-                <h1 class="title is-marginless main-title"><span class="faded-text">{{ fadedText }}</span>{{ title }}</h1>
+                <h1 class="title main-title"><span class="faded-text">{{ fadedText }}</span>{{ title }}</h1>
                 <h3 class="title is-marginless main-title"></h3>
                 
                 <div class="button-container">
@@ -12,7 +12,7 @@
                         class="button-home"
                         icon-pack="fab"
                         icon-left="discord"
-                        type="is-primary" inverted
+                        type="is-discord"
                         size="is-large is-medium-mobile"
                         tag="a"
                         :target="isEmbed ? '_blank' : ''"
@@ -25,7 +25,7 @@
                         class="button-home"
                         icon-pack="fas"
                         icon-left="users"
-                        type="is-dark" 
+                        type="is-discord" inverted
                         size="is-large"  
                         :target="isEmbed ? '_blank' : ''"
                         @click="$gtag.event('join_community', {'event_category': 'community_update','event_label': 'Homepage'})"
@@ -51,6 +51,8 @@
             </div>
         </div>
     </section>
+    <PageGradient class="gradient-canvas" :colors="['#79eac1', '#79eac1', '#33ceff', '#e550d3', '#5865F2']"></PageGradient>
+
 </section>
 </template>
 
@@ -63,6 +65,8 @@ import Chess from '@/components/Mockups/Chess.vue'
 import Anagrams from '@/components/Mockups/Anagrams.vue'
 import SurveySays from '@/components/Mockups/SurveySays.vue'
 
+import PageGradient from '@/components/Page/PageGradient.vue'
+
 export default {
   name: 'HeroHomepage',
   components: {
@@ -70,7 +74,8 @@ export default {
       Anagrams,
       Chess,
       CardsAgainstHumanity,
-      SurveySays
+      SurveySays,
+      PageGradient
   },
   props: {
     title: String,
@@ -155,30 +160,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 
-@keyframes gradient {
-	0% {
-		background-position: 0% 0%;
-	}
-	100% {
-		background-position: 100% 100%;
-	}
-}
-@keyframes reverse-gradient {
-	0% {
-		background-position: 0% 0%;
-	}
-    25% {
-		background-position: 100% 50%;
-    }
-    50% {
-		background-position: 0% 50%;
-    }
-    75% {
-		background-position: 50% 100%;
-    }
-	100% {
-		background-position: 100% 100%;
-	}
+
+.gradient-canvas {
+    animation: fade-in-static 2s;
+    height: 100%;
+    width: 100%;
+    min-height: 700px;
+    margin-bottom: -6px;
 }
 
 .discord-animated {
@@ -197,17 +185,12 @@ export default {
     opacity: 0;
 }
 
-.gb-hero-background {
-    background: radial-gradient(circle, rgba(121,234,193,1) 25%, rgba(51,206,255,1) 25%, rgba(121,234,193,1) 48%, rgba(255,51,137,1) 48%, rgba(121,234,193,1) 73%, rgba(51,206,255,1) 73%);
-    background-size: 400% 400%;
-	animation: reverse-gradient 60s ease-in-out infinite alternate;
-}
-
 .gb-hero {
-    background: rgb(51,206,255);
-    background: linear-gradient(153deg, rgba(51,206,255,1) 0%, rgba(92,222,219,0.7469581582633054) 7%, rgba(121,234,193,1) 12%, rgba(61,223,224,1) 18%, rgba(0,212,255,0.8169861694677871) 24%, rgba(69,225,220,1) 28%, rgba(121,234,193,0.9178265056022409) 31%, rgba(80,218,229,1) 36%, rgba(51,206,255,0.8029805672268908) 44%, rgba(61,212,253,1) 48%, rgba(75,220,249,0.9570421918767507) 54%, rgba(89,224,232,1) 57%, rgba(121,234,193,1) 64%, rgba(167,168,201,0.9066220238095238) 70%, rgba(229,80,211,1) 78%, rgba(205,97,217,0.7469581582633054) 81%, rgba(132,149,235,1) 90%, rgba(100,172,243,1) 94%, rgba(51,206,255,1) 100%);
-	background-size: 800% 800%;
-    animation: gradient 27s ease infinite alternate;
+    background: unset !important;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 2;
 
     .hero-content-wrapper {
         margin: 0 auto;
@@ -219,13 +202,17 @@ export default {
         }
         h1 {
             padding: 20px 20px 20px 0px;
-            font-size: 60px;
+            // font-size: 4rem;
             color: white;
             font-weight: bold;
+            margin-bottom: 40px;
+            font-size: 3.75rem;
+
             @include mobile {
-                font-size: 40px;
+                font-size: 2.5rem;
             }
         }
+
         .faded-text {
             opacity: 0.8;
         }
