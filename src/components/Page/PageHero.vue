@@ -29,7 +29,7 @@ export default {
 <style lang="scss" scoped>
 
 .gb-hero-background {
-    max-height: 400px;
+    max-height: 340px;
     height: auto;
 }
 
