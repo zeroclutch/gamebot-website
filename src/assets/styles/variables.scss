@@ -12,11 +12,14 @@ $primary-light: #fff;
 $primary-dark: findDarkColor($primary);
 $primary-invert: #fff;
 
-// Dark
+// Secondary
 $secondary: #79eac1;
 $secondary-light: findLightColor($primary);
 $secondary-dark: findDarkColor($primary);
 $secondary-invert: findColorInvert($primary);
+
+// Dark
+
 
 //Info
 $info: #32a6de;
@@ -46,8 +49,13 @@ $mythical: linear-gradient(52deg, rgba(51,255,244,1) 0%, rgba(234,121,219,1) 20%
 .is-mythical { background: $mythical; }
 
 // Dark
-$dark: #23272A;
+$dark: #232730;
 $dark-invert: #52D9E9;
+
+$darkest: #0F0F10;
+$darkest-invert: #B1BFE1;
+$darkest-light: #414A60;
+$darkest-dark: #0F0F10;
 
 // Discord
 $discord: #5865F2;
@@ -122,6 +130,12 @@ $custom-colors: (
         $secondary-light,
         $secondary-dark,
         $secondary-invert,
+    ),
+    "darkest": (
+        $darkest,
+        $darkest-invert,
+        $darkest-light,
+        $darkest-dark,
     )
 );
 $custom-shades: null !default;
