@@ -5,16 +5,17 @@
         <main class="dashboard-content box columns">
             <aside class="sidebar column">
                 <b-menu-list
-                    type="is-light"
                     :model="selection">
                     <div class="p-1">
                         <b-menu>
-                        <b-menu-list label="PROFILE">
+                        <b-menu-list
+                        type="is-primary"
+                        label="PROFILE">
                             <b-menu-item icon="information-outline" label="Overview"></b-menu-item>
                             <b-menu-item icon="information-outline" label="Customize"></b-menu-item>
-                            <b-menu-item icon="account" label="Games">
-                                <b-menu-item label="Seasons"></b-menu-item>
-                                <b-menu-item label="Achievements"></b-menu-item>
+                            <b-menu-item icon="account" label="X">
+                                <b-menu-item label="X"></b-menu-item>
+                                <b-menu-item label="X"></b-menu-item>
                             </b-menu-item>
                         </b-menu-list>
                         <b-menu-list label="SERVERS">
@@ -45,6 +46,7 @@
 .dashboard {
     background-color: #eee;
     min-height: 700px;
+    padding-bottom: 100px;
     .dashboard-content {
         position: relative;
         max-width: $widescreen;
@@ -119,19 +121,26 @@ export default {
                 MANAGE_SERVER: 0x20,
             }
 
-            fetch('https://discord.com/api/users/@me/guilds', {
-                method: 'GET',
-                headers: {
-                    authorization: 'Bearer ' + this.$store.getters.getToken
-                }
-            })
-            .then(res => res.json())
-            .then(json => json.filter(
-                guild => guild.permissions & PERMISSIONS.MANAGE_SERVER
-                // TODO: Check if bot is in guild
-            ))
-            .then(guilds => this.guilds = guilds)
-            .catch(console.error)
+            // Cache the guilds in the store
+            if(!this.$store.getters.getGuilds.list
+               || this.$store.getters.getGuilds.lastUpdated < Date.now() - 1000 * 60 * 60) {
+                fetch('https://discord.com/api/users/@me/guilds', {
+                    method: 'GET',
+                    headers: {
+                        authorization: 'Bearer ' + this.$store.getters.getToken
+                    }
+                })
+                .then(res => res.json())
+                .then(json => {
+                    this.$store.commit('setGuilds', json)
+                    this.guilds = json.filter(guild => guild.permissions & PERMISSIONS.MANAGE_SERVER)
+                })
+                .catch(console.error)
+            } else {
+                this.guilds = this.$store.getters.getGuilds.filter(guild => guild.permissions & PERMISSIONS.MANAGE_SERVER)
+            }
+
+
         },
     },
     mounted() {

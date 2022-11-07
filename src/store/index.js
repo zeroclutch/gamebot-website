@@ -79,7 +79,11 @@ export default new Vuex.Store({
     dbInfo: {
       credits: null,
       gold: null,
-    }
+    },
+    guilds: {
+      list: [],
+      lastUpdated: null,
+    },
   },
   getters: {
     getToken: state => {
@@ -94,9 +98,9 @@ export default new Vuex.Store({
     },
     getUser: state => state.user,
     getdbInfo: state => state.dbInfo,
-    getItems: state => {
-      return state.purchase[state.purchase.modalItems].items
-    }
+    getItems: state => state.purchase[state.purchase.modalItems].items,
+    getGuilds: state => state.guilds,
+
   },
   mutations: {
     setToken(state, token) {
@@ -117,6 +121,10 @@ export default new Vuex.Store({
     },
     setModalItems(state, modalItems) {
       state.purchase.modalItems = modalItems
+    },
+    setGuilds(state, guilds) {
+      state.guilds.lastUpdated = Date.now()
+      state.guilds.list = guilds
     }
   },
   actions: {
