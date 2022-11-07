@@ -125,7 +125,7 @@ export default {
             .then(json => {
                 if(json.error) throw new Error(json.error)
                 this.$buefy.toast.open({
-                    duration: 5000,
+                    duration: 2000,
                     message: 'Purchase success!',
                     position: 'is-bottom',
                     type: 'is-success'

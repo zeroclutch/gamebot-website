@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Commands from '../views/Commands.vue'
 import Shop from '../views/Shop.vue'
+import Dashboard from '../views/Dashboard.vue'
 
 // Other pages
 import Privacy from '../views/Privacy.vue'
@@ -35,6 +36,11 @@ const routes = [
     path: '/shop',
     name: 'Shop',
     component: Shop
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard
   },
   {
     path: '/authenticate',

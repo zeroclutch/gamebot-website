@@ -1,7 +1,7 @@
 <template>
-<b-navbar transparent>
+    <b-navbar transparent>
         <template #brand>
-            <b-navbar-item tag="router-link" :to="{ path: '/' }">
+            <b-navbar-item class="navbar-brand" tag="router-link" :to="{ path: '/' }">
                 <img
                     src="@/assets/images/brand/logo.png"
                     alt="Gamebot Logo"
@@ -17,7 +17,9 @@
                 Commands
             </b-navbar-item>
             <b-navbar-item  class="has-text-white" tag="router-link" :to="{ path: '/shop' }">
-                Shop
+                <!-- <b-button type="is-warning" inverted> -->
+                    Shop<b-tag rounded class="tag is-small" type="is-danger">NEW!</b-tag>
+                <!-- </b-button> -->
             </b-navbar-item>
         </template>
 
@@ -85,13 +87,29 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-nav.navbar { background-color: unset ; }
+nav.navbar {
+    background-color: unset;
+    max-width: $widescreen;
+    margin: 0 auto;
+}
+nav.navbar .navbar-brand {
+    margin-right: 15px;
+    margin-top: -6px;
+}
+
 nav .navbar-burger {
   color: white;
 }
 
+
 a.navbar-item {
     padding: 0 8px;
+}
+
+.tag.is-small {
+    font-size: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    margin-left: 5px;
 }
 
 .user-actions {

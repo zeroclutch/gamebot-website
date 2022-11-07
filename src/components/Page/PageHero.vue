@@ -2,7 +2,7 @@
 <section class="gb-hero-background">
     <PageGradient class="gradient-canvas" :colors="['#79eac1', '#79eac1', '#33ceff', '#e550d3', '#5865F2']"></PageGradient>
     <section class="gb-hero  m-0">
-        <div class="hero-content-wrapper ">
+        <div class="hero-content-wrapper">
             <h1 class="title is-marginless main-title"><span class="faded-text">{{ fadedText }}</span>{{ title }}</h1>
             <h3 class="title is-marginless main-title">{{ subtitle }}</h3>
             <slot></slot>
@@ -29,7 +29,7 @@ export default {
 <style lang="scss" scoped>
 
 .gb-hero-background {
-    max-height: 400px;
+    max-height: 340px;
     height: auto;
 }
 

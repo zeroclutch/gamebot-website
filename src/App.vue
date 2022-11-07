@@ -4,7 +4,9 @@
       <PurchaseModal :class="{ 'is-dark-mode': $store.state.purchase.modalItems === 'gold' }"  />
     </b-modal>
     <div class="navbar-wrapper">
-      <NavBar :class="{ pinned: scrollPosition > 1}" @toggleSidebar="toggleSidebar" />
+      <div class="navbar-background" :class="{ pinned: scrollPosition > 1}">
+        <NavBar @toggleSidebar="toggleSidebar" />
+      </div>
     </div>
     <div class="router-wrapper" :class="{ pinned: scrollPosition > 1}">
       <router-view/>
@@ -91,7 +93,9 @@ export default {
 .navbar-wrapper {
   margin-bottom: -3.5rem;
   max-height: 4rem;
-  nav {
+  z-index: 30;
+  .navbar-background {
+    z-index: 30;
     background-color: unset;
     transition: all 0.2s;
     position: fixed;
