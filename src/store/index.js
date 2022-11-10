@@ -136,17 +136,32 @@ export default new Vuex.Store({
       context.commit('setToken', null)
       window.location.reload()
     },
-    async fetchUserInfo(context) {
-      if(this.getters.getToken) {
+    async fetchUserInfo(context, force) {
+      let userData;
+      if(!force) {
+        // Retrieve user data from local storage
+        userData = JSON.parse(localStorage.getItem('user'))
+        if(userData && userData.date < Date.now() - 1000 * 60 * 60 * 24) {
+          // If user data is more than than 24 hours old, fetch new data
+          userData = undefined
+        }
+      }
+
+      // If we don't have user data, or we're forcing a refresh, fetch it from the API
+      if(this.getters.getToken && !userData) {
           let res = await fetch('https://discord.com/api/users/@me', {
               headers: {
                   authorization: `Bearer ${this.getters.getToken}`
               }
           }).catch(console.error)
-          let response = await res.json()
-          // Update user
-          context.commit('setUser', response)
+          userData = await res.json()
+          userData.date = Date.now()
+
+          // Save the user data to localStorage
+          localStorage.setItem('user', JSON.stringify(userData))
       }
+      // Update user
+      context.commit('setUser', userData)
     },
     async fetchDBInfo(context) {
       if(this.getters.getToken && this.getters.getUser) {
@@ -162,7 +177,7 @@ export default new Vuex.Store({
       }
     },
     async fetchAllUserInfo({ dispatch }) {
-      await dispatch('fetchUserInfo')
+      await dispatch('fetchUserInfo', false)
       await dispatch('fetchDBInfo')
     },
   },

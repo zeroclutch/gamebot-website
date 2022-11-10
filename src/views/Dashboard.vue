@@ -124,7 +124,7 @@ export default {
             // Cache the guilds in the store
             if(!this.$store.getters.getGuilds.list
                || this.$store.getters.getGuilds.lastUpdated < Date.now() - 1000 * 60 * 60) {
-                fetch('https://discord.com/api/users/@me/guilds', {
+                /*fetch('https://discord.com/api/users/@me/guilds', {
                     method: 'GET',
                     headers: {
                         authorization: 'Bearer ' + this.$store.getters.getToken
@@ -135,7 +135,7 @@ export default {
                     this.$store.commit('setGuilds', json)
                     this.guilds = json.filter(guild => guild.permissions & PERMISSIONS.MANAGE_SERVER)
                 })
-                .catch(console.error)
+                .catch(console.error)*/
             } else {
                 this.guilds = this.$store.getters.getGuilds.filter(guild => guild.permissions & PERMISSIONS.MANAGE_SERVER)
             }
