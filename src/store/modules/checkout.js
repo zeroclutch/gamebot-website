@@ -46,7 +46,6 @@ export default {
 
                     // success callback
                     success: async function(hostedPageID) {
-                        console.log('Confirming payment...')
                         // ping api with token and id, and hostedpage id
                         let promise = await fetch('/api/checkout/confirmHostedPage', {
                             method: 'POST',
