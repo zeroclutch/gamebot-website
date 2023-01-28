@@ -9,13 +9,13 @@
             <div class="purchase-content">
                 <div class="purchase-value" v-if="!editable">{{ item.value }}</div>
                 <b-field v-else-if="dark">
-                    <b-numberinput min="1" max="200" step="1" type="is-warning" v-model="editableItem.value" @input="getPrice()" size="is-small" controls-rounded controls-position="compact"></b-numberinput>
+                    <b-numberinput class="editable-item" min="1" max="200" step="1" type="is-warning" v-model="editableItem.value" @input="getPrice()" size="is-small" controls-rounded controls-position="compact"></b-numberinput>
                 </b-field> 
                 <b-field v-else>
-                    <b-numberinput min="100" max="200000" min-step="1" step="1000" v-model="editableItem.value" @input="getPrice()" size="is-small" controls-rounded controls-position="compact"></b-numberinput>
+                    <b-numberinput class="editable-item" min="100" max="200000" min-step="1" step="1000" v-model="editableItem.value" @input="getPrice()" size="is-small" controls-rounded controls-position="compact"></b-numberinput>
                 </b-field> 
                 <div class="purchase-unit">{{ item.unit }}</div>
-                <a @click="$emit('purchase', getItem())" class="purchase-button" :class="{ 'is-disabled': editableItem.value == 0 && editable }">{{ item.price || '$' + getPrice() }}</a>
+                <a @click="$emit('purchase', getItem())" class="purchase-button" :class="{ 'is-disabled': editableItem.value == 0 && editable }">{{ item.price || '$' + getPrice().toFixed(2) }}</a>
             </div>
         </div>
         <div class="circle-icon">
@@ -168,9 +168,10 @@ export default {
                         color: rgb(100, 105, 120);
                         background-color: unset;
                         border: none;
-                        font-size: 1.85rem;
+                        font-size: 1.5rem;
+                        line-height: 1.85rem;
                         max-height: 1.85rem;
-                        padding: none;
+                        padding: 0px;
                     }
                 }
             }

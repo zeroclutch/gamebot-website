@@ -1,19 +1,16 @@
 module.exports = 
 {
-  // devServer: {
-  //   proxy: {
-  //     '^/api': {
-  //         target: 'http://[::1]:8080/api',
-  //         secure: false,
-  //         changeOrigin: true,
-  //         // pathRewrite: {"^/api/": "/api/"},
-  //         logLevel: 'debug' 
-  //     },
-  //   }
-  // },
-  // devServer: {
-  //   host: 'localhost:8080'
-  // }, 
+  devServer: {
+    proxy: {
+      '^/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure:false,
+        pathRewrite: {'^/api': '/api'},
+        logLevel: 'debug'
+      }
+    }
+  },
   outputDir: `../${process.env.NODE_ENV}/dist`,
   // Make variables available in SASS for every components
   css: {
@@ -23,9 +20,6 @@ module.exports =
       },
     },
   },
-  // loaders: [
-  //   { test: /\.css$/, loader: "css-loader" }
-  // ],
   configureWebpack: {
   }
 }
