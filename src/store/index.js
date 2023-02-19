@@ -154,6 +154,7 @@ export default new Vuex.Store({
                   authorization: `Bearer ${this.getters.getToken}`
               }
           }).catch(console.error)
+          
           userData = await res.json()
           userData.date = Date.now()
 
@@ -171,6 +172,7 @@ export default new Vuex.Store({
               authorization: `Bearer ${this.getters.getToken}`
           }
         }).catch(console.error)
+        
         let response = await res.json()
         // Update user
         context.commit('setDBInfo', response)

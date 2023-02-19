@@ -9,14 +9,11 @@ export default {
     }),
     getters: {},
     mutations: {
-        //init(context, chargebee) { this.state.chargebee = chargebee }
+        // init(context, chargebee) { this.state.chargebee = chargebee }
     },
     actions: {
         init() {
-            this.state.chargebee = Chargebee.init({
-                site: "gamebot"
-            });
-            //context.commit('initCheckout', chargebee)
+          // Load chargebee 
         },
         createNew: {
             handler({ rootGetters, commit }, plan = { id: 'credit_1', quantity: 1000 }) {
@@ -48,9 +45,9 @@ export default {
                     },
 
                     // success callback
-                    success: function(hostedPageID) {
+                    success: async function(hostedPageID) {
                         // ping api with token and id, and hostedpage id
-                        let promise = fetch('/api/checkout/confirmHostedPage', {
+                        let promise = await fetch('/api/checkout/confirmHostedPage', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -63,9 +60,15 @@ export default {
                         })
                         .then(res => res.json())
                         .then(json => {
-                            commit('setDBInfo', json.value, { root: true })
+                            commit('setDBInfo', json, { root: true })
                         })
-                        .catch(console.error)
+                        .catch(error => {
+                          console.error(error)
+                          Snackbar.open({
+                            message: 'There was an error processing your payment. Contact the support server if you had an issue.',
+                            type: 'is-danger'
+                          })
+                        })
                         // api checks if chargebee purchase is valid
                     },
                     loaded: function() {
@@ -75,6 +78,7 @@ export default {
                     error: function(error) {
                         // Optional
                         // will be called if the promise passed causes an error
+                        console.error(error)
                     },
                     step: function(step) {
                         // Optional
