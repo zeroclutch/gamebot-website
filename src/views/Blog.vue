@@ -60,12 +60,16 @@
                 text-align: left;
                 font-size: 1.25rem;
 
+                align-items: center;
+
                 .author-image {
-                    width: 25px;
-                    height: 25px;
+                    width: 35px;
+                    height: 35px;
                     object-fit: cover;
                     object-position: center;
                     border-radius: 50%;
+                    transform: translateY(25%);
+                    margin-right: 0.5rem;
                 }
 
                 .blog-post-info {
@@ -99,6 +103,7 @@
                     margin-top: 1rem;
                     color: #666;
                     margin-bottom: 1rem;
+                    padding-right: 1rem;
                 }
 
                 &:not(:last-child) {

@@ -182,6 +182,16 @@ body .blog-post {
                     margin: 2rem auto;
                     text-align: left;
 
+                    a {
+                        color: $info;
+                        text-decoration: underline;
+
+                        &:hover {
+                            color: $info-dark;
+                            text-decoration: underline;
+                        }
+                    }
+
                     .embedded-image {
                         margin: 2rem auto;
                         display: block;
