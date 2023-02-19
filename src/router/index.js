@@ -6,6 +6,8 @@ import Home from '../views/Home.vue'
 import Commands from '../views/Commands.vue'
 import Shop from '../views/Shop.vue'
 import Dashboard from '../views/Dashboard.vue'
+import Blog from '../views/Blog.vue'
+import BlogPost from '../views/Blog.vue'
 
 // Other pages
 import Privacy from '../views/Privacy.vue'
@@ -36,6 +38,16 @@ const routes = [
     path: '/shop',
     name: 'Shop',
     component: Shop
+  },
+  {
+    path: '/blog',
+    name: 'Blog',
+    component: Blog
+  },
+  {
+    path: '/post/:slug',
+    name: 'Blog',
+    component: BlogPost
   },
   {
     path: '/dashboard',
