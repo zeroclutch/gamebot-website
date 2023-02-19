@@ -1,5 +1,5 @@
 <template>
-    <canvas class="page-gradient"></canvas>
+    <canvas class="page-gradient page-gradient-loading"></canvas>
 </template>
 
 <style>
@@ -289,8 +289,9 @@ function e(object, propertyName, val) {
 
 //Gradient object
 class Gradient {
-    constructor(...t) {
-        e(this, "el", void 0), e(this, "cssVarRetries", 0), e(this, "maxCssVarRetries", 200), e(this, "angle", 0), e(this, "isLoadedClass", !1), e(this, "isScrolling", !1), /*e(this, "isStatic", o.disableAmbientAnimations()),*/ e(this, "scrollingTimeout", void 0), e(this, "scrollingRefreshDelay", 200), e(this, "isIntersecting", !1), e(this, "shaderFiles", void 0), e(this, "vertexShader", void 0), e(this, "sectionColors", void 0), e(this, "initColors", t[0] || [16711680, 16711680, 16711935, 65280, 255]), e(this, "computedCanvasStyle", void 0), e(this, "conf", void 0), e(this, "uniforms", void 0), e(this, "t", 1253106), e(this, "last", 0), e(this, "width", void 0), e(this, "minWidth", 1111), e(this, "height", 600), e(this, "xSegCount", void 0), e(this, "ySegCount", void 0), e(this, "mesh", void 0), e(this, "material", void 0), e(this, "geometry", void 0), e(this, "minigl", void 0), e(this, "scrollObserver", void 0), e(this, "amp", 320), e(this, "seed", 5), e(this, "freqX", 14e-5), e(this, "freqY", 29e-5), e(this, "freqDelta", 1e-5), e(this, "activeColors", [1, 1, 1, 1]), e(this, "isMetaKey", !1), e(this, "isGradientLegendVisible", !1), e(this, "isMouseDown", !1), e(this, "handleScroll", () => {
+    constructor(onLoad, ...t) {
+        
+        e(this, 'onLoad', onLoad), e(this, "el", void 0), e(this, "cssVarRetries", 0), e(this, "maxCssVarRetries", 200), e(this, "angle", 0), e(this, "isLoadedClass", !1), e(this, "isScrolling", !1), /*e(this, "isStatic", o.disableAmbientAnimations()),*/ e(this, "scrollingTimeout", void 0), e(this, "scrollingRefreshDelay", 200), e(this, "isIntersecting", !1), e(this, "shaderFiles", void 0), e(this, "vertexShader", void 0), e(this, "sectionColors", void 0), e(this, "initColors", t[0] || [16711680, 16711680, 16711935, 65280, 255]), e(this, "computedCanvasStyle", void 0), e(this, "conf", void 0), e(this, "uniforms", void 0), e(this, "t", 1253106), e(this, "last", 0), e(this, "width", void 0), e(this, "minWidth", 1111), e(this, "height", 600), e(this, "xSegCount", void 0), e(this, "ySegCount", void 0), e(this, "mesh", void 0), e(this, "material", void 0), e(this, "geometry", void 0), e(this, "minigl", void 0), e(this, "scrollObserver", void 0), e(this, "amp", 320), e(this, "seed", 5), e(this, "freqX", 14e-5), e(this, "freqY", 29e-5), e(this, "freqDelta", 1e-5), e(this, "activeColors", [1, 1, 1, 1]), e(this, "isMetaKey", !1), e(this, "isGradientLegendVisible", !1), e(this, "isMouseDown", !1), e(this, "handleScroll", () => {
             clearTimeout(this.scrollingTimeout), this.scrollingTimeout = setTimeout(this.handleScrollEnd, this.scrollingRefreshDelay), this.isGradientLegendVisible && this.hideGradientLegend(), this.conf.playing && (this.isScrolling = !0, this.pause())
         }), e(this, "handleScrollEnd", () => {
             this.isScrolling = !1, this.isIntersecting && this.play()
@@ -309,7 +310,6 @@ class Gradient {
                 this.mesh.material.uniforms.u_time.value = this.t, this.minigl.render()
 
             }
-            this.drawOverlay()
             if (0 !== this.last && this.isStatic) return this.minigl.render(), void this.disconnect();
             ( /*this.isIntersecting && */ this.conf.playing || this.isMouseDown) && requestAnimationFrame(this.animate)
         }), e(this, "addIsLoadedClass", () => {
@@ -413,11 +413,10 @@ class Gradient {
                 rotation: 0,
                 playing: true
             },
-            document.querySelectorAll("canvas").length < 1 ? console.log("DID NOT LOAD HERO STRIPE CANVAS") : (
-
+            document.querySelectorAll("canvas").length < 1 ? console.log("DID NOT LOAD HERO CANVAS") : (
                 this.minigl = new MiniGl(this.el, null, null, !0),
                 requestAnimationFrame(() => {
-                    this.el && (this.computedCanvasStyle = getComputedStyle(this.el), this.waitForCssVars())
+                    this.el && (this.computedCanvasStyle = getComputedStyle(this.el), this.waitForCssVars()) && this.onLoad(this)
                 })
                 /*
                 this.scrollObserver = await s.create(.1, !1),
@@ -581,14 +580,16 @@ export default {
     methods: {
     },
     async mounted() {
-        const gradient = new Gradient(this.colors);
+        const gradient = new Gradient(() => {
+            this.$el.classList.remove('page-gradient-loading')
+        }, this.colors);
         gradient.initGradient("canvas.page-gradient");
     }
 }
 </script>
 
 <style lang="scss" scoped>
-.page-gradient {
+.page-gradient-loading {
     background: linear-gradient(52deg,#79eac1,#33ceff 20%,#e550d3 44%,#79eac1 61%,#5865F2 79%,#79eac1 100%);
     background-size: 200%;
     animation: reverse-gradient 20s infinite alternate ease-in-out;

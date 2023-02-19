@@ -1,9 +1,6 @@
 // Add animations
 @use "./styles" as *;
 
-// Import Bulma's core
-@import "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap";
-
 // Import Bulma and Buefy styles
 @import "./bulma.scss";
 @import "buefy/src/scss/buefy";
