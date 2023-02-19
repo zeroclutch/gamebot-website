@@ -1,8 +1,10 @@
 <template>
-    <canvas class="page-gradient">
-        
-    </canvas>
+    <canvas class="page-gradient"></canvas>
 </template>
+
+<style>
+
+</style>
 
 <script>
 /*
@@ -307,6 +309,7 @@ class Gradient {
                 this.mesh.material.uniforms.u_time.value = this.t, this.minigl.render()
 
             }
+            this.drawOverlay()
             if (0 !== this.last && this.isStatic) return this.minigl.render(), void this.disconnect();
             ( /*this.isIntersecting && */ this.conf.playing || this.isMouseDown) && requestAnimationFrame(this.animate)
         }), e(this, "addIsLoadedClass", () => {

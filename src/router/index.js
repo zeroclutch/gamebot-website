@@ -7,7 +7,7 @@ import Commands from '../views/Commands.vue'
 import Shop from '../views/Shop.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Blog from '../views/Blog.vue'
-import BlogPost from '../views/Blog.vue'
+import BlogPost from '../views/BlogPost.vue'
 
 // Other pages
 import Privacy from '../views/Privacy.vue'
@@ -46,7 +46,7 @@ const routes = [
   },
   {
     path: '/post/:slug',
-    name: 'Blog',
+    name: 'Post',
     component: BlogPost
   },
   {
