@@ -6,10 +6,16 @@
             <div class="article-wrapper">
                 
 
-                <article v-if="this.isLoaded">
+                <article>
                     <div class="hero-image">
                         <div class="hero-image-wrapper">
-                            <img class="box" :src="heroImageURL" alt="Header">
+                            <img 
+                                class="box box-clear" 
+                                :class="{
+                                    'fade-in': this.isLoaded
+                                }"
+                                :src="heroImageURL"
+                                @load="handleLoad">
                         </div>
                     </div>
 
@@ -19,21 +25,7 @@
                         </span>
                     </section>
 
-                    <section class="columns content">
-                        <aside class="info-box-wrapper column is-3 ">
-                            <div class="info-box">
-                                <img class="author-image" :src="authorImageURL" alt="Author">
-                                <p class="author-name">
-                                    <b>{{ author.name }}</b>
-                                </p>
-                                <p class="author-role">
-                                    {{ author.role }}
-                                </p>
-                                <br>
-                                <p class="author-bio" v-html="cleanHTML(author.bio)"> 
-                                </p>
-                            </div>
-                        </aside>
+                    <section v-if="this.isLoaded" class="columns content fade-in">
                         <div class="column is-9">
                             <h1 class="title is-1">
                                 {{ fields.title }}
@@ -67,13 +59,33 @@
                                     </div>
                                 </div>
                             </aside>
-                            <RichTextRenderer  v-if="this.isLoaded" :document="fields.content"/>
+                            <RichTextRenderer  v-if="this.isLoaded" :document="fields.content" :nodeRenderers="renderNodes()"/>
                             <div class="loading" v-else>
                                 <div class="spinner-border" role="status">
                                     <span class="sr-only">Loading...</span>
                                 </div>
                             </div>
                         </div>
+
+                        <aside class="info-box-wrapper column is-3 ">
+                            <div class="info-box">
+                                <img class="author-image" :src="authorImageURL" alt="Author">
+                                <p class="author-name">
+                                    <b>{{ author.name }}</b>
+                                </p>
+                                <p class="author-role">
+                                    {{ author.role }}
+                                </p>
+                                <br>
+                                <p class="author-bio" v-html="cleanHTML(author.bio)"> 
+                                </p>
+                            </div>
+                        </aside>
+                        
+                    </section>
+
+                    <section v-else>
+                        <div class="content-placeholder"></div>
                     </section>
                 </article>
             </div>
@@ -89,10 +101,8 @@
 
 body .blog-post {
     position: relative;
-    animation: fade-in 0.4s;
 
     margin-bottom: 120px;
-
     font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     
     .content-wrapper {
@@ -111,6 +121,11 @@ body .blog-post {
                 max-width: $widescreen;
                 font-size: 1.15rem;
                 margin: 0 auto;
+
+                .content-placeholder {
+                    height: 100vh;
+                    width: 100%;
+                }
 
                 aside.info-box-wrapper {
                     padding: 1rem 1.75rem;
@@ -165,6 +180,14 @@ body .blog-post {
 
                 .content {
                     margin: 2rem auto;
+                    text-align: left;
+
+                    .embedded-image {
+                        margin: 2rem auto;
+                        display: block;
+                        max-width: 100%;
+                        height: auto;
+                    }
                 }
 
                 .title {
@@ -193,7 +216,7 @@ body .blog-post {
                     img.box {
                         width: auto;
                         margin: 0 auto;
-                        background-color: white;
+                        background-color: rgba(0,0,0,0);
                         overflow: hidden;
                         padding: 0;
                     }
@@ -244,44 +267,62 @@ const SPACE_ID = 'oe89s2s3rmwc'
 const ENVIRONMENT_ID = 'master'
 
 import RichTextRenderer from 'contentful-rich-text-vue-renderer'
+import BlogImage from '../components/Blog/BlogImage.vue'
 import PageHero from '../components/Page/PageHero.vue'
+
+import { BLOCKS, MARKS } from '@contentful/rich-text-types'
+
+
+const embeddedImage = (includes, node, key, h) => {
+    const file = includes.Asset.find(asset => asset.sys.id === node.data.target.sys.id).fields.file
+    return h('div', {
+        class:'embedded-image',
+        style: {
+            content: `url(https:${file.url})`
+        },
+        key
+    })
+}
+
 export default {
-    name: 'Commands',
+    name: 'BlogPost',
     components: {
         RichTextRenderer,
-        PageHero
+        PageHero,
+        BlogImage, //eslint-disable-line
     },
     data() {
         return {
             fields: {},
+            includes: {},
             heroImageURL: '',
             author: {},
             authorImageURL: '',
+            isLoaded: false,
+            isErrored: false,
         }
     },
     mounted() {
-        this.getEntry(this.$route.params.slug)
+        const slug = this.$route.params.slug
+        this.get('entries', '', 2, 'blogPost', '&sys.id=' + slug )
             .then(data => {
-                this.fields = data.fields
-                this.getImage(data.fields.hero.sys.id).then(data => {
-                    this.heroImageURL = `https:${data.fields.file.url}`
-                })
-                // Get author
-                this.getEntry(data.fields.author.sys.id).then(data => {
-                    this.author = data.fields
-                    this.getImage(data.fields.profilePicture.sys.id).then(data => {
-                        this.authorImageURL = `https:${data.fields.file.url}`
-                    })
-                })
+                this.fields = data.items[0].fields
+                this.includes = data.includes
+
+                this.heroImageURL = this.includes.Asset.find(asset => asset.sys.id === this.fields.hero.sys.id).fields.file.url
+                this.author = this.includes.Entry.find(entry => entry.sys.id === this.fields.author.sys.id).fields
+                this.authorImageURL = this.includes.Asset.find(asset => asset.sys.id === this.author.profilePicture.sys.id).fields.file.url
+                
+                console.log(this.$refs.heroImage)
             })
     },
     methods: {
-        async get(endpoint, parameter) {
-            const response = await fetch(`https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT_ID}/${endpoint}/${parameter}?access_token=${process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN}${parameter ? `&${parameter}` : ''}`)
+        async get(endpoint, parameter, include=1, contentType, other='') {
+            const response = await fetch(`https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT_ID}/${endpoint}/${parameter}?access_token=${process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN}&include=${include}${contentType ? `&content_type=${contentType}` : ''}${other}`)
             return await response.json()
         },
-        getImage(id) {
-            return this.get('assets', id)
+        getImage() {
+            return this.get('assets', '')
         },
         getEntry(id) {
             return this.get('entries', id)
@@ -296,15 +337,28 @@ export default {
                 day: 'numeric'
             })
         },
+        renderMarks() {
+            return {
+                [MARKS.CODE]: text => `<code>${text}</code>`,
+            }
+        },
+        renderNodes() {
+            return {
+                [BLOCKS.EMBEDDED_ENTRY]: (node, key) => console.log(JSON.stringify(node), key),
+                [BLOCKS.EMBEDDED_ASSET]: (...args) => {
+                    return embeddedImage(this.includes, ...args)
+                }
+            }
+        },
         cleanHTML(html) {
+            if(!html) return ''
             return html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+        },
+        handleLoad() {
+            this.isLoaded = true
         },
     },
     computed: {
-        isLoaded() {
-            return this.heroImageURL !== ''
-            // return Object.keys(this.fields).length > 0
-        },
         getShareURL() {
             return `https://gamebot.rocks/post/${this.$route.params.slug}`
         }

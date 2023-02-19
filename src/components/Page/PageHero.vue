@@ -26,7 +26,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
+<style lang="scss">
 
 .gb-hero-background {
     max-height: 340px;
@@ -36,10 +36,9 @@ export default {
 .gradient-canvas {
     animation: fade-in-static 2s;
     height: 100%;
-    max-height: 400px;
     width: 100%;
+    min-height: 700px;
     margin-bottom: -6px;
-    z-index: 0;
 }
 
 .gb-hero {
@@ -48,12 +47,14 @@ export default {
     top: 0;
     left: 0;
     z-index: 1;
+    width: 100%;
 
     .hero-content-wrapper {
         margin: 0 auto;
         max-width: $widescreen;
         padding: calc(3.5rem + 20px) 40px;
         text-align: left;
+
         @include mobile {
             padding: calc(3.5rem + 10px) 20px 40px;
         }
