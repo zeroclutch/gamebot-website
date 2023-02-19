@@ -17,8 +17,11 @@
                 Commands
             </b-navbar-item>
             <b-navbar-item  class="has-text-white" tag="router-link" :to="{ path: '/shop' }">
+                Shop
+            </b-navbar-item>
+            <b-navbar-item  class="has-text-white" tag="router-link" :to="{ path: '/blog' }">
                 <!-- <b-button type="is-warning" inverted> -->
-                    Shop<b-tag rounded class="tag is-small" type="is-danger">NEW!</b-tag>
+                    Blog<b-tag rounded class="tag is-small" type="is-danger" v-if="Date.now() < 1682002316000">NEW!</b-tag>
                 <!-- </b-button> -->
             </b-navbar-item>
         </template>

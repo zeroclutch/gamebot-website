@@ -57,6 +57,12 @@ $darkest-invert: #B1BFE1;
 $darkest-light: #414A60;
 $darkest-dark: #0F0F10;
 
+// Gray
+$gray: #596c73;
+$gray-invert: #fff;
+$gray-light: #d8e3e7;
+$gray-dark: #232730;
+
 // Discord
 $discord: #5865F2;
 $discord-invert: #fff;
@@ -136,6 +142,12 @@ $custom-colors: (
         $darkest-invert,
         $darkest-light,
         $darkest-dark,
+    ),
+    "gray": (
+        $gray,
+        $gray-invert,
+        $gray-light,
+        $gray-dark,
     )
 );
 $custom-shades: null !default;

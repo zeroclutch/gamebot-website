@@ -2,22 +2,24 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 // Nav pages
-import Home from '../views/Home.vue'
-import Commands from '../views/Commands.vue'
-import Shop from '../views/Shop.vue'
-import Dashboard from '../views/Dashboard.vue'
+const Home      = () => import('../views/Home.vue')
+const Commands  = () => import('../views/Commands.vue')
+const Shop      = () => import('../views/Shop.vue')
+const Dashboard = () => import('../views/Dashboard.vue')
+const Blog      = () => import('../views/Blog.vue')
+const BlogPost  = () => import('../views/BlogPost.vue')
 
 // Other pages
-import Privacy from '../views/Privacy.vue'
-import Terms from '../views/Terms.vue'
+const Privacy  = () => import('../views/Privacy.vue')
+const Terms    = () =>  import('../views/Terms.vue')
 
 // Redirect pagges
-import Authenticate from '../views/Authenticate.vue'
-import Login from '../views/Login.vue'
-import Invite from '../views/Invite.vue'
-import Discord from '../views/Discord.vue'
-import PageNotFound from '../views/404.vue'
-import Success from '../views/Success.vue'
+const Authenticate  = () =>  import('../views/Authenticate.vue')
+const Login         = () =>  import('../views/Login.vue')
+const Invite        = () =>  import('../views/Invite.vue')
+const Discord       = () =>  import('../views/Discord.vue')
+const PageNotFound  = () =>  import('../views/404.vue')
+const Success       = () =>  import('../views/Success.vue')
 
 Vue.use(VueRouter)
 
@@ -36,6 +38,16 @@ const routes = [
     path: '/shop',
     name: 'Shop',
     component: Shop
+  },
+  {
+    path: '/blog',
+    name: 'Blog',
+    component: Blog
+  },
+  {
+    path: '/post/:slug',
+    name: 'Post',
+    component: BlogPost
   },
   {
     path: '/dashboard',
