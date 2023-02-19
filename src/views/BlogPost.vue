@@ -1,5 +1,5 @@
 <template>
-    <div class="blog-post">
+    <main class="blog-post">
         <PageHero class="is-not-mobile" />
         <div class="hero-spacer"></div>
         <div class="content-wrapper">
@@ -90,7 +90,7 @@
                 </article>
             </div>
         </div>
-    </div>
+    </main>
 </template>
 
 <style lang="css">
@@ -134,8 +134,8 @@ body .blog-post {
                         border-radius: 0.5rem;
 
                         img.author-image {
-                            width: 100px;
-                            height: 100px;
+                            width: 80px;
+                            height: 80px;
                             border-radius: 50%;
                             margin: 0 auto 1rem auto;
                             display: block;
@@ -195,7 +195,8 @@ body .blog-post {
                     font-weight: 800;
                     color: black;
                     text-align: left;
-                    margin-bottom: 0.5rem
+                    margin-bottom: 0.5rem;
+                    letter-spacing: -0.05rem;
                 }
 
                 .subtitle {
@@ -313,7 +314,6 @@ export default {
                 this.author = this.includes.Entry.find(entry => entry.sys.id === this.fields.author.sys.id).fields
                 this.authorImageURL = this.includes.Asset.find(asset => asset.sys.id === this.author.profilePicture.sys.id).fields.file.url
                 
-                console.log(this.$refs.heroImage)
             })
     },
     methods: {
