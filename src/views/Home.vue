@@ -188,6 +188,11 @@ export default {
   components: {
     HomeHero,
     HomeStatusBar,
-  }
+  },
+  data() {
+    return {
+      isEmbed: false,
+    }
+  },
 }
 </script>
