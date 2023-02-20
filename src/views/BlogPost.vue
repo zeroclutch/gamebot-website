@@ -19,12 +19,6 @@
                         </div>
                     </div>
 
-                    <section class="">
-                        <span class="tag is-rounded is-primary" v-for="tag in fields.tags" :key="tag">
-                            {{ tag }}
-                        </span>
-                    </section>
-
                     <section v-if="this.isLoaded" class="columns content fade-in">
                         <div class="column is-9">
                             <h1 class="title is-1">
@@ -41,21 +35,35 @@
                                     </div>
                                     <div class="is-line column"></div>
                                     <div class="social-icons column is-narrow">
-                                        <a :href="`https://twitter.com/intent/tweet?text=${fields.title}&url=${this.getShareURL}&via=gamebotdiscord`" target="_blank" rel="noopener noreferrer">
-                                            <b-icon pack="fab" icon="twitter" size="is-medium" type="is-gray" />
-                                        </a>
-                                        <a :href="`https://www.facebook.com/sharer/sharer.php?u=${this.getShareURL}`" target="_blank" rel="noopener noreferrer">
-                                            <b-icon pack="fab" icon="facebook" size="is-medium" type="is-gray" />
-                                        </a>
-                                        <a :href="`https://www.linkedin.com/shareArticle?mini=true&url=${this.getShareURL}&title=${fields.title}&source=Gamebot`" target="_blank" rel="noopener noreferrer">
-                                            <b-icon pack="fab" icon="linkedin" size="is-medium" type="is-gray"/>
-                                        </a>
-                                        <a :href="`https://reddit.com/submit?url=${this.getShareURL}&title=${fields.title}`" target="_blank" rel="noopener noreferrer">
-                                            <b-icon pack="fab" icon="reddit" size="is-medium" type="is-gray" />
-                                        </a>
-                                        <a class="copy-button" @click="copyLink" aria-role="button">
-                                            <b-icon pack="fas" icon="link" size="is-medium" type="is-gray" />
-                                        </a>
+                                        <b-tooltip label="Twitter" type="is-gray">
+                                            <a @click="share('twitter')" :href="`https://twitter.com/intent/tweet?text=${fields.title}&url=${this.getShareURL}&via=gamebotdiscord`" target="_blank" rel="noopener noreferrer">
+                                                <b-icon pack="fab" icon="twitter" size="is-medium" type="is-gray" />
+                                            </a>
+                                        </b-tooltip>
+
+                                        <b-tooltip label="Facebook" type="is-gray">
+                                            <a @click="share('facebook')" :href="`https://www.facebook.com/sharer/sharer.php?u=${this.getShareURL}`" target="_blank" rel="noopener noreferrer">
+                                                <b-icon pack="fab" icon="facebook" size="is-medium" type="is-gray" />
+                                            </a>
+                                        </b-tooltip>
+
+                                        <b-tooltip label="LinkedIn" type="is-gray">
+                                            <a @click="share('linkedin')" :href="`https://www.linkedin.com/shareArticle?mini=true&url=${this.getShareURL}&title=${fields.title}&source=Gamebot`" target="_blank" rel="noopener noreferrer">
+                                                <b-icon pack="fab" icon="linkedin" size="is-medium" type="is-gray"/>
+                                            </a>
+                                        </b-tooltip>
+
+                                        <b-tooltip label="Reddit" type="is-gray">
+                                            <a @click="share('reddit')" :href="`https://reddit.com/submit?url=${this.getShareURL}&title=${fields.title}`" target="_blank" rel="noopener noreferrer">
+                                                <b-icon pack="fab" icon="reddit" size="is-medium" type="is-gray" />
+                                            </a>
+                                        </b-tooltip>
+
+                                        <b-tooltip label="Copy Link" type="is-gray">
+                                            <a class="copy-button" @click="copyLink" aria-role="button">
+                                                <b-icon pack="fas" icon="link" size="is-medium" type="is-gray" />
+                                            </a>
+                                        </b-tooltip>
                                     </div>
                                 </div>
                             </aside>
@@ -359,6 +367,12 @@ export default {
                     return embeddedImage(this.includes, ...args)
                 }
             }
+        },
+        share(platform) {
+            this.$gtag.event('event', `share_${platform}`, {
+                event_category: 'blog',
+                event_label: this.$route.params.slug,
+            })
         },
         cleanHTML(html) {
             if(!html) return ''

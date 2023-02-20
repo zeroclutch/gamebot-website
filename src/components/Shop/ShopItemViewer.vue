@@ -296,6 +296,11 @@ export default {
             this.filter.search = ''
         },
         open(id) {
+            this.$gtag.event('view_item', {
+                event_category: 'shop',
+                event_label: id
+            })
+            
             this.$emit('open', id)
         }
     }

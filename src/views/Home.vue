@@ -22,7 +22,9 @@
               icon-pack="fab"
               icon-left="discord"
               type="is-discord"
+              size="is-medium"
               tag="a"
+              @click="addToDiscord()"
               :target="isEmbed ? '_blank' : ''"
               href="/invite?ref=homepage">
                   <span>Add to Discord</span>
@@ -61,8 +63,10 @@
               icon-pack="fab"
               icon-left="discord"
               type="is-discord"
+              size="is-medium"
               tag="a"
               :target="isEmbed ? '_blank' : ''"
+              @click="addToDiscord()"
               href="/invite?ref=homepage">
                   <span>Add to Discord</span>
               </b-button>
@@ -89,6 +93,7 @@
               icon-pack="fas"
               icon-left="store"
               type="is-warning"
+              size="is-medium"
               tag="a"
               :target="isEmbed ? '_blank' : ''"
               href="/shop">
@@ -115,8 +120,11 @@
               icon-pack="fab"
               icon-left="discord"
               type="is-discord"
+              size="is-medium"
+              inverted
               tag="a"
               :target="isEmbed ? '_blank' : ''"
+              @click="addToDiscord()"
               href="/invite?ref=homepage">
                   <span>Add to Discord</span>
               </b-button>
@@ -165,7 +173,7 @@
       conic-gradient(from 127.75deg at 50% 43.53%, #33CEFF 0deg, rgba(206, 84, 226, 0.962972) 110.62deg, #997EE5 198.75deg, #51B7EA 317.02deg, #79EAC1 360deg)
       #997EE5;
     padding: 2em;
-    width: 100%;
+    width: calc(100% - 4em);
     height: 80vh;
     position: relative;
 
@@ -194,5 +202,10 @@ export default {
       isEmbed: false,
     }
   },
+  methods: {
+    addToDiscord() {
+      this.$gtag.event('add_to_discord', {'event_label': 'Homepage'})
+    }
+  }
 }
 </script>

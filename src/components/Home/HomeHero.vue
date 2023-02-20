@@ -16,6 +16,7 @@
                         size="is-large is-medium-mobile"
                         tag="a"
                         :target="isEmbed ? '_blank' : ''"
+                        @click="$gtag.event('add_to_discord', {'event_category': 'community_update','event_label': 'Homepage'})"
                         href="/invite?ref=homepage">
                             <span>Add to Discord</span>
                         </b-button>
@@ -231,10 +232,7 @@ export default {
             transition: linear all 0.1s;
             filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
             -webkit-filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
-            &:hover {
-                filter: drop-shadow(0px 8px 8px rgba(0, 0, 0, 0.5));
-                -webkit-filter: drop-shadow(0px 8px 8px rgba(0, 0, 0, 0.5));
-            }
+            
             @include mobile {
                 font-size: 1rem;
             }

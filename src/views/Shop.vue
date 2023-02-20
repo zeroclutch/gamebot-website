@@ -133,7 +133,7 @@ export default {
                 this.buyState = 'success'
                 this.fetchItems()
                 this.$store.dispatch('fetchDBInfo')
-                this.$gtag.event('purchase', { items: [{ id: item.itemID, name: item.friendlyName, price: item.cost, category: item.type }] })
+                this.$gtag.event('purchase_shop_item', { items: [{ id: item.itemID, name: item.friendlyName, price: item.cost, category: item.type }] })
             }).catch(err => {
                 console.error(err)
                 this.$buefy.snackbar.open({

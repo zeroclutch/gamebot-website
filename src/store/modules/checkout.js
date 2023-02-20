@@ -18,6 +18,15 @@ export default {
         createNew: {
             handler({ rootGetters, commit }, plan = { id: 'credit_1', quantity: 1000 }) {
                 if (!rootGetters.getUser || !rootGetters.getToken) return false
+
+                const gtag = this._vm.$gtag
+
+                gtag.event('begin_checkout', {
+                  event_category: 'ecommerce',
+                  event_label: plan.id,
+                  value: plan.quantity
+                })
+
                 return Chargebee.getInstance().openCheckout({                        
                     hostedPage: function() {
                         let promise = fetch('/api/checkout/generateHostedPage', {
@@ -60,7 +69,14 @@ export default {
                         })
                         .then(res => res.json())
                         .then(json => {
+                            // update user info
                             commit('setDBInfo', json, { root: true })
+
+                            gtag.event('purchase', {
+                              event_category: 'ecommerce',
+                              event_label: plan.id,
+                              value: plan.quantity
+                            })
                         })
                         .catch(error => {
                           console.error(error)

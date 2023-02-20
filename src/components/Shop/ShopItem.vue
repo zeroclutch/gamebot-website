@@ -32,7 +32,7 @@
                 <div class="item-buttons has-text-right">
                     <button v-if="item.purchased" disabled class="item-button info-button button is-success">Purchased</button>
                     <div class="item-buttons-wrapper" v-else>
-                        <b-button @click="$emit('cancel')" class="item-button info-button button is-dark">Cancel</b-button>&nbsp;
+                        <b-button @click="$emit('cancel')" class="item-button info-button button is-gray">Cancel</b-button>&nbsp;
 
                         <b-button v-if="buyState === 'error'" @click="$emit('cancel')" class="item-button is-danger" icon-right="times" icon-pack="fas" ></b-button>
                         <b-button v-else-if="buyState === 'success'" @click="$emit('cancel')" class="item-button is-primary is-success" icon-right="check" icon-pack="fas" ></b-button>
@@ -155,7 +155,7 @@ export default {
         color: #fff;
         background-size: 250% 250%;
         // animation: gradient 5s ease-in-out infinite alternate;
-        &:hover {
+        &.is-mythical:hover {
             animation: gradient 2s ease-in-out infinite alternate;
         }
         .item-buttons-wrapper {
