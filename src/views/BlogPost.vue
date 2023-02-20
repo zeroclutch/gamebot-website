@@ -302,40 +302,6 @@ export default {
         PageHero,
         BlogImage, //eslint-disable-line
     },
-    metaInfo() {
-        // const subtitle = this.fields.subtitle
-        // const preview = this.getPreview()
-
-        // const slug = this.$route.params.slug
-        // const date = this.fields.date
-
-        // // const author = this.author.fields.name
-        // const image  = this.heroImageURL
-
-        return {
-            title: (this.fields.title || 'Blog') + ' | Gamebot',
-            meta: [
-                // General
-                { vmid: 'description', property: 'description', content: this.fields.subtitle || this.getPreview() || `News, updates, and more!` },
-                
-                // Open Graph / Facebook
-                { vmid: 'og:type', property: 'og:type', content: 'article'},
-                { vmid: 'og:url', property: 'og:url', content: `https://gamebot.app/post/${this.$route.params.slug}` },
-                { vmid: 'og:site_name', property: 'og:site_name', content: 'Gamebot' },
-                { vmid: 'og:locale', property: 'og:locale', content: 'en_US' },
-                { vmid: 'og:article:published_time', property: 'og:article:published_time', content: this.fields.date },
-                { vmid: 'og:article:author', property: 'og:article:author', content: this.author.name },
-                { vmid: 'og:title', property: 'og:title', content: this.fields.title },
-                { vmid: 'og:description', property: 'og:description', content: this.fields.subtitle || this.getPreview() || `News, updates, and more!` },
-                { vmid: 'og:image', property: 'og:image', content: `https:${this.heroImageURL}` },
-                
-                // Twitter
-                { vmid: 'twitter:title', property: 'twitter:title', content: this.fields.title },
-                { vmid: 'twitter:description', property: 'twitter:description', content: this.fields.subtitle || this.getPreview() || `News, updates, and more!` },
-                { vmid: 'twitter:image', property: 'twitter:image', content: `https:${this.heroImageURL}` },
-            ],
-        }
-    },
     data() {
         return {
             fields: {},
@@ -370,11 +336,6 @@ export default {
         },
         getEntry(id) {
             return this.get('entries', id)
-        },
-        getPreview() {
-            if(this.fields && this.fields.content && this.fields.content.content)
-                return this.fields.content.content.filter(block => block.nodeType === 'paragraph').map(node => node.content[0].value).join(' ').substring(0, 200) + '...'
-            return ''
         },
         copyLink() {
             navigator.clipboard.writeText(this.getShareURL)

@@ -12,7 +12,7 @@
 
 <script>
 export default {
-    name: 'Invite',
+    name: 'Login',
     beforeMount() {
         const urlParams = new URLSearchParams(window.location.search)
         this.$gtag.event('add_to_guild', {'event_category': 'guild_update','event_label': urlParams.get('ref') || 'unknown'})
