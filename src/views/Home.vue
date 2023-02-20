@@ -193,6 +193,6 @@ export default {
     return {
       isEmbed: false,
     }
-  }
+  },
 }
 </script>

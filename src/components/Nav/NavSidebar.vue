@@ -14,7 +14,6 @@
                         <b-menu-item :active="activeRoute === '/'" @click="closeNav()" label="Home" tag="router-link" to="/"></b-menu-item>
                         <b-menu-item :active="activeRoute === '/commands'" @click="closeNav()" label="Commands" tag="router-link" to="/commands"></b-menu-item>
                         <b-menu-item :active="activeRoute === '/shop'" @click="closeNav()" label="Shop" tag="router-link" to="/shop"></b-menu-item>
-                        <b-menu-item :active="activeRoute === '/blog'" @click="closeNav()" label="Blog" tag="router-link" to="/blog"></b-menu-item>
                     </b-menu-list>
                     <b-menu-list label="User" v-if="!$store.getters.getToken">
                         <b-menu-item  icon="discord" icon-pack="fab" class="login-button" @click="closeNav()" label="Login with Discord" tag="router-link" to="/login"></b-menu-item>

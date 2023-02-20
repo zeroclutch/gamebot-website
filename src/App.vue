@@ -29,28 +29,6 @@ export default {
     Footer,
     PurchaseModal
   },
-  
-  metaInfo: {
-    // if no subcomponents specify a metaInfo.title, this title will be used
-    title: 'Gamebot',
-    // all titles will be injected into this template
-    titleTemplate: '%s | Play on Discord',
-    meta: [
-      { vmid: "description", property: "description", content: "Add fun multiplayer games like Cards Against Humanity, Connect 4, Chess, and Anagrams to Discord with Gamebot!" },
-      
-      { vmid: "og:type", property: "og:type", content: "website" },
-      { vmid: "og:url", property: "og:url", content: "https://gamebot.rocks/" },
-      { vmid: "og:title", property: "og:title", content: "Gamebot - Play on Discord" },
-      { vmid: "og:description", property: "og:description", content: "Add fun multiplayer games like Cards Against Humanity, Connect 4, Chess, and Anagrams to Discord with Gamebot!" },
-      { vmid: "og:image", property: "og:image", content: "/images/social-graphic-2x.png" },
-      
-      { vmid: "twitter:card", property: "twitter:card", content: "summary_large_image" },
-      { vmid: "twitter:url", property: "twitter:url", content: "https://gamebot.rocks/" },
-      { vmid: "twitter:title", property: "twitter:title", content: "Gamebot - Play on Discord" },
-      { vmid: "twitter:description", property: "twitter:description", content: "Add fun multiplayer games like Cards Against Humanity, Connect 4, Chess, and Anagrams to Discord with Gamebot!" },
-      { vmid: "twitter:image", property: "twitter:image", content: "/images/social-graphic-2x.png" },
-    ]
-  },
   data() {
     return {
       navOpen: false,

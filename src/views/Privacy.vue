@@ -10,21 +10,21 @@
 <script>
 import PageHero from '../components/Page/PageHero.vue'
 export default {
-  name: 'Privacy',
-  components: {
+        name: 'Privacy',
+        components: {
         PageHero,
-  },
-  metaInfo: {
+        },
+        metaInfo: {
         title: 'Privacy | Gamebot',
-  },
+        },
 }
 </script>
 
 <style lang="scss" scoped>
 section.content {
-  position: relative;
-  top: 400px;
-  margin-bottom: 450px;
-  text-align: left;
+        position: relative;
+        top: 400px;
+        margin-bottom: 450px;
+        text-align: left;
 }
 </style>

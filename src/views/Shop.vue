@@ -65,9 +65,6 @@ export default {
         PageHero,
         ShopItemViewer,
     },
-    metaInfo: {
-            title: 'Shop | Gamebot',
-    },
     data() {
         return {
             loading: true,

@@ -131,9 +131,7 @@ export default {
         PageHero
 
     },
-    metaInfo: {
-        title: 'Blog | Gamebot',
-    },
+
     data() {
         return {
             allPosts: [],
