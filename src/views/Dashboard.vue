@@ -13,7 +13,7 @@
                         label="PROFILE">
                             <b-menu-item icon="information-outline" label="Overview"></b-menu-item>
                             <b-menu-item icon="information-outline" label="Customize"></b-menu-item>
-                            <b-menu-item icon="account" label="X">
+                            <b-menu-item icon="account" label="Games">
                                 <b-menu-item label="X"></b-menu-item>
                                 <b-menu-item label="X"></b-menu-item>
                             </b-menu-item>
@@ -29,14 +29,39 @@
                             </b-menu-item>
                             <b-message v-if="guilds.length === 0" type="is-warning">No servers found. <router-link class="inline-link" to="/invite">Invite Gamebot</router-link> to your server to get started!</b-message>
                             <!-- Write a router-link to /login -->
-
+                            <b-button v-if="!$store.getters.getToken" tag="router-link" icon-left="discord" icon-pack="fab" type="is-discord" inverted :to="{ path: '/login' }">
+                        Log in with Discord
+                    </b-button>
                         </b-menu-list>
                         </b-menu>
                     </div>
                 </b-menu-list>
             </aside>
             <div class="column">
-
+                <div id="user-profile">
+                    <div id="user-info">
+                        <div class="circle"></div> <!-- Replace with image -->
+                        <div>
+                            <p class="title" style="margin-bottom: 0;">table salt<span style="color: lightgray">#1234</span></p>
+                            <b-tag>Legend</b-tag>
+                            <b-tag>4K Club</b-tag>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div id="game-circles">
+                            <div class="circle">cah</div>
+                            <div class="circle">sus</div>
+                            <div class="circle">ana</div>
+                        </div>
+                        <p>Most Played</p>
+                    </div>
+                    <div class="column">
+                        <p class="title">69</p>
+                        <p class="subtitle" style="margin-bottom: 0;">WINS</p>
+                        <p>Summer 2023</p>
+                    </div>
+                </div>
+                <!-- <div class="user-experience"></div> -->
             </div>
         </main>
     </div>
@@ -78,6 +103,45 @@ a.inline-link {
     &:hover {
         background-color: transparent;
     }
+}
+
+#user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: #f4f4f4;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+#user-info {
+    display: flex;
+    width: 50%;
+    min-width: 300px;
+    align-items: center;
+    justify-content: space-between;
+    :last-child {
+        width: 80%;
+    }
+    .tag {
+        width: 40%;
+        background-color: rgb(201, 199, 199);
+    }
+}
+#game-circles {
+    display: flex;
+    gap: 0.5rem;
+}
+.circle {
+    flex-grow: 1;
+    aspect-ratio: 1;
+    border-radius: 50%; 
+    background-color: gray;
+
+    /* Center Text For Most Played Games */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style>
 
