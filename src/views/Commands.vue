@@ -14,6 +14,9 @@ import CommandsTable from '../components/Commands/CommandsTable.vue'
 import PageHero from '../components/Page/PageHero.vue'
 export default {
     name: 'Commands',
+    metaInfo: {
+        title: 'Commands | Gamebot',
+    },
     components: {
         CommandsTable,
         PageHero

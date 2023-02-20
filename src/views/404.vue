@@ -28,6 +28,9 @@
 <script>
 export default {
     name: 'PageNotFound',
+    metaInfo: {
+        title: '404 - Page Not Found | Gamebot'
+    },
     beforeMount() {
         
     }

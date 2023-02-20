@@ -89,6 +89,9 @@ export default {
     components: {
         PageHero,
     },
+    metaInfo: {
+        title: 'Dashboard | Gamebot',
+    },
     data() {
         return {
             loading: true,

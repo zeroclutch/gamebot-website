@@ -3,8 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Buefy from 'buefy'
-import VueGtag from "vue-gtag";
 
+import VueGtag from "vue-gtag";
+import VueMeta from 'vue-meta'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faDiscord, faFacebook, faInstagram, faLinkedin, faReddit, faTwitter } from '@fortawesome/free-brands-svg-icons'
@@ -22,6 +23,10 @@ Vue.use(Buefy, {
 Vue.use(VueGtag, {
   config: { id: process.env.VUE_APP_GA_ID }
 }, router);
+
+Vue.use(VueMeta, {
+  keyName: 'metaInfo',
+})
 
 Vue.use(VueAnimateOnScroll)
 

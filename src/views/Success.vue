@@ -30,6 +30,9 @@ export default {
     name: 'Success',
     beforeMount() {
         
-    }
+    },
+    metaInfo: {
+        title: 'Success | Gamebot',
+    },
 }
 </script>
