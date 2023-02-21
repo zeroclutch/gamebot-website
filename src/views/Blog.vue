@@ -158,7 +158,7 @@ export default {
     },
     methods: {
         async get(endpoint, parameter, include=1, contentType) {
-            const response = await fetch(`https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT_ID}/${endpoint}/${parameter}?access_token=${process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN}&include=${include}${contentType ? `&content_type=${contentType}` : ''}`)
+            const response = await fetch(`https://${process.env.VUE_APP_CONTENTFUL_ENVIRONMENT}.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT_ID}/${endpoint}/${parameter}?access_token=${process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN}&include=${include}${contentType ? `&content_type=${contentType}` : ''}`)
             return await response.json()
         },
         getPosts() {
