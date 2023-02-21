@@ -13,7 +13,7 @@
                         label="PROFILE">
                             <b-menu-item icon="information-outline" label="Overview"></b-menu-item>
                             <b-menu-item icon="information-outline" label="Customize"></b-menu-item>
-                            <b-menu-item icon="account" label="X">
+                            <b-menu-item icon="account" label="Games">
                                 <b-menu-item label="X"></b-menu-item>
                                 <b-menu-item label="X"></b-menu-item>
                             </b-menu-item>
@@ -29,14 +29,89 @@
                             </b-menu-item>
                             <b-message v-if="guilds.length === 0" type="is-warning">No servers found. <router-link class="inline-link" to="/invite">Invite Gamebot</router-link> to your server to get started!</b-message>
                             <!-- Write a router-link to /login -->
-
+                            <b-button v-if="!$store.getters.getToken" tag="router-link" icon-left="discord" icon-pack="fab" type="is-discord" inverted :to="{ path: '/login' }">
+                        Log in with Discord
+                    </b-button>
                         </b-menu-list>
                         </b-menu>
                     </div>
                 </b-menu-list>
             </aside>
-            <div class="column">
+            <div class="column" id="user-dashboard">
+                <div id="user-profile">
+                    <div id="user-info">
+                        <div class="circle"></div> <!-- Replace with image -->
+                        <div>
+                            <p class="title" style="margin-bottom: 0;">table salt<span style="color: lightgray">#1234</span></p>
+                            <b-tag>Legend</b-tag>
+                            <b-tag>4K Club</b-tag>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div id="game-circles">
+                            <div class="circle">cah</div>
+                            <div class="circle">sus</div>
+                            <div class="circle">ana</div>
+                        </div>
+                        <p>Most Played</p>
+                    </div>
+                    <div class="column">
+                        <p class="title">69</p>
+                        <p class="subtitle" style="margin-bottom: 0;">WINS</p>
+                        <p>Summer 2023</p>
+                    </div>
+                </div>
+                <div id="user-experience">
+                    <div id="xp-progress-bar">
+                        <div id="current-progress"></div>
+                    </div>
+                    <p style="align-self: flex-start; margin-left: 0.5rem;">Level 27 <strong>1.2K / 1.5K Experience</strong></p>
 
+                    <div id="rewards-basic" class="rewards-container">
+                        <div class="reward-container">
+                            <div class="reward"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward locked"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward locked"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward locked"></div>
+                            <p>27</p>
+                        </div>
+                    </div>
+                    <div id="rewards-premium" class="rewards-container locked">
+                        <div class="reward-container">
+                            <div class="reward"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward"></div>
+                            <p>27</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -79,6 +154,104 @@ a.inline-link {
         background-color: transparent;
     }
 }
+
+
+
+#user-profile, #user-experience {
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+#user-experience {
+    flex-direction: column;
+}
+
+#user-dashboard > *, #user-experience > * {
+    margin-top: 1rem;
+}
+
+#user-info {
+    display: flex;
+    width: 50%;
+    min-width: 300px;
+    align-items: center;
+    justify-content: space-between;
+    :last-child {
+        width: 80%;
+    }
+    .tag {
+        width: 40%;
+        background-color: rgb(201, 199, 199);
+    }
+}
+#game-circles {
+    display: flex;
+    gap: 0.5rem;
+}
+.circle {
+    flex-grow: 1;
+    aspect-ratio: 1;
+    border-radius: 50%; 
+    background-color: gray;
+
+    /* Center Text For Most Played Games */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#xp-progress-bar {
+    min-height: 2rem;
+    height: 10%;
+    width: 100%;
+    background-color: gray;
+    border-radius: 0.5rem;
+}
+#current-progress {
+    position: relative;
+    height: inherit;
+    min-height: inherit;
+    border-radius: inherit;
+    width: 50%;
+    background-color: rgb(58, 57, 57);
+}
+.rewards-container {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    gap: 2.5%;
+
+    &.locked::before {
+        position: absolute;
+        display: grid;
+        align-items: center;
+        color: yellow;
+        content: 'Unlock with Gamebot Premium!';
+        width: inherit;
+        height: inherit;
+        border-radius: 1rem;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+}
+.reward-container {
+    width: 20%;
+}
+.reward {
+    background-color: lightgray;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 1rem;
+    z-index: 1;
+    &.locked {
+        background-color: gray;
+    }
+}
+
 </style>
 
 <script>
