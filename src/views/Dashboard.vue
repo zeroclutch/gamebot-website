@@ -37,7 +37,7 @@
                     </div>
                 </b-menu-list>
             </aside>
-            <div class="column">
+            <div class="column" id="user-dashboard">
                 <div id="user-profile">
                     <div id="user-info">
                         <div class="circle"></div> <!-- Replace with image -->
@@ -61,7 +61,57 @@
                         <p>Summer 2023</p>
                     </div>
                 </div>
-                <!-- <div class="user-experience"></div> -->
+                <div id="user-experience">
+                    <div id="xp-progress-bar">
+                        <div id="current-progress"></div>
+                    </div>
+                    <p style="align-self: flex-start; margin-left: 0.5rem;">Level 27 <strong>1.2K / 1.5K Experience</strong></p>
+
+                    <div id="rewards-basic" class="rewards-container">
+                        <div class="reward-container">
+                            <div class="reward"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward locked"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward locked"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward locked"></div>
+                            <p>27</p>
+                        </div>
+                    </div>
+                    <div id="rewards-premium" class="rewards-container locked">
+                        <div class="reward-container">
+                            <div class="reward"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward"></div>
+                            <p>27</p>
+                        </div>
+                        <div class="reward-container">
+                            <div class="reward"></div>
+                            <p>27</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -105,15 +155,25 @@ a.inline-link {
     }
 }
 
-#user-profile {
+
+
+#user-profile, #user-experience {
+    background-color: #f4f4f4;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: #f4f4f4;
     border-radius: 1rem;
     padding: 1rem;
 }
+#user-experience {
+    flex-direction: column;
+}
+
+#user-dashboard > *, #user-experience > * {
+    margin-top: 1rem;
+}
+
 #user-info {
     display: flex;
     width: 50%;
@@ -143,6 +203,55 @@ a.inline-link {
     align-items: center;
     justify-content: center;
 }
+
+#xp-progress-bar {
+    min-height: 2rem;
+    height: 10%;
+    width: 100%;
+    background-color: gray;
+    border-radius: 0.5rem;
+}
+#current-progress {
+    position: relative;
+    height: inherit;
+    min-height: inherit;
+    border-radius: inherit;
+    width: 50%;
+    background-color: rgb(58, 57, 57);
+}
+.rewards-container {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    gap: 2.5%;
+
+    &.locked::before {
+        position: absolute;
+        display: grid;
+        align-items: center;
+        color: yellow;
+        content: 'Unlock with Gamebot Premium!';
+        width: inherit;
+        height: inherit;
+        border-radius: 1rem;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+}
+.reward-container {
+    width: 20%;
+}
+.reward {
+    background-color: lightgray;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 1rem;
+    z-index: 1;
+    &.locked {
+        background-color: gray;
+    }
+}
+
 </style>
 
 <script>
