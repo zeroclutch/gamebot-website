@@ -37,78 +37,80 @@
                     </div>
                 </b-menu-list>
             </aside>
-            <div class="column" id="user-dashboard">
-                <div id="user-profile">
-                    <div id="user-info">
+            <div class="column user-dashboard">
+                <div class="user-profile">
+                    <div class="user-info">
                         <div class="circle"></div> <!-- Replace with image -->
-                        <div>
-                            <p class="title" style="margin-bottom: 0;">table salt<span style="color: lightgray">#1234</span></p>
-                            <b-tag>Legend</b-tag>
-                            <b-tag>4K Club</b-tag>
+                        <div class="user-info-text">
+                            <h1 class="user-username user-info-row">table salt<span class="user-discriminator">#1234</span></h1>
+                            <div class="user-info-tags">
+                                <b-tag rounded>Legend</b-tag>
+                                <b-tag rounded>4K Club</b-tag>
+                            </div>
                         </div>
                     </div>
-                    <div class="column">
-                        <div id="game-circles">
+                    <div class="column user-statistic">
+                        <div class="game-circles user-info-row">
                             <div class="circle">cah</div>
                             <div class="circle">sus</div>
                             <div class="circle">ana</div>
                         </div>
-                        <p>Most Played</p>
+                        <p class="statistic-description">Most Played</p>
                     </div>
-                    <div class="column">
-                        <p class="title">69</p>
-                        <p class="subtitle" style="margin-bottom: 0;">WINS</p>
-                        <p>Summer 2023</p>
+                    <div class="column user-statistic">
+                        <div class="user-info-row">
+                            <p class="statistic-title">69</p>
+                            <p class="statistic-subtitle" style="margin-bottom: 0;">WINS</p>
+                        </div>
+                        <p class="statistic-description">Summer 2023</p>
                     </div>
                 </div>
-                <div id="user-experience">
-                    <div id="xp-progress-bar">
-                        <div id="current-progress"></div>
+                <div class="user-experience">
+                    <div class="xp-progress-bar">
+                        <div class="current-progress"></div>
                     </div>
-                    <p style="align-self: flex-start; margin-left: 0.5rem;">Level 27 <strong>1.2K / 1.5K Experience</strong></p>
+                    <p class="xp-progress-label">
+                        <b>Level 27</b>
+                        &nbsp;1.2K / 1.5K Experience
+                    </p>
 
-                    <div id="rewards-basic" class="rewards-container">
+                    <div class="rewards-basic rewards-container">
                         <div class="reward-container">
                             <div class="reward"></div>
-                            <p>27</p>
+                            <p class="reward-label">27</p>
                         </div>
                         <div class="reward-container">
                             <div class="reward"></div>
-                            <p>27</p>
+                            <p class="reward-label">27</p>
                         </div>
                         <div class="reward-container">
                             <div class="reward locked"></div>
-                            <p>27</p>
+                            <p class="reward-label">27</p>
                         </div>
                         <div class="reward-container">
                             <div class="reward locked"></div>
-                            <p>27</p>
+                            <p class="reward-label">27</p>
                         </div>
                         <div class="reward-container">
                             <div class="reward locked"></div>
-                            <p>27</p>
+                            <p class="reward-label">27</p>
                         </div>
                     </div>
-                    <div id="rewards-premium" class="rewards-container locked">
+                    <div class="rewards-premium rewards-container locked">
                         <div class="reward-container">
                             <div class="reward"></div>
-                            <p>27</p>
                         </div>
                         <div class="reward-container">
                             <div class="reward"></div>
-                            <p>27</p>
                         </div>
                         <div class="reward-container">
                             <div class="reward"></div>
-                            <p>27</p>
                         </div>
                         <div class="reward-container">
                             <div class="reward"></div>
-                            <p>27</p>
                         </div>
                         <div class="reward-container">
                             <div class="reward"></div>
-                            <p>27</p>
                         </div>
                     </div>
                 </div>
@@ -118,7 +120,10 @@
 </template>
 
 <style lang="scss">
+$user-info-row-height: 2.5rem;
+
 .dashboard {
+    text-align: left;
     background-color: #eee;
     min-height: 700px;
     padding-bottom: 100px;
@@ -143,22 +148,20 @@
             vertical-align: top;
         }
     }
-}
 
-a.inline-link {
-    padding: 0;
-    display: inline;
-    margin: 0;
+    a.inline-link {
+        padding: 0;
+        display: inline;
+        margin: 0;
 
-    &:hover {
-        background-color: transparent;
+        &:hover {
+            background-color: transparent;
+        }
     }
 }
 
-
-
-#user-profile, #user-experience {
-    background-color: #f4f4f4;
+.user-profile,
+.user-experience {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -166,15 +169,21 @@ a.inline-link {
     border-radius: 1rem;
     padding: 1rem;
 }
-#user-experience {
+
+.user-profile {
+    background-color: #f5f5f5;
+    margin-bottom: 1rem;
+}
+
+.user-experience {
     flex-direction: column;
 }
 
-#user-dashboard > *, #user-experience > * {
+.user-dashboard > *, .user-experience > * {
     margin-top: 1rem;
 }
 
-#user-info {
+.user-info {
     display: flex;
     width: 50%;
     min-width: 300px;
@@ -183,14 +192,80 @@ a.inline-link {
     :last-child {
         width: 80%;
     }
-    .tag {
-        width: 40%;
-        background-color: rgb(201, 199, 199);
+
+    .user-info-text {
+        padding: 1rem;
+    }
+
+    .user-username {
+        font-size: 1.5rem;
+        margin: 0;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: bold;
+    }
+
+    .user-discriminator {
+        font-size: 1rem;
+        color: rgb(201, 199, 199);
+    }
+
+    .user-info-tags {
+        display: flex;
+        gap: 0.5rem;
+        .tag {
+            background-color: rgb(201, 199, 199);
+            display: inline-flex;
+            justify-content: left;
+        }
     }
 }
-#game-circles {
-    display: flex;
-    gap: 0.5rem;
+
+.user-info-row {
+    height: $user-info-row-height;
+    overflow: hidden;
+    margin: 0;
+}
+
+.user-statistic {
+    text-align: center;
+    .statistic-title {
+        font-size: 1.8rem;
+        line-height: 100%;
+        margin: 0;
+        font-weight: bold;
+    }
+    .statistic-subtitle {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        line-height: 100%;
+        margin: 0;
+    }
+    .statistic-description {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        line-height: 100%;
+        padding: 0.35rem 0;
+        margin: 0;
+        color: rgb(201, 199, 199);
+    }
+}
+
+.game-circles {
+    display: block;
+
+    .circle {
+        height: $user-info-row-height;
+        width: $user-info-row-height;
+        
+        display: inline-flex;
+        margin: 0 0.25rem;
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: white;
+    }
 }
 .circle {
     flex-grow: 1;
@@ -204,20 +279,29 @@ a.inline-link {
     justify-content: center;
 }
 
-#xp-progress-bar {
-    min-height: 2rem;
-    height: 10%;
-    width: 100%;
-    background-color: gray;
-    border-radius: 0.5rem;
-}
-#current-progress {
-    position: relative;
-    height: inherit;
-    min-height: inherit;
-    border-radius: inherit;
-    width: 50%;
-    background-color: rgb(58, 57, 57);
+.user-experience {
+    .xp-progress-bar {
+        min-height: 2rem;
+        height: 10%;
+        width: 100%;
+        background-color: gray;
+        border-radius: 0.5rem;
+    }
+
+    .current-progress {
+        position: relative;
+        height: inherit;
+        min-height: inherit;
+        border-radius: inherit;
+        width: 50%;
+        background-color: rgb(58, 57, 57);
+    }
+
+    .xp-progress-label {
+        align-self: flex-start;
+        margin-left: 0.5rem;
+        text-transform: uppercase;
+    }
 }
 .rewards-container {
     display: flex;
@@ -226,29 +310,43 @@ a.inline-link {
     height: 100%;
     gap: 2.5%;
 
+    .reward-container {
+        width: 20%;
+        text-align: center;
+    }
+
+    .reward-label {
+        font-size: 1rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        line-height: 100%;
+        padding: 0.35rem 0;
+        margin: 0.5rem 0;
+    }
+
+    .reward {
+        background-color: lightgray;
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 0.5rem;
+        z-index: 1;
+        &.locked {
+            background-color: gray;
+        }
+    }
+
     &.locked::before {
         position: absolute;
         display: grid;
         align-items: center;
-        color: yellow;
+        text-align: center;
+        color: $warning;
+        font-weight: bold;
         content: 'Unlock with Gamebot Premium!';
         width: inherit;
         height: inherit;
-        border-radius: 1rem;
+        border-radius: 0.5rem;
         background-color: rgba(0, 0, 0, 0.7);
-    }
-}
-.reward-container {
-    width: 20%;
-}
-.reward {
-    background-color: lightgray;
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: 1rem;
-    z-index: 1;
-    &.locked {
-        background-color: gray;
     }
 }
 
@@ -275,7 +373,7 @@ export default {
         async fetchItems() {
             let userID = ''
             if(this.$store.getters.getUser.id) {
-                userID = `?userID=${this.$store.getters.getUser.id}`
+                userID = `?userId=${this.$store.getters.getUser.id}`
             }
 
             fetch('/api/shopItems' + userID, {
@@ -297,7 +395,7 @@ export default {
             // Cache the guilds in the store
             if(!this.$store.getters.getGuilds.list
                || this.$store.getters.getGuilds.lastUpdated < Date.now() - 1000 * 60 * 60) {
-                /*fetch('https://discord.com/api/users/@me/guilds', {
+                fetch('https://discord.com/api/users/@me/guilds', {
                     method: 'GET',
                     headers: {
                         authorization: 'Bearer ' + this.$store.getters.getToken
@@ -308,7 +406,7 @@ export default {
                     this.$store.commit('setGuilds', json)
                     this.guilds = json.filter(guild => guild.permissions & PERMISSIONS.MANAGE_SERVER)
                 })
-                .catch(console.error)*/
+                .catch(console.error)
             } else {
                 this.guilds = this.$store.getters.getGuilds.filter(guild => guild.permissions & PERMISSIONS.MANAGE_SERVER)
             }
