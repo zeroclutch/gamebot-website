@@ -9,7 +9,10 @@ import VueGtag from "vue-gtag";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faDiscord, faFacebook, faInstagram, faLinkedin, faReddit, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import {
-  faHashtag, faArrowUp, faArrowDown, faSortDown, faCaretUp, faCaretDown, faCheck, faUsers, faUser, faSignOutAlt, faTimes, faSortAlphaDown, faMoneyBillWave, faEye, faEyeSlash, faAward, faChartLine, faAngleRight, faStore, faTags, faTag, faSearch, faPlusCircle, faPlus, faMinus, faLink, faHome
+  faHashtag, faArrowUp, faArrowDown, faSortDown, faCaretUp, faCaretDown,
+  faCheck, faUsers, faUser, faSignOutAlt, faTimes, faSortAlphaDown, faMoneyBillWave,
+  faEye, faEyeSlash, faAward, faChartLine, faAngleRight, faStore, faTags, faTag,
+  faSearch, faPlusCircle, faPlus, faMinus, faLink, faHome,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueAnimateOnScroll from 'vue-animate-onscroll'

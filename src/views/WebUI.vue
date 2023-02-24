@@ -8,10 +8,12 @@
                 <div class="fill-bar-label">{{ timeRemaining }}</div>
             </div>
         </header>
-        <div class="webui-content">
-            <WebUIText    :value="value" :data="data" @submit="submit()" v-if="data.type === 'text'" />
-            <WebUIDrawing :value="value" :data="data" @submit="submit()" v-else-if="data.type === 'drawing'" />
-        </div>
+        <section class="fade-in webui-content-wrapper">
+            <div class="webui-content gradient-box">
+                <WebUIText    :value="value" :data="data" @submit="submit()" v-if="data.type === 'text'" />
+                <WebUIDrawing :value="value" :data="data" @submit="submit()" v-else-if="data.type === 'drawing'" />
+            </div>
+        </section>
     </div>
 </template>
 
@@ -42,7 +44,8 @@ export default {
                     displayAvatarURL: '',
                 },
                 variables: {}
-            }
+            },
+            interval: false
         }
     },
     mounted() {
@@ -50,9 +53,13 @@ export default {
 
         this.getWebUI()
         .then(() => {
-            setInterval(function() { this.updateFillBar() }.bind(this), 1000);
+            if(!this.interval)
+                this.interval = setInterval(function() { this.updateFillBar() }.bind(this), 1000);
         })
 
+    },
+    unmounted() {
+        clearInterval(this.interval)
     },
     computed: {
         id() {
@@ -97,9 +104,9 @@ export default {
                 .catch(createErrorHandler('WEB_UI_MISSING', this.$router))
         },
         updateFillBar() {
-            let percent = (this.data.killAt - Date.now())/(this.data.killAt - this.startTime) 
-            console.log(percent, this.data.killAt, this.startTime)
-            document.querySelector('.fill-bar').style.width      = `${percent * window.innerWidth}px`
+            if(!this || !this.interval) return
+            let percent = (this.data.killAt - Date.now())/(this.data.killAt - this.startTime)
+            document.querySelector('.fill-bar').style.right = `${(1 - percent) * window.innerWidth}px`
         }
     }
 }
@@ -118,15 +125,17 @@ export default {
     align-items: center;
 }
 
-$fill-bar-height: 8px;
+$fill-bar-height: 0.75rem;
+$fill-bar-height-expanded: 2.5rem;
 
 .empty-bar {
     width: 100%;
     height: $fill-bar-height;
     background-color: $discord-background-primary;
     position: relative;
-
     transition: height 200ms ease;
+
+    z-index: 2;
 
     .fill-bar-label {
         position: absolute;
@@ -135,17 +144,19 @@ $fill-bar-height: 8px;
         top: 50%;
         transform: translate(-50%, -50%);
         color: white;
+        transition: opacity 0.2s ease;
     }
 
     &:hover {
-        height: 55px;
+        height: $fill-bar-height-expanded;
         .fill-bar-label {
             opacity: 1;
         }
     }
 
     .fill-bar {
-        width: 100%;
+        position: absolute;
+        width: 100vw;
         height: 100%;
         transition: 0.5s;
         background: $gamebot-gradient;
@@ -156,14 +167,61 @@ $fill-bar-height: 8px;
     }
 }
 
+
+@media (prefers-reduced-motion: reduce) {
+    .empty-bar {
+        opacity: 1;
+        height: $fill-bar-height-expanded;
+        transition: none;
+
+        .fill-bar-label {
+            opacity: 1;
+        }
+
+        .fill-bar {
+            animation: none;
+        }
+    }
+} 
+
+.webui-content-wrapper {
+    position: absolute;
+    top: 0; 
+    left: 0;
+
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    flex-grow: 1;
+    flex: 1;
+    
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
 .webui-content {
     background: $white;
     position: absolute;
-    top: 50%;
     left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
     border-radius: 0.5rem;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05), 0 3px 6px rgba(0, 0, 0, 0.05);
+
+    padding: 2em;
+    box-sizing: border-box;
+
+    background: white;
+    background-clip: border-box; 
+    border: solid $border transparent;
+
+    @media (prefers-reduced-motion: reduce) {
+        &:before {
+            animation: none;
+        }
+    }
 }
 </style>

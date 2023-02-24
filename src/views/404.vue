@@ -23,26 +23,31 @@
 .is-404 {
     background-color: $discord-background-primary;
     height: calc(100vh - 144px);
+    min-height: 500px;
     width: 100vw;
     position: relative;
+}
+
+@media (max-width: 768px) {
+    .is-404 {
+        font-size: 12px;
+    }
 }
 
 .is-404-content {
     text-align: left;
     max-width: $widescreen;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 1em 3em;
 
     .title.is-1 {
         color: $light;
-        font-size: 5rem;
-        margin-bottom: 1rem;
+        font-size: 5em;
     }
 
     .title.is-3 {
         color: $light;
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
+        font-size: 2em;
     }
 }
 
