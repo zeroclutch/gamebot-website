@@ -1,14 +1,17 @@
 <template>
     <main>
-        <input type="text" v-model="text" />
-        this is a drawing!
-        <button @click="submit">Submit</button>
+        <b-input type="text" v-model="text" />
+        <b-button @click="submit" />
     </main>
 </template>
 
 <script>
 export default {
     name: 'WebUIDrawing',
+    props: {
+        data: Object,
+        value: Object,
+    },
     data() {
         return {
             text: 'Hello World'
