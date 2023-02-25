@@ -10,8 +10,11 @@
         </header>
         <section class="fade-in webui-content-wrapper">
             <div class="webui-content gradient-box">
-                <WebUIText    :value="value" :data="data" @submit="submit()" v-if="data.type === 'text'" />
-                <WebUIDrawing :value="value" :data="data" @submit="submit()" v-else-if="data.type === 'drawing'" />
+                <WebUIText    :value="value" :data="data" @submit="submit" v-if="data.type === 'text'" />
+                <WebUIDrawing :value="value" :data="data" @submit="submit" v-else-if="data.type === 'drawing'" />
+            </div>
+            <div class="webui-chat" v-if="true">
+
             </div>
         </section>
     </div>
@@ -88,16 +91,23 @@ export default {
                 })
                 .catch(createErrorHandler('WEB_UI_MISSING', this.$router))
         },
-        submit() {
+        submit(value) {
+            const body = JSON.stringify({
+                id: this.id,
+                value
+            })
+
+            console.log(body)
+
             fetch(`/api/ui/${this.id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    value: this.value
-                })
+                body
             })
+                .then(response => response.text())
+                .then(console.log)
                 .then(() => {
                     this.$router.push('../success')
                 })

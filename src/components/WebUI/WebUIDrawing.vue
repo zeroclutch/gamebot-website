@@ -83,8 +83,6 @@ aside.buttons {
             position: relative;
             padding: 0.5rem 0.75rem;
         }
-
-
     }
 
     .button-columns {
@@ -174,6 +172,10 @@ export default {
     mounted() {
         this.canvas = new fabric.Canvas('drawingCanvas');
         this.canvas.isDrawingMode = true;
+
+        // Set a white background
+        this.canvas.setBackgroundColor('white', this.canvas.renderAll.bind(this.canvas));
+
         this.setSize(this.selectedSize);
         this.setColor(this.selectedColor);
 
@@ -187,7 +189,9 @@ export default {
     },
     methods: {
         submit() {
-            this.$emit('submit', this.text)
+            const dataURL = this.canvas.toDataURL();
+            let image = dataURL.replace(/^data:image\/\w+;base64,/, '')
+            this.$emit('submit', image);
         },
         setSize(i) {
             this.selectedSize = i;
@@ -235,7 +239,7 @@ export default {
         historySaveAction(e) {
             this.canvasHistory.push(e.target)
             this.undoHistory = [];
-        }
+        },
     },
     computed: {
         canUndo() {
