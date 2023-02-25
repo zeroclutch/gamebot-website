@@ -1,5 +1,8 @@
 <template>
-    <input type="text" v-model="text" />
+    <div>
+        <b-input v-model="text"></b-input>
+        <b-button @click="submit">Submit</b-button>
+    </div>
 </template>
 
 <script>
@@ -8,6 +11,10 @@ export default {
     data() {
         return {
             text: 'Hello World'
+        }
+    }, methods: {
+        submit() {
+            this.$emit('submit', this.text)
         }
     }
 }

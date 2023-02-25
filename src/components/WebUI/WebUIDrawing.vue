@@ -284,6 +284,8 @@ export default {
         },
         clearCanvas() {
             this.canvas.clear();
+            // Set a white background
+            this.canvas.setBackgroundColor('white', this.canvas.renderAll.bind(this.canvas));
             this.canvasHistory = [];
             this.undoHistory = [];
         },

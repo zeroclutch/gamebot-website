@@ -9,12 +9,11 @@
             </div>
         </header>
         <section class="fade-in webui-content-wrapper">
-            <div class="webui-message" v-show="data.variables.message">
-                <div class="webui-message-content">
-                    {{ data.variables.message }}
-                </div>
-            </div>
             <div class="webui-content gradient-box">
+                <div class="webui-message" v-if="data.variables.message">
+                    <div class="webui-message-content" v-html="data.variables.message">
+                    </div>
+                </div>
                 <WebUIText    :value="value" :data="data" @submit="submit" v-if="data.type === 'text'" />
                 <WebUIDrawing :value="value" :data="data" @submit="submit" v-else-if="data.type === 'drawing'" />
             </div>
@@ -29,7 +28,7 @@
 import WebUIText from '@/components/WebUI/WebUIText.vue'
 import WebUIDrawing from '@/components/WebUI/WebUIDrawing.vue'
 
-import { createErrorHandler } from '@/util/errors.js'
+import { throwIfNotOk, createErrorHandler } from '@/util/errors.js'
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
@@ -39,6 +38,8 @@ const Times = {
     ONE_HOUR: 60 * 60 * 1000,
     ONE_DAY: 24 * 60 * 60 * 1000,
 }
+
+let updateInterval = null
 
 export default {
     name: 'WebUI',
@@ -74,8 +75,8 @@ export default {
 
         this.getWebUI()
         .then(() => {
-            if(!this.interval) {
-                this.interval = setInterval(function() {
+            if(!updateInterval) {
+                updateInterval = setInterval(function() {
                     this.setTimeRemaining()
                     
                     if(!prefersReducedMotion.matches) {
@@ -87,7 +88,11 @@ export default {
 
     },
     beforeDestroy() {
-        clearInterval(this.interval)
+        clearInterval(updateInterval)
+    },
+    beforeRouteLeave(_to, _from, next) {
+        clearInterval(updateInterval)
+        next()
     },
     computed: {
         id() {
@@ -97,6 +102,7 @@ export default {
     methods: {
         getWebUI() {
             return fetch(`/api/ui/${this.id}`)
+                .then(throwIfNotOk)
                 .then(response => response.json())
                 .then(data => {
                     this.data = data
@@ -140,7 +146,7 @@ export default {
             this.timeRemaining = time.join(', ') + ' left'
         },
         animateFillBar() {
-            if(!this || !this.interval) return
+            if(!this || !updateInterval) return
             let percent = (this.data.killAt - Date.now())/(this.data.killAt - this.startTime)
             document.querySelector('.fill-bar').style.right = `${(1 - percent) * window.innerWidth}px`
         }
@@ -159,6 +165,11 @@ export default {
 .webui-header {
     display: flex;
     align-items: center;
+}
+
+.webui-message {
+    margin-bottom: 1rem;
+    max-width: 600px;
 }
 
 $fill-bar-height: 0.75rem;

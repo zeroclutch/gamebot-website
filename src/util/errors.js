@@ -7,11 +7,22 @@ export const Errors = {
         message: '404!',
         description: 'Your page has expired. Sorry about that!',
     },
+    'INVALID_LOGIN': {
+        message: '404!',
+        description: 'Your login has expired. Please try again!',
+    },
 }
 
 export function createErrorHandler(code, router) {
-    return (err) => {
-        console.error(err)
-        router.push('../404', { params: code })
+    return () => {
+        // Navigate to the 404 page and pass the error code in the query
+        router.push({ path: '/404', query: { code } })
     }
+}
+
+export function throwIfNotOk(response) {
+    if (!response.ok) {
+        throw Error(response.statusText)
+    }
+    return response
 }
