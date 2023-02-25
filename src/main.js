@@ -12,7 +12,7 @@ import {
   faHashtag, faArrowUp, faArrowDown, faSortDown, faCaretUp, faCaretDown,
   faCheck, faUsers, faUser, faSignOutAlt, faTimes, faSortAlphaDown, faMoneyBillWave,
   faEye, faEyeSlash, faAward, faChartLine, faAngleRight, faStore, faTags, faTag,
-  faSearch, faPlusCircle, faPlus, faMinus, faLink, faHome,
+  faSearch, faPlusCircle, faPlus, faMinus, faLink, faHome, faArrowCircleRight, faArrowLeft, faArrowRight,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueAnimateOnScroll from 'vue-animate-onscroll'
@@ -32,10 +32,10 @@ library.add(
   // fab
   faDiscord, faTwitter, faFacebook, faInstagram, faReddit, faLinkedin,
   // fas
-  faLink, faHashtag, faArrowUp, faArrowDown, faSortDown, faCaretUp, faCaretDown,
+  faLink, faHashtag, faArrowUp, faArrowDown, faArrowLeft, faArrowRight, faSortDown, faCaretUp, faCaretDown,
   faCheck, faUsers, faUser, faSignOutAlt, faTimes, faSortAlphaDown, faMoneyBillWave,
   faEye, faEyeSlash, faAward, faChartLine, faAngleRight, faStore, faTags, faTag,
-  faSearch, faPlusCircle, faPlus, faMinus, faHome)
+  faSearch, faPlusCircle, faPlus, faMinus, faHome, faArrowCircleRight)
 Vue.component('vue-fontawesome', FontAwesomeIcon);
 
 Vue.config.productionTip = false

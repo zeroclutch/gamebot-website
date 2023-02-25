@@ -30,7 +30,6 @@
     }
 }
 
-
 @keyframes gradient {
 	0% {
 		background-position: 0% 0%;
@@ -78,4 +77,14 @@
     position: relative;
     animation: fade-out ease-out 0.5s forwards;
     -webkit-animation: fade-out ease-out 0.5s forwards;
+}
+
+
+@media (prefers-reduced-motion) {
+    .fade-in {
+        animation: none;
+    }
+    .fade-out {
+        animation: none;
+    }
 }

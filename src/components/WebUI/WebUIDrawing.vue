@@ -18,8 +18,8 @@
                 </div>
             </div>
 
-            <div class="button-columns columns">
-                <div class="size-buttons column">
+            <div class="button-columns columns is-mobile is-multiline">
+                <div class="size-buttons column is-12-mobile is-5-tablet">
                     <b-button class="size canvas-button"
                         v-for="(size, i) in sizes"
                         :key="size.name"
@@ -31,29 +31,59 @@
                     </b-button>
                 </div>
 
-                <div class="action-buttons column">
-                    <b-button class="canvas-button"
-                        @click="clearCanvas"
-                        aria-label="Clear Canvas">
-                        &times;
-                    </b-button>
-                    <b-button class="canvas-button"
-                        @click="undo"
-                        :disabled="!canUndo"
-                        aria-label="Undo">
-                        &hookleftarrow;
-                    </b-button>
-                    <b-button class="canvas-button"
-                        @click="redo"
-                        :disabled="!canRedo"
-                        aria-label="Redo">
-                        &hookrightarrow;
-                    </b-button>
+                <div class="action-buttons column is-half-mobile">
+                    <b-tooltip 
+                        class="canvas-button-tooltip"
+                        label="Clear"
+                        :delay="200"
+                        type="is-light">
+                        <b-button class="canvas-button"
+                            @click="clearCanvas"
+                            type="is-danger"
+                            icon-left="times"
+                            icon-pack="fas"
+                            aria-label="Clear Canvas">
+                        </b-button>
+                    </b-tooltip>
+
+                    <b-tooltip 
+                        class="canvas-button-tooltip"
+                        label="Undo"
+                        :delay="200"
+                        type="is-light">
+                        <b-button class="canvas-button"
+                            @click="undo"
+                            type="is-light"
+                            icon-left="arrow-left"
+                            icon-pack="fas"
+                            :disabled="!canUndo"
+                            aria-label="Undo">
+                        </b-button>
+                    </b-tooltip>
+
+                    
+                    <b-tooltip 
+                        class="canvas-button-tooltip"
+                        label="Redo"
+                        :delay="200"
+                        type="is-light">
+                        <b-button class="canvas-button"
+                            @click="redo"
+                            type="is-light"
+                            icon-left="arrow-right"
+                            icon-pack="fas"
+                            :disabled="!canRedo"
+                            aria-label="Redo">
+                        </b-button>
+                    </b-tooltip>
                 </div>
 
-                <div class="submit-button column is-3">
+                <div class="submit-button column is-6-mobile">
                     <b-button class="submit-button"
                         @click="submit"
+                        type="is-success"
+                        icon-right="arrow-circle-right"
+                        icon-pack="fas"
                         aria-label="Submit">
                         Submit
                     </b-button>
@@ -73,7 +103,6 @@ $canvas-width: 600px;
 aside.buttons {
     
     width: calc(#{$canvas-width} + 1.5rem);
-
     margin: 0 -0.75rem;
 
     .columns {
@@ -102,11 +131,12 @@ aside.buttons {
         margin: 0;
     }
 
+    .canvas-button-tooltip:not(:last-child) {
+        margin-right: 0.5rem;
+    }
     .canvas-button {
         height: 40px;
         width: 40px;
-
-        border: 1px solid $gray-light;
 
         &.selected {
             border: 1px solid $black;
@@ -122,6 +152,38 @@ aside.buttons {
         transition: all 100ms;
     }
 }
+
+@media screen and (max-width: 768px) {
+
+    aside.buttons {
+        position: absolute;
+        bottom: 0.5rem;
+        margin: 0;
+        width: 100%;
+
+        .columns {
+            margin: 0 auto;
+            .column {
+                margin: 0.1rem auto;
+                padding: 0;
+
+                button.button.canvas-button:not(:last-child) {
+                    margin-right: 0.1rem;
+                    margin-top: 0.1rem;
+                }
+                &:first-child, &:last-child {
+                    text-align: center;
+                }
+            }
+        }
+
+    }
+    .canvas-holder {
+        margin: -1rem;
+        padding: 0;
+    }
+}
+
 </style>
 
 <script>
@@ -132,7 +194,10 @@ const LIGHT_COLORS = [
     'Yellow',
 ]
 
-
+const isMobile = () => {
+    // Check if mobile
+    return window.matchMedia('(max-width: 768px)').matches;
+}
 
 export default {
     name: 'WebUIDrawing',
@@ -170,6 +235,7 @@ export default {
         }
     },
     mounted() {
+        this.canvasElement = document.getElementById('drawingCanvas');
         this.canvas = new fabric.Canvas('drawingCanvas');
         this.canvas.isDrawingMode = true;
 
@@ -185,7 +251,8 @@ export default {
             "object:modified": this.historySaveAction.bind(this)
         })
 
-
+        this.handleResize();
+        window.addEventListener('resize', this.handleResize.bind(this));
     },
     methods: {
         submit() {
@@ -240,6 +307,22 @@ export default {
             this.canvasHistory.push(e.target)
             this.undoHistory = [];
         },
+        handleResize() {
+            if(isMobile()) {
+                const controlsStyle = window.getComputedStyle(document.querySelector('aside.buttons'))
+                const controlsHeight = parseInt(controlsStyle.height) + parseInt(controlsStyle.bottom);
+                this.canvas.setWidth(window.innerWidth);
+                this.canvas.setHeight(window.innerHeight - (controlsHeight + 34));
+                this.canvas.calcOffset();
+            } else {
+                this.canvas.setWidth(600);
+                this.canvas.setHeight(500);
+                this.canvas.calcOffset();
+            }
+
+            // Set a white background
+            this.canvas.setBackgroundColor('white', this.canvas.renderAll.bind(this.canvas));
+        }
     },
     computed: {
         canUndo() {

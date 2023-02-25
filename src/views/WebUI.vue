@@ -9,6 +9,11 @@
             </div>
         </header>
         <section class="fade-in webui-content-wrapper">
+            <div class="webui-message" v-show="data.variables.message">
+                <div class="webui-message-content">
+                    {{ data.variables.message }}
+                </div>
+            </div>
             <div class="webui-content gradient-box">
                 <WebUIText    :value="value" :data="data" @submit="submit" v-if="data.type === 'text'" />
                 <WebUIDrawing :value="value" :data="data" @submit="submit" v-else-if="data.type === 'drawing'" />
@@ -25,6 +30,15 @@ import WebUIText from '@/components/WebUI/WebUIText.vue'
 import WebUIDrawing from '@/components/WebUI/WebUIDrawing.vue'
 
 import { createErrorHandler } from '@/util/errors.js'
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+const Times = {
+    TWO_MINUTES: 60 * 1000,
+    FIVE_MINUTES: 5 * 60 * 1000,
+    ONE_HOUR: 60 * 60 * 1000,
+    ONE_DAY: 24 * 60 * 60 * 1000,
+}
 
 export default {
     name: 'WebUI',
@@ -46,40 +60,39 @@ export default {
                     tag: '',
                     displayAvatarURL: '',
                 },
-                variables: {}
+                variables: {
+                    message: '',
+                    name: ''
+                }
             },
-            interval: false
+            interval: false,
+            timeRemaining: 'Loading...'
         }
     },
-    mounted() {
+    created() {
         this.startTime = Date.now()
 
         this.getWebUI()
         .then(() => {
-            if(!this.interval)
-                this.interval = setInterval(function() { this.updateFillBar() }.bind(this), 1000);
+            if(!this.interval) {
+                this.interval = setInterval(function() {
+                    this.setTimeRemaining()
+                    
+                    if(!prefersReducedMotion.matches) {
+                        this.animateFillBar()
+                    }
+                }.bind(this), 1000);
+            }
         })
 
     },
-    unmounted() {
+    beforeDestroy() {
         clearInterval(this.interval)
     },
     computed: {
         id() {
             return this.$route.params.id
         },
-        timeRemaining() {
-            // Calculates the time left in a human-readable format
-            
-            const ms = this.data.killAt - Date.now()
-            const s = Math.floor(ms / 1000)
-            const m = Math.floor(s / 60)
-            const h = Math.floor(m / 60)
-
-            if(h > 0) return `${h} hours left`
-            else if(m > 2) return `${m} minutes left`
-            else return `${s} seconds left`
-        }
     },
     methods: {
         getWebUI() {
@@ -97,8 +110,6 @@ export default {
                 value
             })
 
-            console.log(body)
-
             fetch(`/api/ui/${this.id}`, {
                 method: 'POST',
                 headers: {
@@ -106,14 +117,29 @@ export default {
                 },
                 body
             })
-                .then(response => response.text())
-                .then(console.log)
                 .then(() => {
                     this.$router.push('../success')
                 })
                 .catch(createErrorHandler('WEB_UI_MISSING', this.$router))
         },
-        updateFillBar() {
+        setTimeRemaining() {
+            // Calculates the time left in a human-readable format
+            let ms = this.data.killAt - Date.now()
+            let s = Math.floor(ms / 1000)
+            let m = Math.floor(s / 60)
+            let h = Math.floor(m / 60)
+
+            s %= 60
+            m %= 60
+            h %= 24
+
+            let time = []
+            if(ms >  Times.ONE_HOUR)     time.push(`${h} hours`)
+            if(ms >  Times.TWO_MINUTES)  time.push(`${m} minutes`)
+            if(ms <= Times.FIVE_MINUTES) time.push(`${s} seconds`)
+            this.timeRemaining = time.join(', ') + ' left'
+        },
+        animateFillBar() {
             if(!this || !this.interval) return
             let percent = (this.data.killAt - Date.now())/(this.data.killAt - this.startTime)
             document.querySelector('.fill-bar').style.right = `${(1 - percent) * window.innerWidth}px`
@@ -138,6 +164,20 @@ export default {
 $fill-bar-height: 0.75rem;
 $fill-bar-height-expanded: 2.5rem;
 
+
+@mixin expanded-bar {
+    height: $fill-bar-height-expanded;
+    
+    .fill-bar-label {
+        opacity: 1;
+    }
+
+    .fill-bar {
+        filter: brightness(0.9);
+        -webkit-filter: brightness(0.9);
+    }
+}
+
 .empty-bar {
     width: 100%;
     height: $fill-bar-height;
@@ -158,10 +198,7 @@ $fill-bar-height-expanded: 2.5rem;
     }
 
     &:hover {
-        height: $fill-bar-height-expanded;
-        .fill-bar-label {
-            opacity: 1;
-        }
+        @include expanded-bar;
     }
 
     .fill-bar {
@@ -170,7 +207,7 @@ $fill-bar-height-expanded: 2.5rem;
         height: 100%;
         transition: 0.5s;
         background: $gamebot-gradient;
-        background-size: 200% 200%;
+        background-size: 300% 300%;
         background-position: 0% 50%;
         animation: reverse-gradient 20s infinite alternate ease-in-out;
         -webkit-animation: reverse-gradient 20s infinite alternate ease-in-out;
@@ -180,13 +217,8 @@ $fill-bar-height-expanded: 2.5rem;
 
 @media (prefers-reduced-motion: reduce) {
     .empty-bar {
-        opacity: 1;
-        height: $fill-bar-height-expanded;
         transition: none;
-
-        .fill-bar-label {
-            opacity: 1;
-        }
+        @include expanded-bar;
 
         .fill-bar {
             animation: none;
@@ -232,6 +264,22 @@ $fill-bar-height-expanded: 2.5rem;
         &:before {
             animation: none;
         }
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .empty-bar {
+        @include expanded-bar;
+    }
+
+    .webui-content {
+        padding: 0;
+        padding-top: $fill-bar-height-expanded;
+        box-shadow: none;
+        height: 100%;
+        width: 100%;
+        border-radius: 0;
     }
 }
 </style>
