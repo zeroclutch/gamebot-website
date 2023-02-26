@@ -32,9 +32,13 @@
           </p>
         </article>
         <div class="column is-half">
-          <img
+          <b-image
             v-animate-onscroll="'fade-in-delayed'"
-            class="faded-out" src="@/assets/images/graphics/game_night_graphic.png" draggable="false" alt="Gamebot in action" />
+            :srcset="[256,512,1024].map(s => require(`@/assets/images/graphics/${s}w/game_night_graphic.png`) + `.webp ${s}w`).join(', ')"
+            :webp-fallback="require('@/assets/images/graphics/1024w/game_night_graphic.png')"
+            class="faded-out"
+            draggable="false"
+            alt="Gamebot in action 1" />
         </div>
       </div>
     </section>
@@ -42,10 +46,12 @@
     <section class="section home-section home-section-alternate">
       <div class="container is-max-widescreen content columns is-centered is-vcentered">
         <div class="column is-half">
-          <img
+          <b-image
             v-animate-onscroll="'fade-in-delayed'"
             class="faded-out"
-            src="@/assets/images/graphics/seriously_fun_graphic.png" draggable="false" alt="Gamebot in action" />
+            :srcset="[256,512,1024].map(s => require(`@/assets/images/graphics/${s}w/seriously_fun_graphic.png`) + `.webp ${s}w`).join(', ')"
+            :webp-fallback="require('@/assets/images/graphics/1024w/seriously_fun_graphic.png')"
+            draggable="false" alt="Gamebot in action" />
         </div>
         <article class="column is-half">
           <h1
@@ -102,9 +108,13 @@
           </p>
         </article>
         <div class="column is-half">
-          <img
+          <b-image
             v-animate-onscroll="'fade-in-delayed'"
-            class="faded-out" src="@/assets/images/graphics/play_your_way_graphic.png" draggable="false" alt="Gamebot in action" />
+            :srcset="[256,512,1024].map(s => require(`@/assets/images/graphics/${s}w/play_your_way_graphic.png`) + `.webp ${s}w`).join(', ')"
+            :webp-fallback="require('@/assets/images/graphics/1024w/play_your_way_graphic.png')"
+            class="faded-out"
+            draggable="false"
+            alt="Gamebot in action" />
         </div>
       </div>
     </section>
@@ -146,8 +156,9 @@
   }
 
   .home-section {
-    padding: 8em 0;
+    padding: 8em 1rem;
     background-color: #202225;
+    margin: 0;
   }
   
   .home-section-alternate {
@@ -205,6 +216,12 @@ export default {
   methods: {
     addToDiscord() {
       this.$gtag.event('add_to_discord', {'event_label': 'Homepage'})
+    },
+    srcsetFormatter(_src, size) {
+      console.log(require(`@/assets/images/graphics/${size}w/game_night_graphic.png`) + '.webp')
+      return require(`@/assets/images/graphics/${size}w/game_night_graphic.png`) + '.webp'
+      // `@/assets/images/graphics/${size}w/game_night_graphic.webp`
+      // return require(`@/assets/images/graphics/${size}w/game_night_graphic.webp`)
     }
   }
 }

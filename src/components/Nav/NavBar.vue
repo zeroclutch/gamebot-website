@@ -3,7 +3,7 @@
         <template #brand>
             <b-navbar-item class="navbar-brand" tag="router-link" :to="{ path: '/' }">
                 <img
-                    src="@/assets/images/brand/logo.png"
+                    src="@/assets/images/brand/logo-icon.svg"
                     alt="Gamebot Logo"
                 >
             </b-navbar-item>

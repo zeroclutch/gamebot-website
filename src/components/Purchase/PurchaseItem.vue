@@ -91,9 +91,9 @@ export default {
         },
         getIcon() {
             if(this.dark) {
-                return require(`@/assets/images/currency/coin.png`)
+                return require('@/assets/images/currency/128w/gold.png')
             }
-            return this.icon || require(`@/assets/images/currency/credits-display.png`)
+            return this.icon || require(`@/assets/images/currency/128w/credits.png`)
         },
         getItem() {
             if(this.editable) {

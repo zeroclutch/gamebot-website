@@ -6,7 +6,7 @@
         <div class="embed-description">{{ description }}<slot></slot></div>
         <b-image
         :src="image"
-        placeholder="@/assets/images/brand/128x128.png"
+        placeholder="@/assets/images/brand/128w/pfp.png"
         alt="A random image"
         lazy
         class="embed-image" v-if="image"

@@ -6,7 +6,7 @@
             content="This round's black card"
             bot
             role-color="#52d9e9"
-            :avatar="require(`@/assets/images/brand/128x128.png`)">
+            :avatar="require(`@/assets/images/brand/128w/pfp.png`)">
             <DiscordMessageEmbed
                 title=""
                 description=""

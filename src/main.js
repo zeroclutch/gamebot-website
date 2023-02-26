@@ -5,6 +5,8 @@ import store from './store'
 import Buefy from 'buefy'
 import VueGtag from "vue-gtag";
 
+// Custom plugins
+import Images from './util/images.js'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faDiscord, faFacebook, faInstagram, faLinkedin, faReddit, faTwitter } from '@fortawesome/free-brands-svg-icons'
@@ -27,6 +29,8 @@ Vue.use(VueGtag, {
 }, router);
 
 Vue.use(VueAnimateOnScroll)
+
+Vue.use(Images)
 
 library.add(
   // fab

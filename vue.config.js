@@ -1,3 +1,5 @@
+const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin');
+
 module.exports = 
 {
   devServer: {
@@ -21,5 +23,10 @@ module.exports =
     },
   },
   configureWebpack: {
+    plugins: [
+      new ImageminWebpWebpackPlugin({
+        overrideExtension: false,
+      }),
+    ]
   }
 }

@@ -6,7 +6,7 @@
             content=""
             bot
             role-color="#52d9e9"
-            :avatar="require(`@/assets/images/brand/128x128.png`)">
+            :avatar="require(`@/assets/images/brand/128w/pfp.png`)">
             <DiscordMessageEmbed
                 color="#52d9e9">
                 <div>
@@ -25,7 +25,7 @@
             content=""
             bot
             role-color="#52d9e9"
-            :avatar="require(`@/assets/images/brand/128x128.png`)">
+            :avatar="require(`@/assets/images/brand/128w/pfp.png`)">
             <DiscordMessageEmbed
                 :image="require(`@/assets/images/mockup/surveysays.png`)"
                 color="#52d9e9">
