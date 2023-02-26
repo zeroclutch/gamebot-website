@@ -27,7 +27,7 @@
                         icon-pack="fas"
                         icon-left="users"
                         type="is-discord" inverted
-                        size="is-large"  
+                        size="is-large is-medium-mobile"  
                         :target="isEmbed ? '_blank' : ''"
                         @click="$gtag.event('join_community', {'event_category': 'community_update','event_label': 'Homepage'})"
                         tag="a"
@@ -65,6 +65,9 @@ import Chess from '@/components/Mockups/Chess.vue'
 import Anagrams from '@/components/Mockups/Anagrams.vue'
 import SurveySays from '@/components/Mockups/SurveySays.vue'
 
+let updateInterval = null
+let aborters = []
+
 export default {
   name: 'HeroHomepage',
   components: {
@@ -82,7 +85,7 @@ export default {
   data() {
       return {
           mockups: ['cards-against-humanity', 'chess' , 'anagrams', 'survey-says'],
-          mockupIndex: 0
+          mockupIndex: 0,
       }
   },
   methods: {
@@ -93,6 +96,39 @@ export default {
             let style = getComputedStyle(content)
             wrapper.style.height = style.getPropertyValue('height')
           }
+      },
+      async animateMockup() {
+        let aborter = new AbortController()
+        aborters.push(aborter)
+
+        // Abort all other animations
+        while(aborters[0] !== aborter && aborters[0]) {
+            aborters[0].abort()
+            aborters.shift()
+        }
+
+        let queue = [
+            [this.sleep, 100],
+            [this.loadIn],
+            [this.sleep, 4000],
+            [this.loadOut],
+            [this.sleep, 500],
+            [this.nextMockup],
+        ]
+
+        try {
+            for(let [fn, arg] of queue) {
+                aborter.signal.throwIfAborted()
+                await fn(arg)
+            }
+        } catch(e) {
+            // Aborted
+        }
+
+        if(!aborter.signal.aborted) {
+            aborters.pop()
+            this.animateMockup()
+        }
       },
       async loadIn() {
           this.updateHeight()
@@ -105,9 +141,6 @@ export default {
                 el.classList.remove('fade-out')
                 // Get new height of wrapper
           }
-          await this.sleep(5000)
-          this.loadOut()
-          
           this.updateHeight()
       },
       
@@ -120,8 +153,6 @@ export default {
                 el.classList.add('fade-out')
                 el.classList.remove('fade-in')
           }
-          await this.sleep(500 + ms)
-          this.nextMockup()
       },
       async sleep(ms) {
           return new Promise(resolve => setTimeout(resolve, ms))
@@ -129,9 +160,7 @@ export default {
       async nextMockup() {
         await this.sleep(100)
         this.mockupIndex++
-        await this.sleep(100)
         this.updateHeight()
-        this.loadIn()
       },
   },
   computed: {
@@ -145,11 +174,16 @@ export default {
         const params = new URLSearchParams(window.location.search);
         const ref = params.get('ref')
         return ref === 'embed'
-      }
+      },
   },
    mounted() {
-    this.loadIn()
-    setInterval(this.updateHeight, 100)
+    this.animateMockup()
+    if(!updateInterval) {
+        //updateInterval = setInterval(this.updateHeight, 100)
+    }
+  },
+  beforeDestroy() {
+    clearInterval(updateInterval)
   }
 }
 </script>
