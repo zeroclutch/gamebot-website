@@ -6,7 +6,8 @@
             content=""
             bot
             role-color="#52d9e9"
-            :avatar="require(`@/assets/images/brand/128w/pfp.png`)">
+            :avatar="require(`@/assets/images/brand/64w/pfp.png`)"
+            avatarExtension=".webp">
             <DiscordMessageEmbed
                 color="#52d9e9">
                 <div>
@@ -17,7 +18,7 @@
         <DiscordMessage
             username="a smol bunny"
             role-color="#abcdef"
-            avatar="https://i.imgur.com/gx0AN39.gif">
+            :avatar="require('@/assets/images/mockup/bunny.gif')">
             10
         </DiscordMessage>
         <DiscordMessage
@@ -25,9 +26,10 @@
             content=""
             bot
             role-color="#52d9e9"
-            :avatar="require(`@/assets/images/brand/128w/pfp.png`)">
+            :avatar="require(`@/assets/images/brand/64w/pfp.png`)"
+            avatarExtension=".webp">
             <DiscordMessageEmbed
-                :image="require(`@/assets/images/mockup/surveysays.png`)"
+                :image="require(`@/assets/images/mockup/surveysays.jpeg`)"
                 color="#52d9e9">
             </DiscordMessageEmbed>
             <DiscordMessageEmbed
@@ -38,7 +40,8 @@
         <DiscordMessage
             username="a real-life person"
             role-color="#febaca"
-            :avatar="require(`@/assets/images/mockup/anime.jpg`)">
+            :avatar="require(`@/assets/images/mockup/person.jpeg`)"
+            avatarExtension=".webp">
             absolute monsters
         </DiscordMessage>
     </div>
