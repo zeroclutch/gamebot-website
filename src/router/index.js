@@ -13,7 +13,10 @@ const BlogPost  = () => import('../views/BlogPost.vue')
 const Privacy  = () => import('../views/Privacy.vue')
 const Terms    = () =>  import('../views/Terms.vue')
 
-// Redirect pagges
+// WebUI pages
+const WebUI = () =>  import('../views/WebUI.vue')
+
+// Redirect pages
 const Authenticate  = () =>  import('../views/Authenticate.vue')
 const Login         = () =>  import('../views/Login.vue')
 const Invite        = () =>  import('../views/Invite.vue')
@@ -23,11 +26,11 @@ const Success       = () =>  import('../views/Success.vue')
 
 Vue.use(VueRouter)
 
-const routes = [
+export const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
   },
   {
     path: '/commands',
@@ -57,12 +60,18 @@ const routes = [
   {
     path: '/authenticate',
     name: 'Authenticate',
-    component: Authenticate
+    component: Authenticate,
+    meta: {
+      blank: true
+    }
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    meta: {
+      blank: true
+    }
   },
   {
     path: '/terms',
@@ -77,23 +86,43 @@ const routes = [
   {
     path: '/invite',
     name: 'invite',
-    component: Invite
+    component: Invite,
+    meta: {
+      blank: true
+    }
   },
   {
     path: '/discord',
     name: 'discord',
-    component: Discord
+    component: Discord,
+    meta: {
+      blank: true
+    }
   },
   {
     path: '/success',
     name: 'success',
-    component: Success
+    component: Success,
+    meta: {
+      blank: true
+    }
   },
   {
     path: '*',
     name: '404',
-    component: PageNotFound
+    component: PageNotFound,
+    meta: {
+      darkNav: true
+    }
   },
+  {
+    path: '/ui/:id',
+    name: 'WebUI',
+    component: WebUI,
+    meta: {
+      blank: true
+    }
+  }
 ]
 
 const router = new VueRouter({

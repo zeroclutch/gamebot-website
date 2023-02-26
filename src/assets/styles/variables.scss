@@ -8,9 +8,9 @@ $family-primary: $family-sans-serif;
 
 // Primary
 $primary: #52D9E9;
-$primary-light: #fff;
+$primary-light: #f1fcfd;
 $primary-dark: findDarkColor($primary);
-$primary-invert: #fff;
+$primary-invert: #f1fcfd;
 
 // Secondary
 $secondary: #79eac1;
@@ -36,6 +36,8 @@ $rare: linear-gradient(52deg, rgb(112, 204, 223) 6%, rgb(82, 137, 197) 94%);
 $epic: linear-gradient(52deg, rgba(131,121,234,1) 30%, rgba(185,150,214,1) 94%);
 $legendary: linear-gradient(52deg, rgba(255,73,51,1) 0%, rgba(234,201,121,1) 28%, rgb(238, 121, 92) 50%, rgba(238,92,92,1) 78%, rgba(238,147,92,1) 100%);
 $mythical: linear-gradient(52deg, rgba(51,255,244,1) 0%, rgba(234,121,219,1) 20%, rgba(92,225,238,1) 44%, rgba(216,133,225,1) 61%, rgba(92,225,238,1) 79%, rgba(234,121,219,1) 96%);
+
+$gamebot-gradient: linear-gradient(52deg,#79eac1,#33ceff 20%,#e550d3 44%,#79eac1 61%,#5865F2 79%,#79eac1 100%);
 
 
 .is-common { background: $common; }

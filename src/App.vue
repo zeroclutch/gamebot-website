@@ -1,18 +1,24 @@
 <template>
   <div id="app">
-    <b-modal class="purchase-modal-wrapper" :active="$store.state.purchase.modalOpen" @close="$store.commit('togglePurchaseModal')">
-      <PurchaseModal :class="{ 'is-dark-mode': $store.state.purchase.modalItems === 'gold' }"  />
-    </b-modal>
-    <div class="navbar-wrapper">
-      <div class="navbar-background" :class="{ pinned: scrollPosition > 1}">
-        <NavBar @toggleSidebar="toggleSidebar" />
+    <div id="app-web" v-if="!showBlankApp">
+      <b-modal class="purchase-modal-wrapper" :active="$store.state.purchase.modalOpen" @close="$store.commit('togglePurchaseModal')">
+        <PurchaseModal :class="{ 'is-dark-mode': $store.state.purchase.modalItems === 'gold' }"  />
+      </b-modal>
+      <div class="navbar-wrapper">
+        <div class="navbar-background" :class="{ pinned: scrollPosition > 1 || $route.meta.darkNav }">
+          <NavBar @toggleSidebar="toggleSidebar" />
+        </div>
       </div>
+      <div class="router-wrapper" :class="{ pinned: scrollPosition > 1}">
+        <router-view/>
+      </div>
+      <NavSidebar :active-route="activeRoute" :open="navOpen" @close="closeNav"/>
+      <Footer />
     </div>
-    <div class="router-wrapper" :class="{ pinned: scrollPosition > 1}">
-      <router-view/>
+
+    <div id="app-blank" v-else>
+        <router-view/>
     </div>
-    <NavSidebar :active-route="activeRoute" :open="navOpen" @close="closeNav"/>
-    <Footer />
   </div>
 </template>
 
@@ -32,12 +38,15 @@ export default {
   data() {
     return {
       navOpen: false,
-      scrollPosition: 0
+      scrollPosition: 0,      
     }
   },
   computed: {
     activeRoute() {
       return this.$route.path
+    },
+    showBlankApp() {
+      return !!this.$route.meta.blank
     }
   },
   methods: {

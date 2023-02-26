@@ -16,6 +16,7 @@
     "@fortawesome/vue-fontawesome": "^2.0.2",
     "buefy": "^0.9.4",
     "contentful-rich-text-vue-renderer": "^2.1.0",
+    "fabric": "^5.3.0",
     "vue": "^2.6.11",
     "vue-animate-onscroll": "^1.0.8",
     "vue-gtag": "^1.11.0",
