@@ -14,7 +14,7 @@
         <router-view/>
       </div>
       <NavSidebar :active-route="activeRoute" :open="navOpen" @close="closeNav"/>
-      <Footer />
+      <Footer v-if="pageLoaded" />
     </div>
 
     <div id="app-blank" v-else>
@@ -54,6 +54,10 @@ export default {
     },
     hideGradient() {
       return !!this.$route.meta.hideGradient || this.showBlankApp
+    },
+    pageLoaded() {
+      // Returns true if the route has been loaded
+      return !!this.activeRoute
     }
   },
   methods: {
@@ -69,7 +73,7 @@ export default {
     async initialize() {
       await this.$store.dispatch('fetchAllUserInfo')
       await this.$store.dispatch('checkout/init')
-    }
+    },
   },
   beforeMount() {
     this.initialize()

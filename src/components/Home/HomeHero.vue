@@ -3,7 +3,10 @@
     <section class="gb-hero">
         <div class="hero-content-wrapper columns">
             <div class="column is-7">
-                <h1 class="title main-title"><span class="faded-text">{{ fadedText }}</span>{{ title }}</h1>
+                <h1 class="title main-title">
+                    <span class="faded-text">{{ fadedText }}</span>
+                    <span>{{ title }}</span>
+                </h1>
                 <h3 class="title is-marginless main-title"></h3>
                 
                 <div class="button-container">
@@ -225,7 +228,7 @@ export default {
             padding: calc(3.5rem + 20px) 20px 10px;
         }
         h1 {
-            opacity: 1;
+            position: relative;
             padding: 20px 20px 20px 0px;
             // font-size: 4rem;
             color: white;
@@ -233,8 +236,27 @@ export default {
             margin-bottom: 0.5rem;
             font-size: 3.75rem;
 
+            span {
+                position: relative;
+                z-index: 2;
+            }
+            
             @include mobile {
                 font-size: 2.5rem;
+            }
+
+            &:before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 25%;
+                width: 100%;
+                height: 40%;
+                background: black;
+                opacity: 0.5;
+                -webkit-filter: blur(100px);
+                filter: blur(100px);
+                overflow: visible;
             }
         }
 

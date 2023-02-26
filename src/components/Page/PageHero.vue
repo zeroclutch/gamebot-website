@@ -1,6 +1,6 @@
 <template>
 <section class="gb-hero-background">
-    <section class="gb-hero ">
+    <section class="gb-hero fade-in">
         <div class="hero-content-wrapper">
             <h1 class="title is-marginless main-title"><span class="faded-text">{{ fadedText }}</span>{{ title }}</h1>
             <h3 class="title is-marginless main-title">{{ subtitle }}</h3>
@@ -61,11 +61,6 @@ export default {
             opacity: 0.8;
         }
     }
-}
-
-.hero-holder {
-    position: absolute;
-    max-width: 400px;
 }
 
 </style>

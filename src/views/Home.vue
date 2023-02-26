@@ -124,8 +124,10 @@
       <div class="container is-max-widescreen content columns is-centered has-text-centered">
         <div class="home-cta">
           <div class="home-cta-wrapper">
-            <h1 class="is-1 has-text-white">Let's make your server awesome.</h1>
+            <h1 class="is-1 has-text-white"
+                v-animate-onscroll="'fade-in-delayed'">Let's make your server awesome.</h1>
             <b-button
+              v-animate-onscroll="'fade-in-delayed'"
               class="button-home"
               icon-pack="fab"
               icon-left="discord"
