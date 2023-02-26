@@ -4,7 +4,10 @@
             <div class="column is-4-desktop is-4-tablet is-paddingless status-column">
                 <!--Status and tag-->
                 <div class="profile-picture">
-                    <img src="@/assets/images/brand/128w/pfp.png">
+                    <b-image 
+                        :src="require(`@/assets/images/brand/64w/pfp.png`) + `.webp`"
+                        :webp-fallback="require('@/assets/images/brand/64w/pfp.png')"
+                        />
                 </div>
                 <div class="profile-name status-content is-0-mobile">
                     <span>Gamebot</span><span class="translucent">#4700</span>
