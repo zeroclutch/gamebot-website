@@ -1,6 +1,6 @@
 <template>
 <section>
-    <section class="gb-hero m-0">
+    <section class="gb-hero">
         <div class="hero-content-wrapper columns">
             <div class="column is-7">
                 <h1 class="title main-title"><span class="faded-text">{{ fadedText }}</span>{{ title }}</h1>
@@ -52,7 +52,6 @@
             </div>
         </div>
     </section>
-    <PageGradient class="gradient-canvas" :colors="['#79eac1', '#79eac1', '#33ceff', '#e550d3', '#5865F2']"></PageGradient>
 
 </section>
 </template>
@@ -66,8 +65,6 @@ import Chess from '@/components/Mockups/Chess.vue'
 import Anagrams from '@/components/Mockups/Anagrams.vue'
 import SurveySays from '@/components/Mockups/SurveySays.vue'
 
-import PageGradient from '@/components/Page/PageGradient.vue'
-
 export default {
   name: 'HeroHomepage',
   components: {
@@ -76,7 +73,6 @@ export default {
       Chess,
       CardsAgainstHumanity,
       SurveySays,
-      PageGradient
   },
   props: {
     title: String,
@@ -160,16 +156,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-
-
-.gradient-canvas {
-    animation: fade-in-static 2s;
-    height: 100%;
-    width: 100%;
-    min-height: 700px;
-    margin-bottom: -6px;
-}
-
 .discord-animated {
     transition: all 0.5s;
 }
@@ -188,10 +174,13 @@ export default {
 
 .gb-hero {
     background: unset !important;
-    position: absolute;
-    top: 0;
     width: 100%;
-    z-index: 2;
+
+    margin: 0;
+    padding: 3.5rem 0 0 0;
+
+    height: 700px;
+
 
     .hero-content-wrapper {
         margin: 0 auto;
@@ -202,11 +191,12 @@ export default {
             padding: calc(3.5rem + 20px) 20px 10px;
         }
         h1 {
+            opacity: 1;
             padding: 20px 20px 20px 0px;
             // font-size: 4rem;
             color: white;
             font-weight: bold;
-            margin-bottom: 40px;
+            margin-bottom: 0.5rem;
             font-size: 3.75rem;
 
             @include mobile {

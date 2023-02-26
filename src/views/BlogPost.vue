@@ -1,6 +1,5 @@
 <template>
     <main class="blog-post">
-        <PageHero class="is-not-mobile" />
         <div class="hero-spacer"></div>
         <div class="content-wrapper">
             <div class="article-wrapper">
@@ -116,7 +115,6 @@ body .blog-post {
     .content-wrapper {
         .article-wrapper {
             position: relative;
-            top: -150px;
             left: 0;
             padding: 0 3rem;
             width: 100%;
@@ -261,23 +259,16 @@ body .blog-post {
     }
 }
 
-
-@media screen and (max-width: 1216px) {
-    .is-not-mobile {
-        position: absolute;
-        top: -450px;
-    }
-}
-
 @media screen and (max-width: 1216px) {
     body .blog-post .content-wrapper .article-wrapper {
         top: 0px;
     }
-
-    .hero-spacer {
-        height: 150px;
-    }
 }
+
+.hero-spacer {
+    height: 8rem;
+}
+
 </style>
 
 <script>
@@ -287,7 +278,6 @@ const ENVIRONMENT_ID = 'master'
 
 import RichTextRenderer from 'contentful-rich-text-vue-renderer'
 import BlogImage from '../components/Blog/BlogImage.vue'
-import PageHero from '../components/Page/PageHero.vue'
 
 import { BLOCKS, MARKS } from '@contentful/rich-text-types'
 
@@ -307,7 +297,6 @@ export default {
     name: 'BlogPost',
     components: {
         RichTextRenderer,
-        PageHero,
         BlogImage, //eslint-disable-line
     },
     data() {

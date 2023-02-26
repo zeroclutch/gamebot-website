@@ -15,6 +15,7 @@ import {
   faCheck, faUsers, faUser, faSignOutAlt, faTimes, faSortAlphaDown, faMoneyBillWave,
   faEye, faEyeSlash, faAward, faChartLine, faAngleRight, faStore, faTags, faTag,
   faSearch, faPlusCircle, faPlus, faMinus, faLink, faHome, faArrowCircleRight, faArrowLeft, faArrowRight,
+  faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueAnimateOnScroll from 'vue-animate-onscroll'
@@ -39,7 +40,7 @@ library.add(
   faLink, faHashtag, faArrowUp, faArrowDown, faArrowLeft, faArrowRight, faSortDown, faCaretUp, faCaretDown,
   faCheck, faUsers, faUser, faSignOutAlt, faTimes, faSortAlphaDown, faMoneyBillWave,
   faEye, faEyeSlash, faAward, faChartLine, faAngleRight, faStore, faTags, faTag,
-  faSearch, faPlusCircle, faPlus, faMinus, faHome, faArrowCircleRight)
+  faSearch, faPlusCircle, faPlus, faMinus, faHome, faArrowCircleRight, faTimesCircle)
 Vue.component('vue-fontawesome', FontAwesomeIcon);
 
 Vue.config.productionTip = false

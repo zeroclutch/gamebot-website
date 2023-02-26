@@ -64,6 +64,8 @@ export default {
 
 .status-bar {
     padding: 5px;
+    position: relative;
+    z-index: 1;
     .columns {
         margin: 0 auto;
         max-width: $widescreen;

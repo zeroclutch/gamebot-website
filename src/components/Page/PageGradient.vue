@@ -568,6 +568,7 @@ class Gradient {
     }
 }
 
+let gradient = null;
 
 export default {
     name: 'PageGradient',
@@ -580,11 +581,16 @@ export default {
     methods: {
     },
     async mounted() {
-        const gradient = new Gradient(() => {
+        gradient = new Gradient(() => {
             this.$el.classList.remove('page-gradient-loading')
         }, this.colors);
         gradient.initGradient("canvas.page-gradient");
-    }
+    },
+    beforeDestroy() {
+        if(gradient) {
+            gradient.disconnect();
+        }
+    },
 }
 </script>
 
@@ -595,4 +601,14 @@ export default {
     animation: reverse-gradient 20s infinite alternate ease-in-out;
     -webkit-animation: reverse-gradient 20s infinite alternate ease-in-out;
 }
+
+.page-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(700px);
+    z-index: 0;
+}
+
 </style>

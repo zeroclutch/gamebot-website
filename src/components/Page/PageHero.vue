@@ -1,7 +1,6 @@
 <template>
 <section class="gb-hero-background">
-    <PageGradient class="gradient-canvas" :colors="['#79eac1', '#79eac1', '#33ceff', '#e550d3', '#5865F2']"></PageGradient>
-    <section class="gb-hero  m-0">
+    <section class="gb-hero ">
         <div class="hero-content-wrapper">
             <h1 class="title is-marginless main-title"><span class="faded-text">{{ fadedText }}</span>{{ title }}</h1>
             <h3 class="title is-marginless main-title">{{ subtitle }}</h3>
@@ -13,9 +12,8 @@
 
 
 <script>
-import PageGradient from './PageGradient.vue'
 export default {
-  components: { PageGradient },
+  components: {  },
   name: 'PageHero',
   props: {
     title: String,
@@ -29,24 +27,14 @@ export default {
 <style lang="scss">
 
 .gb-hero-background {
-    max-height: 340px;
+    max-height: 360px;
     height: auto;
-}
-
-.gradient-canvas {
-    animation: fade-in-static 2s;
-    height: 100%;
-    width: 100%;
-    min-height: 700px;
-    margin-bottom: -6px;
 }
 
 .gb-hero {
     background: unset !important;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    position: relative;
+    margin-top: 3.5rem;
     width: 100%;
 
     .hero-content-wrapper {

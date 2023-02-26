@@ -129,7 +129,6 @@ export default {
     name: 'Blog',
     components: {
         PageHero
-
     },
 
     data() {
