@@ -1,7 +1,13 @@
 <template>
         <div class="item columns is-multiline is-mobile" @click="$emit('open', item.itemID)" :class="getTierClass">
             <KinesisContainer class="image-wrapper">
-                <KinesisElement :strength="15" type="depth" class="item-image column is-4-mobile is-3-tablet is-12-desktop" :style="{ backgroundImage: getBackgroundImage(item) }">
+                <KinesisElement :strength="15" type="depth" class="item-image column is-4-mobile is-3-tablet is-12-desktop" >
+                    <b-image
+                        class="item-card-image"
+                        :srcset="[256,512].map(s => encodeURIComponent(require(`@/assets/images/shop-items/${s}w/${item.game}-shop/${item.image || item.type + '.png'}`) + `.webp`) + ` ${s}w`).join(', ')"
+                        :webp-fallback="require('@/assets/images/graphics/1024w/game_night_graphic.png')"
+                        draggable="false"
+                        :alt="item.friendlyName" />
                 </KinesisElement>
             </KinesisContainer>
             <div class="item-info-wrapper column p-0">
@@ -109,14 +115,21 @@ export default {
     },
     methods: {
         getBackgroundImage(item) {
-            return `url('${require(`@/assets/images/shop-items/${item.game}-shop/${item.image || item.type + '.png'}`)}')`
+            return `url('${require(`@/assets/images/shop-items/256w/${item.game}-shop/${item.image || item.type + '.png'}`)}')`
         }
     }
 }
 </script>
 
-<style lang="scss" scoped>
 
+<style>
+.item-card-image img {
+    border-radius: 10px;
+}
+</style>
+
+<style lang="scss" scoped>
+$image-border-radius: 12px;
 .item.columns {
     max-width: 340px;
     @include mini-phone {
@@ -230,7 +243,7 @@ export default {
     }
 
     .item-image {
-        border-radius: 10px;
+        border-radius: $image-border-radius;
         width: 300px;
         height: 300px;
         margin-bottom: 10px;
@@ -239,6 +252,7 @@ export default {
         background-position: center;
         background-repeat: no-repeat;
         background-color: #ddd;
+        padding: 0;
     }
 
     .item-description:not(.modal .item-description) {
