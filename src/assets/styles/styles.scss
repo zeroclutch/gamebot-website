@@ -66,7 +66,6 @@
 }
 
 @mixin fade-in {
-    position: relative;
     animation: fade-in ease-out 0.5s forwards;
     -webkit-animation: fade-in ease-out 0.5s forwards;
 }
@@ -76,37 +75,31 @@
 }
 
 @mixin fade-in-delayed {
-    position: relative;
     animation: fade-in ease-out 0.5s 0.1s forwards;
     -webkit-animation: fade-in ease-out 0.5s 0.1s forwards;
 }
 
 @mixin fade-out {
-    position: relative;
     animation: fade-out ease-out 0.5s forwards;
     -webkit-animation: fade-out ease-out 0.5s forwards;
 }
 
 @mixin fade-in-static {
-    position: relative;
     animation: fade-in-static ease-out 0.5s forwards;
     -webkit-animation: fade-in-static ease-out 0.5s forwards;
 }
 
 @mixin fade-out-static {
-    position: relative;
     animation: fade-out-static ease-out 0.5s forwards;
     -webkit-animation: fade-out-static ease-out 0.5s forwards;
 }
 
 @mixin fade-in-static-delayed {
-    position: relative;
     animation: fade-in-static ease-out 0.5s 0.1s forwards;
     -webkit-animation: fade-in-static ease-out 0.5s 0.1s forwards;
 }
 
 @mixin fade-out-static-delayed {
-    position: relative;
     animation: fade-out-static ease-out 0.5s 0.1s forwards;
     -webkit-animation: fade-out-static ease-out 0.5s 0.1s forwards;
 }
