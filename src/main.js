@@ -5,6 +5,8 @@ import store from './store'
 import Buefy from 'buefy'
 import VueGtag from "vue-gtag";
 
+// Custom plugins
+import Images from './util/images.js'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faDiscord, faFacebook, faInstagram, faLinkedin, faReddit, faTwitter } from '@fortawesome/free-brands-svg-icons'
@@ -13,6 +15,7 @@ import {
   faCheck, faUsers, faUser, faSignOutAlt, faTimes, faSortAlphaDown, faMoneyBillWave,
   faEye, faEyeSlash, faAward, faChartLine, faAngleRight, faStore, faTags, faTag,
   faSearch, faPlusCircle, faPlus, faMinus, faLink, faHome, faArrowCircleRight, faArrowLeft, faArrowRight,
+  faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueAnimateOnScroll from 'vue-animate-onscroll'
@@ -28,6 +31,8 @@ Vue.use(VueGtag, {
 
 Vue.use(VueAnimateOnScroll)
 
+Vue.use(Images)
+
 library.add(
   // fab
   faDiscord, faTwitter, faFacebook, faInstagram, faReddit, faLinkedin,
@@ -35,7 +40,7 @@ library.add(
   faLink, faHashtag, faArrowUp, faArrowDown, faArrowLeft, faArrowRight, faSortDown, faCaretUp, faCaretDown,
   faCheck, faUsers, faUser, faSignOutAlt, faTimes, faSortAlphaDown, faMoneyBillWave,
   faEye, faEyeSlash, faAward, faChartLine, faAngleRight, faStore, faTags, faTag,
-  faSearch, faPlusCircle, faPlus, faMinus, faHome, faArrowCircleRight)
+  faSearch, faPlusCircle, faPlus, faMinus, faHome, faArrowCircleRight, faTimesCircle)
 Vue.component('vue-fontawesome', FontAwesomeIcon);
 
 Vue.config.productionTip = false

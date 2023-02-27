@@ -1,8 +1,12 @@
 <template>
     <div class="discord-message is-mobile">
-        <div class="avatar" :style="{ 'background-image': `url(${avatar})`}">
+        <b-image
+            class="avatar"
+            rounded
+            :src="avatar"
+            :webp-fallback="avatar">
             <!--avatar-->
-        </div>
+        </b-image>
         <div class="discord-message-body">
             <!--name-->
             <div class="discord-name" :style="{ color: roleColor || '#fff' }">
@@ -59,6 +63,7 @@ export default {
         username: String,
         content: String,
         avatar: String,
+        avatarExtension: String,
         roleColor: String,
         bot: Boolean,
     },

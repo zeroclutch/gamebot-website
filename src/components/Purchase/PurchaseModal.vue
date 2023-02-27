@@ -14,7 +14,7 @@
            <div class="column purchase-info-card-wrapper"> 
                 <div class="purchase-info-card">
                     <div class="purchase-info-image">
-                        <img src="@/assets/images/mockup/daily.png" alt="Type &daily to get credits" draggable="false">
+                        <img src="@/assets/images/mockup/daily.jpeg" alt="Type &daily to get credits" draggable="false">
                     </div>
                     <div class="purchase-info-text">
                         Type <b>&daily</b> and vote for Gamebot on Top.gg every 12 hours to get {{ gold ? 'a chance at gold!' : 'guaranteed credits!'}}
@@ -27,7 +27,7 @@
            <div class="column purchase-info-card-wrapper"> 
                 <div class="purchase-info-card column">
                     <div class="purchase-info-image">
-                        <img src="@/assets/images/mockup/giveaway.png" alt="Join the community server for giveaways" draggable="false">
+                        <img src="@/assets/images/mockup/giveaway.jpeg" alt="Join the community server for giveaways" draggable="false">
                     </div>
                     <div class="purchase-info-text">
                         Join the community server for giveaways, games, and more!

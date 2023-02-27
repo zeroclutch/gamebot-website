@@ -6,12 +6,13 @@
             content="This round's black card"
             bot
             role-color="#52d9e9"
-            :avatar="require(`@/assets/images/brand/128x128.png`)">
+            :avatar="require(`@/assets/images/brand/64w/pfp.png`)"
+            avatarExtension=".webp">
             <DiscordMessageEmbed
                 title=""
                 description=""
                 color="#52d9e9"
-                :image="require(`@/assets/images/mockup/unicorn-display.png`)"
+                :image="require(`@/assets/images/mockup/unicorn-display.jpeg`)"
             >
             </DiscordMessageEmbed>
             <DiscordMessageEmbed
@@ -30,14 +31,15 @@
         <DiscordMessage
             username="a smol bunny"
             role-color="#abcdef"
-            avatar="https://i.imgur.com/gx0AN39.gif">
+            :avatar="require('@/assets/images/mockup/bunny.gif')">
             I gotta say I like crystal meth<br>
             wait that came out wrong
         </DiscordMessage>
         <DiscordMessage
             username="a real-life person"
             role-color="#febaca"
-            :avatar="require(`@/assets/images/mockup/anime.jpg`)">
+            :avatar="require(`@/assets/images/mockup/person.jpeg`)"
+            avatarExtension=".webp">
             oh dear
         </DiscordMessage>
     </div>

@@ -1,22 +1,22 @@
 
 @keyframes fade-in {
     0% {
-        top: 20px;
+        transform: translate(0, 20px);
         opacity: 0;
     }
     100% {
-        top: 0;
+        transform: translate(0);
         opacity: 1;
     }
 }
 
 @keyframes fade-out {
     0% {
-        top: 0;
+        transform: translate(0);
         opacity: 1;
     }
     100% {
-        top: -20px;
+        transform: translate(0, -20px);
         opacity: 0;
     }
 }
@@ -27,6 +27,15 @@
     }
     100% {
         opacity: 1;
+    }
+}
+
+@keyframes fade-out-static {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }
 
@@ -56,35 +65,64 @@
 	}
 }
 
-
-.fade-in {
-    position: relative;
+@mixin fade-in {
     animation: fade-in ease-out 0.5s forwards;
     -webkit-animation: fade-in ease-out 0.5s forwards;
 }
 
-.faded-out {
+@mixin faded-out {
     opacity: 0;
 }
 
-.fade-in-delayed {
-    position: relative;
+@mixin fade-in-delayed {
     animation: fade-in ease-out 0.5s 0.1s forwards;
     -webkit-animation: fade-in ease-out 0.5s 0.1s forwards;
 }
 
-.fade-out {
-    position: relative;
+@mixin fade-out {
     animation: fade-out ease-out 0.5s forwards;
     -webkit-animation: fade-out ease-out 0.5s forwards;
 }
 
+@mixin fade-in-static {
+    animation: fade-in-static ease-out 0.5s forwards;
+    -webkit-animation: fade-in-static ease-out 0.5s forwards;
+}
+
+@mixin fade-out-static {
+    animation: fade-out-static ease-out 0.5s forwards;
+    -webkit-animation: fade-out-static ease-out 0.5s forwards;
+}
+
+@mixin fade-in-static-delayed {
+    animation: fade-in-static ease-out 0.5s 0.1s forwards;
+    -webkit-animation: fade-in-static ease-out 0.5s 0.1s forwards;
+}
+
+@mixin fade-out-static-delayed {
+    animation: fade-out-static ease-out 0.5s 0.1s forwards;
+    -webkit-animation: fade-out-static ease-out 0.5s 0.1s forwards;
+}
+
+
+.fade-in { @include fade-in; }
+.faded-out { @include faded-out; }
+.fade-in-delayed { @include fade-in-delayed; }
+.fade-out { @include fade-out; }
+.fade-in-static { @include fade-in-static; }
+.fade-out-static { @include fade-out-static; }
 
 @media (prefers-reduced-motion) {
     .fade-in {
-        animation: none;
+        @include fade-in-static;
     }
     .fade-out {
-        animation: none;
+        @include fade-out-static;
+    }
+    .fade-in-delayed {
+        @include fade-in-static-delayed;
+    }
+    .fade-out-delayed {
+        @include fade-out-static-delayed;
     }
 }

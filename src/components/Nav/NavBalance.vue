@@ -5,7 +5,7 @@
             :size="size"
             @click="openCreditModal"
             class="is-inverted is-info balance-button">
-            {{ credits == undefined ? '??' : credits }} <img class="currency-icon" src="@/assets/images/currency/credits-display.png" />
+            {{ credits == undefined ? '??' : credits }} <img class="currency-icon" src="@/assets/images/currency/128w/credits.png" />
         </b-button>
         <b-button
             icon-left="plus-circle"

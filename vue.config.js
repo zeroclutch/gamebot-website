@@ -1,3 +1,16 @@
+const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin');
+
+const outputEnv = () => {
+  switch(process.env.NODE_ENV) {
+    case 'production':
+      return 'production'
+    case 'staging':
+    case 'development':
+    default:
+      return 'staging'
+  }
+}
+
 module.exports = 
 {
   devServer: {
@@ -11,7 +24,7 @@ module.exports =
       }
     }
   },
-  outputDir: `../${process.env.NODE_ENV}/dist`,
+  outputDir: `../${outputEnv()}/dist`,
   // Make variables available in SASS for every components
   css: {
     loaderOptions: {
@@ -21,5 +34,10 @@ module.exports =
     },
   },
   configureWebpack: {
+    plugins: [
+      new ImageminWebpWebpackPlugin({
+        overrideExtension: false,
+      }),
+    ]
   }
 }

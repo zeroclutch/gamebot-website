@@ -50,7 +50,11 @@ export const routes = [
   {
     path: '/post/:slug',
     name: 'Post',
-    component: BlogPost
+    component: BlogPost,
+    meta: {
+      hideGradient: true,
+      darkNav: true,
+    }
   },
   {
     path: '/dashboard',
@@ -76,7 +80,8 @@ export const routes = [
   {
     path: '/terms',
     name: 'Terms',
-    component: Terms
+    component: Terms,
+    
   },
   {
     path: '/privacy',
@@ -112,6 +117,7 @@ export const routes = [
     name: '404',
     component: PageNotFound,
     meta: {
+      hideGradient: true,
       darkNav: true
     }
   },

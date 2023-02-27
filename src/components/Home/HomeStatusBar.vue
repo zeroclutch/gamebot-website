@@ -4,7 +4,10 @@
             <div class="column is-4-desktop is-4-tablet is-paddingless status-column">
                 <!--Status and tag-->
                 <div class="profile-picture">
-                    <img src="@/assets/images/brand/128x128.png">
+                    <b-image 
+                        :src="require(`@/assets/images/brand/64w/pfp.png`) + `.webp`"
+                        :webp-fallback="require('@/assets/images/brand/64w/pfp.png')"
+                        />
                 </div>
                 <div class="profile-name status-content is-0-mobile">
                     <span>Gamebot</span><span class="translucent">#4700</span>
@@ -61,6 +64,8 @@ export default {
 
 .status-bar {
     padding: 5px;
+    position: relative;
+    z-index: 1;
     .columns {
         margin: 0 auto;
         max-width: $widescreen;
