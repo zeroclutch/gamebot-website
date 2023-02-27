@@ -43,6 +43,7 @@ export default {
     return {
       navOpen: false,
       scrollPosition: 0,      
+      pageLoaded: false
     }
   },
   computed: {
@@ -55,10 +56,6 @@ export default {
     hideGradient() {
       return !!this.$route.meta.hideGradient || this.showBlankApp
     },
-    pageLoaded() {
-      // Returns true if the route has been loaded
-      return !!this.activeRoute
-    }
   },
   methods: {
     toggleSidebar() {
@@ -77,6 +74,9 @@ export default {
   },
   beforeMount() {
     this.initialize()
+    this.$router.onReady(function() {
+      this.pageLoaded = true
+    }.bind(this))
   },
   mounted() {
     window.addEventListener('scroll', this.updateScroll);

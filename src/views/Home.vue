@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home is-clipped-x">
     <HomeHero faded-text="Play fun multiplayer games on Discord with " title="Gamebot!"/>
     <HomeStatusBar />
     <section class="section home-section">
@@ -148,6 +148,12 @@
 </template>
 
 <style lang="scss">
+
+.is-clipped-x {
+  overflow-x: hidden;
+  position: relative;
+}
+
 .home {
   .section-title {
     font-weight: bold;

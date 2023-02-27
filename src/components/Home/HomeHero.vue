@@ -217,7 +217,9 @@ export default {
     padding: 3.5rem 0 0 0;
 
     height: 700px;
-
+    overflow-x: hidden;
+    overflow-y: hidden;
+    max-width: 100vw;
 
     .hero-content-wrapper {
         margin: 0 auto;
@@ -239,6 +241,10 @@ export default {
             span {
                 position: relative;
                 z-index: 2;
+            }
+
+            @include tablet {
+                font-size: 3.25rem;
             }
             
             @include mobile {
