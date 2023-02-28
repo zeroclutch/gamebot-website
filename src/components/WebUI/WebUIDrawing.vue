@@ -313,8 +313,12 @@ export default {
             if(isMobile()) {
                 const controlsStyle = window.getComputedStyle(document.querySelector('aside.buttons'))
                 const controlsHeight = parseInt(controlsStyle.height) + parseInt(controlsStyle.bottom);
+
+                const messageStyle = window.getComputedStyle(document.querySelector('div.webui-message'))
+                const messageHeight = parseInt(messageStyle.height);
+
                 this.canvas.setWidth(window.innerWidth);
-                this.canvas.setHeight(window.innerHeight - (controlsHeight + 34));
+                this.canvas.setHeight(window.innerHeight - (controlsHeight + messageHeight + 55));
                 this.canvas.calcOffset();
             } else {
                 this.canvas.setWidth(600);
