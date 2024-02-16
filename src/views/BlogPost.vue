@@ -373,7 +373,7 @@ export default {
     },
     computed: {
         getShareURL() {
-            return `https://gamebot.rocks/post/${this.$route.params.slug}`
+            return `https://gamebot.gg/post/${this.$route.params.slug}`
         }
     }
 }

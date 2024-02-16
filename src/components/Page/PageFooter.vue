@@ -25,7 +25,7 @@
                         <h1 class="has-text-darkest-light is-4">CONTACT</h1>
                         <p class="has-text-darkest-light is-6">
                             <a href="https://discord.gg/g3qU24mfbK" target="_blank" rel="noopener noreferrer">Support</a>
-                            <a href="https://gamebot.rocks/discord" target="_blank" rel="noopener noreferrer">Discord</a>
+                            <a href="https://gamebot.gg/discord" target="_blank" rel="noopener noreferrer">Discord</a>
                             <a href="https://twitter.com/gamebotdiscord" target="_blank" rel="noopener noreferrer">Twitter</a>
                             <a href="https://www.tiktok.com/@gamebotfordiscord" target="_blank" rel="noopener noreferrer">TikTok</a>
                         </p>
