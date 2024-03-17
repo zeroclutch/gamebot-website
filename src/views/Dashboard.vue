@@ -1,24 +1,27 @@
 <template>
     <div class="dashboard">
-        <PageHero title="Dashboard" subtitle="Configure your profile and servers" />
         <!-- Server-specific settings -->
-        <main class="dashboard-content box columns">
+        <router-link tag="a" class="dashboard-banner box" to="/shop">
+            <div class="dashboard-banner-content">
+                <h1 class="title is-5">Customize your profile!</h1>
+                <p class="subtitle is-6">Unlock more skins in the Gamebot shop.</p>
+            </div>
+        </router-link>
+        <main class="dashboard-content columns box">
             <aside class="sidebar column">
                 <b-menu-list
-                    :model="selection">
+                    :model="page">
                     <div class="p-1">
                         <b-menu>
                         <b-menu-list
                         type="is-primary"
                         label="PROFILE">
-                            <b-menu-item icon="information-outline" label="Overview"></b-menu-item>
-                            <b-menu-item icon="information-outline" label="Customize"></b-menu-item>
-                            <b-menu-item icon="account" label="Games">
-                                <b-menu-item label="X"></b-menu-item>
-                                <b-menu-item label="X"></b-menu-item>
-                            </b-menu-item>
+                            <b-menu-item :active="page === 'Overview'" @click="page = 'Overview'" icon="user" label="Overview" aria-selected="true"></b-menu-item>
+                            <b-menu-item :active="page === 'Statistics'" @click="page = 'Statistics'" icon="chart-line" label="Statistics"></b-menu-item>
+                            <b-menu-item :active="page === 'Achievements'" @click="page = 'Achievements'" icon="trophy" label="Achievements"></b-menu-item>
                         </b-menu-list>
-                        <b-menu-list label="SERVERS">
+                        <!-- Server list -->
+                        <!--b-menu-list label="SERVERS">
                             <b-menu-item v-for="guild in guilds" :key="guild.id">
                                 <template #label>
                                     <span class="icon guild-icon">
@@ -28,17 +31,17 @@
                                 </template>
                             </b-menu-item>
                             <b-message v-if="guilds.length === 0" type="is-warning">No servers found. <router-link class="inline-link" to="/invite">Invite Gamebot</router-link> to your server to get started!</b-message>
-                            <!-- Write a router-link to /login -->
+
                             <b-button v-if="!$store.getters.getToken" tag="router-link" icon-left="discord" icon-pack="fab" type="is-discord" inverted :to="{ path: '/login' }">
-                        Log in with Discord
-                    </b-button>
-                        </b-menu-list>
+                                Log in with Discord
+                            </b-button>
+                        </b-menu-list-->
                         </b-menu>
                     </div>
                 </b-menu-list>
             </aside>
             <div class="column user-dashboard">
-                <div class="user-profile">
+                <div class="user-profile dashboard-item glass">
                     <div class="user-info">
                         <div class="circle"></div> <!-- Replace with image -->
                         <div class="user-info-text">
@@ -65,53 +68,89 @@
                         <p class="statistic-description">Summer 2023</p>
                     </div>
                 </div>
-                <div class="user-experience">
-                    <div class="xp-progress-bar">
-                        <div class="current-progress"></div>
+
+                <div class="user-status dashboard-item columns">
+                    <div class="user-achievements dashboard-item column is-8 glass">
+                        <div class="achievement">
+                            <p class="achievement-title">Unscrambler</p>
+                            <div class="achievement-info">
+                                <p class="achievement-description">Play 3 games of Anagrams</p>
+                                <p class="achievement-progress-label">1/3 games</p>
+                            </div>
+                            <div class="achievement-progress">
+                                <div class="achievement-progress-bar"></div>
+                            </div>
+                        </div>
+
+                        <div class="achievement">
+                            <p class="achievement-title">Unscrambler</p>
+                            <div class="achievement-info">
+                                <p class="achievement-description">Play 3 games of Anagrams</p>
+                                <p class="achievement-progress-label">1/3 games</p>
+                            </div>
+                            <div class="achievement-progress">
+                                <div class="achievement-progress-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-balance dashboard-item column glass">
+                        <div class="user-balance-content">
+                            <p class="user-balance-currency">
+                                <img class="currency-icon" src="@/assets/images/currency/credits-display.png" alt="Gamebot Credits" />
+                                <b>Credits</b>
+                            </p>
+                            <p class="user-balance-amount">1,000</p>
+                        </div>
+
+                        <div class="user-balance-content">
+                            <p class="user-balance-currency">
+                                <img class="currency-icon" src="@/assets/images/currency/coin.png" alt="Gamebot Gold" />
+                                <b>Gold</b>
+                            </p>
+                            <p class="user-balance-amount">10</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="xp-progress-bar dashboard-item glass">
+                    <div class="current-progress">
                     </div>
                     <p class="xp-progress-label">
                         <b>Level 27</b>
                         &nbsp;1.2K / 1.5K Experience
                     </p>
+                </div>
 
+                <div class="user-experience dashboard-item">    
                     <div class="rewards-basic rewards-container">
                         <div class="reward-container">
-                            <div class="reward"></div>
+                            <div class="reward glass"></div>
                             <p class="reward-label">27</p>
                         </div>
                         <div class="reward-container">
-                            <div class="reward"></div>
+                            <div class="reward glass"></div>
                             <p class="reward-label">27</p>
                         </div>
                         <div class="reward-container">
-                            <div class="reward locked"></div>
+                            <div class="reward glass locked"></div>
                             <p class="reward-label">27</p>
                         </div>
                         <div class="reward-container">
-                            <div class="reward locked"></div>
+                            <div class="reward glass locked"></div>
                             <p class="reward-label">27</p>
                         </div>
                         <div class="reward-container">
-                            <div class="reward locked"></div>
+                            <div class="reward glass locked"></div>
                             <p class="reward-label">27</p>
                         </div>
                     </div>
-                    <div class="rewards-premium rewards-container locked">
-                        <div class="reward-container">
-                            <div class="reward"></div>
-                        </div>
-                        <div class="reward-container">
-                            <div class="reward"></div>
-                        </div>
-                        <div class="reward-container">
-                            <div class="reward"></div>
-                        </div>
-                        <div class="reward-container">
-                            <div class="reward"></div>
-                        </div>
-                        <div class="reward-container">
-                            <div class="reward"></div>
-                        </div>
+                </div>
+                <div class="user-footer dashboard-item glass">
+                    <div class="user-footer-left">
+                        Summer 2023 / Gamebot for Discord
+                    </div>
+                    <div class="user-footer-right">
+                        <a class="share has-text-black" href="#">Share</a>
                     </div>
                 </div>
             </div>
@@ -120,19 +159,40 @@
 </template>
 
 <style lang="scss">
+$dashboard-width: $widescreen;
 $user-info-row-height: 2.5rem;
+
+.glass { 
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(30px);
+}
 
 .dashboard {
     text-align: left;
     background-color: #eee;
     min-height: 700px;
-    padding-bottom: 100px;
+    padding: 150px 20px;
+    flex-direction: column;
+    align-items: center;
+
+    .dashboard-banner {
+        background: url('/img/dashboard-banner.jpg') no-repeat center center;
+        background-color: $gold;
+        max-width: $dashboard-width;
+        margin: 0 auto 24px auto;
+        &:hover {
+            box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0 0 1px $gold;
+        }
+
+    }
+
     .dashboard-content {
         position: relative;
-        max-width: $widescreen;
-        padding: 20px;
+        max-width: $dashboard-width;
+        padding: 0;
+        overflow: hidden;
         margin: 0 auto;
-        background-color: white;
+
         .sidebar {
             max-width: 250px;
         }
@@ -160,27 +220,32 @@ $user-info-row-height: 2.5rem;
     }
 }
 
-.user-profile,
-.user-experience {
+.user-dashboard {
+    background-image: url('https://i.pinimg.com/originals/f7/4c/e6/f74ce6007b53858d32503641f6dd88ba.jpg');
+    background-size: cover;
+    background-color: #eee;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.dashboard-item {
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-wrap: wrap;
     border-radius: 1rem;
     padding: 1rem;
-}
-
-.user-profile {
-    background-color: #f5f5f5;
-    margin-bottom: 1rem;
+    margin: 0;
 }
 
 .user-experience {
+    padding: 0;
     flex-direction: column;
 }
 
 .user-dashboard > *, .user-experience > * {
-    margin-top: 1rem;
+    // margin-top: 1rem;
 }
 
 .user-info {
@@ -279,35 +344,123 @@ $user-info-row-height: 2.5rem;
     justify-content: center;
 }
 
-.user-experience {
-    .xp-progress-bar {
-        min-height: 2rem;
-        height: 10%;
-        width: 100%;
-        background-color: gray;
-        border-radius: 0.5rem;
+.xp-progress-bar {
+    position: relative;
+    min-height: 3rem;
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+.current-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: inherit;
+    min-height: inherit;
+    border-radius: inherit;
+    width: 70%;
+    // background-color: rgb(58, 57, 57);
+    background: linear-gradient(102.34deg, rgba(206, 84, 226, 0.962972) 49.62%, #33CEFF 109.32%);
+}
+
+.xp-progress-label {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    text-transform: uppercase;
+    color: white;
+}
+
+.user-status {
+    margin: 0;
+    padding: 0;
+    gap: 1rem;
+}
+
+// Achievements
+
+.user-achievements {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.achievement {
+    width: 100%;
+    .achievement-title {
+        font-size: 0.8rem;
+        line-height: 1;
+        font-weight: bold;
+        margin: 0;
     }
 
-    .current-progress {
+    .achievement-info {
+        display: flex;
+        font-size: 0.8rem;
+        margin: 0;
+        justify-content: space-between;
+    }
+
+
+    .achievement-progress {
         position: relative;
-        height: inherit;
-        min-height: inherit;
-        border-radius: inherit;
-        width: 50%;
-        background-color: rgb(58, 57, 57);
-    }
-
-    .xp-progress-label {
-        align-self: flex-start;
-        margin-left: 0.5rem;
-        text-transform: uppercase;
+        width: 100%;
+        height: 0.5rem;
+        border-radius: 0.5rem;
+        background-color: $light;
+        .achievement-progress-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: inherit;
+            border-radius: inherit;
+            width: 33%;
+            background-color: $primary;
+        }
     }
 }
+
+// Balance
+
+.user-balance {
+    display: flex;
+    align-items: center;
+    .user-balance-content {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+    }
+
+    .user-balance-currency {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .currency-icon {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .user-balance-amount {
+        display: flex;
+        font-size: 0.8rem;
+        line-height: 2rem;
+    }
+}
+
+// Rewards
+
 .rewards-container {
     display: flex;
     position: relative;
     width: 100%;
-    height: 100%;
     gap: 2.5%;
 
     .reward-container {
@@ -325,17 +478,16 @@ $user-info-row-height: 2.5rem;
     }
 
     .reward {
-        background-color: lightgray;
         width: 100%;
         aspect-ratio: 1;
         border-radius: 0.5rem;
         z-index: 1;
         &.locked {
-            background-color: gray;
+            background-color: rgba(0, 0, 0, 0.75);
         }
     }
 
-    &.locked::before {
+    &.locked::after {
         position: absolute;
         display: grid;
         align-items: center;
@@ -344,29 +496,35 @@ $user-info-row-height: 2.5rem;
         font-weight: bold;
         content: 'Unlock with Gamebot Premium!';
         width: inherit;
-        height: inherit;
+        height: 100%;
         border-radius: 0.5rem;
         background-color: rgba(0, 0, 0, 0.7);
     }
 }
 
+.user-footer {
+    padding: 0.25rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+}
+
 </style>
 
 <script>
-import PageHero from '../components/Page/PageHero.vue'
 
 export default {
     name: 'Dashboard',
-    components: {
-        PageHero,
+    components: {   
     },
     data() {
         return {
             loading: true,
             data: {},
             activeItem: {},
-            selection: '',
-            guilds: []
+            page: 'Overview',
+            guilds: [],
         }
     },
     methods: {
@@ -411,8 +569,11 @@ export default {
                 this.guilds = this.$store.getters.getGuilds.filter(guild => guild.permissions & PERMISSIONS.MANAGE_SERVER)
             }
 
-
         },
+
+        setPage(page) {
+            this.page = page
+        }
     },
     mounted() {
         Promise.all(this.fetchGuilds(), this.fetchItems())
@@ -420,8 +581,6 @@ export default {
             this.loading = false
         })
     },
-    computed: {
-    }
 }
 
 </script>

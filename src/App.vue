@@ -4,12 +4,12 @@
       <PurchaseModal :class="{ 'is-dark-mode': $store.state.purchase.modalItems === 'gold' }"  />
     </b-modal>
     <div class="navbar-wrapper">
-      <div class="navbar-background" :class="{ pinned: scrollPosition > 1}">
+      <div class="navbar-background" :class="{ pinned: isPinned }">
         <NavBar @toggleSidebar="toggleSidebar" />
       </div>
     </div>
-    <div class="router-wrapper" :class="{ pinned: scrollPosition > 1}">
-      <router-view/>
+    <div class="router-wrapper" :class="{ pinned: isPinned }">
+      <router-view class="router-view"/>
     </div>
     <NavSidebar :active-route="activeRoute" :open="navOpen" @close="closeNav"/>
     <Footer />
@@ -38,6 +38,9 @@ export default {
   computed: {
     activeRoute() {
       return this.$route.path
+    },
+    isPinned() {
+      return this.scrollPosition > 1 || this.activeRoute.startsWith('/dashboard')
     }
   },
   methods: {

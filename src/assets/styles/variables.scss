@@ -14,9 +14,9 @@ $primary-invert: #fff;
 
 // Secondary
 $secondary: #79eac1;
-$secondary-light: findLightColor($primary);
-$secondary-dark: findDarkColor($primary);
-$secondary-invert: findColorInvert($primary);
+$secondary-light: findLightColor($secondary);
+$secondary-dark: findDarkColor($secondary);
+$secondary-invert: findColorInvert($secondary);
 
 //Info
 $info: #32a6de;
@@ -26,6 +26,11 @@ $success: #38d06d;
 
 $warning: #EBD26C;
 //$dropdown-background-color: $info;
+
+$gold: #DDC891;
+$gold-light: #f3ebd5;
+$gold-dark: #a89870;
+$gold-invert: findColorInvert($gold);
 
 // Tiers
 $common: linear-gradient(52deg, rgba(83,196,151,1) 20%, rgba(77,167,98,1) 84%);
