@@ -5,7 +5,7 @@ import VueRouter from 'vue-router'
 const Home      = () => import('../views/Home.vue')
 const Commands  = () => import('../views/Commands.vue')
 const Shop      = () => import('../views/Shop.vue')
-const Dashboard = () => import('../views/Dashboard.vue')
+const Profile = () => import('../views/Profile.vue')
 const Blog      = () => import('../views/Blog.vue')
 const BlogPost  = () => import('../views/BlogPost.vue')
 
@@ -50,9 +50,9 @@ const routes = [
     component: BlogPost
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: Dashboard
+    path: '/profile/:id',
+    name: 'Profile',
+    component: Profile
   },
   {
     path: '/authenticate',

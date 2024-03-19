@@ -1,5 +1,5 @@
 <template>
-    <div class="dashboard">
+    <div class="profile">
         <!-- Server-specific settings -->
         <router-link tag="a" class="dashboard-banner box" to="/shop">
             <div class="dashboard-banner-content">
@@ -40,7 +40,7 @@
                     </div>
                 </b-menu-list>
             </aside>
-            <div class="column user-dashboard">
+            <div v-show="page === 'Overview'" class="column user-dashboard">
                 <div class="user-profile dashboard-item glass">
                     <div class="user-info">
                         <div class="circle"></div> <!-- Replace with image -->
@@ -69,31 +69,38 @@
                     </div>
                 </div>
 
-                <div class="user-status dashboard-item columns">
-                    <div class="user-achievements dashboard-item column is-8 glass">
-                        <div class="achievement">
-                            <p class="achievement-title">Unscrambler</p>
-                            <div class="achievement-info">
-                                <p class="achievement-description">Play 3 games of Anagrams</p>
-                                <p class="achievement-progress-label">1/3 games</p>
+                <div class="user-status dashboard-item">
+                    <div class="user-achievements dashboard-item glass">
+                        <div class="achievement-list">
+                            <div class="achievement">
+                                <p class="achievement-title">Unscrambler</p>
+                                <div class="achievement-info">
+                                    <p class="achievement-description">Play 3 games of Anagrams</p>
+                                    <p class="achievement-progress-label">1/3 games</p>
+                                </div>
+                                <div class="achievement-progress">
+                                    <div class="achievement-progress-bar"></div>
+                                </div>
                             </div>
-                            <div class="achievement-progress">
-                                <div class="achievement-progress-bar"></div>
+
+                            <div class="achievement">
+                                <p class="achievement-title">Unscrambler</p>
+                                <div class="achievement-info">
+                                    <p class="achievement-description">Play 3 games of Anagrams</p>
+                                    <p class="achievement-progress-label">1/3 games</p>
+                                </div>
+                                <div class="achievement-progress">
+                                    <div class="achievement-progress-bar"></div>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="achievement">
-                            <p class="achievement-title">Unscrambler</p>
-                            <div class="achievement-info">
-                                <p class="achievement-description">Play 3 games of Anagrams</p>
-                                <p class="achievement-progress-label">1/3 games</p>
-                            </div>
-                            <div class="achievement-progress">
-                                <div class="achievement-progress-bar"></div>
-                            </div>
+                        <div class="achievement-timer">
+                            <p class="achievement-timer-label">Quests reset in</p>
+                            <p class="achievement-timer-countdown">12h 30m</p>
                         </div>
                     </div>
-                    <div class="user-balance dashboard-item column glass">
+
+                    <div class="user-balance dashboard-item glass">
                         <div class="user-balance-content">
                             <p class="user-balance-currency">
                                 <img class="currency-icon" src="@/assets/images/currency/credits-display.png" alt="Gamebot Credits" />
@@ -167,7 +174,7 @@ $user-info-row-height: 2.5rem;
     backdrop-filter: blur(30px);
 }
 
-.dashboard {
+.profile {
     text-align: left;
     background-color: #eee;
     min-height: 700px;
@@ -221,7 +228,8 @@ $user-info-row-height: 2.5rem;
 }
 
 .user-dashboard {
-    background-image: url('https://i.pinimg.com/originals/f7/4c/e6/f74ce6007b53858d32503641f6dd88ba.jpg');
+    // background-image: url('https://i.pinimg.com/originals/f7/4c/e6/f74ce6007b53858d32503641f6dd88ba.jpg');
+    background-image: url('https://i.ebayimg.com/images/g/n8IAAOSwltRkNCSF/s-l1200.webp');
     background-size: cover;
     background-color: #eee;
     padding: 1rem;
@@ -377,14 +385,36 @@ $user-info-row-height: 2.5rem;
     margin: 0;
     padding: 0;
     gap: 1rem;
+    align-items: stretch;
 }
 
 // Achievements
 
 .user-achievements {
     display: flex;
+    flex-grow: 10;
+    gap: 1rem;
+}
+
+.achievement-list {
+    display: flex;
+    flex-grow: 1;
     flex-direction: column;
     gap: 0.5rem;
+}
+
+.achievement-timer {
+    text-align: center;
+    .achievement-timer-label {
+        font-size: 0.8rem;
+        margin: 0;
+    }
+
+    .achievement-timer-countdown {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 0;
+    }
 }
 
 .achievement {
@@ -427,11 +457,13 @@ $user-info-row-height: 2.5rem;
 .user-balance {
     display: flex;
     align-items: center;
+    flex-grow: 1;
+    gap: 0.25rem;
+
     .user-balance-content {
         display: flex;
         justify-content: space-between;
         width: 100%;
-
     }
 
     .user-balance-currency {
@@ -515,19 +547,35 @@ $user-info-row-height: 2.5rem;
 <script>
 
 export default {
-    name: 'Dashboard',
+    name: 'Profile',
     components: {   
     },
     data() {
         return {
             loading: true,
-            data: {},
-            activeItem: {},
+            user: {},
             page: 'Overview',
             guilds: [],
         }
     },
     methods: {
+        async fetchUser() {
+            let userID = this.$store.getters.getUser.id
+            if(!userID) {
+                return
+            }
+
+            fetch(`/api/userInfo?userId=${userID}`, {
+                method: 'GET',
+                headers: {
+                    authorization: 'Bearer ' + this.$store.getters.getToken
+                }
+            })
+            .then(res => res.json())
+            .then(json => this.user = json)
+            .then(() => console.log(this.user))
+            .catch(console.error)
+        },
         async fetchItems() {
             let userID = ''
             if(this.$store.getters.getUser.id) {
@@ -576,10 +624,12 @@ export default {
         }
     },
     mounted() {
-        Promise.all(this.fetchGuilds(), this.fetchItems())
+        Promise.all(this.fetchUser)
         .then(() => {
             this.loading = false
+            console.log(this.user)
         })
+        .catch(console.error)
     },
 }
 

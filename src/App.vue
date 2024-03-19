@@ -4,11 +4,11 @@
       <PurchaseModal :class="{ 'is-dark-mode': $store.state.purchase.modalItems === 'gold' }"  />
     </b-modal>
     <div class="navbar-wrapper">
-      <div class="navbar-background" :class="{ pinned: isPinned }">
+      <div class="navbar-background" :class="{ pinned: true }">
         <NavBar @toggleSidebar="toggleSidebar" />
       </div>
     </div>
-    <div class="router-wrapper" :class="{ pinned: isPinned }">
+    <div class="router-wrapper" :class="{ pinned: true }">
       <router-view class="router-view"/>
     </div>
     <NavSidebar :active-route="activeRoute" :open="navOpen" @close="closeNav"/>
@@ -39,9 +39,6 @@ export default {
     activeRoute() {
       return this.$route.path
     },
-    isPinned() {
-      return this.scrollPosition > 1 || this.activeRoute.startsWith('/dashboard')
-    }
   },
   methods: {
     toggleSidebar() {
