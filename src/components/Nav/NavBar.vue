@@ -77,7 +77,7 @@ export default {
   computed: {
     getUserTag() {
         let user = this.$store.state.user
-        return `${user.username || 'user'}#${user.discriminator || '0000'}`
+        return `${user.username || ''}`
     }
   },
   methods: {

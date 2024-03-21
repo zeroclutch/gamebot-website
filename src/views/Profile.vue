@@ -1,7 +1,7 @@
 <template>
     <div class="profile">
         <!-- Server-specific settings -->
-        <router-link tag="a" class="dashboard-banner box" to="/shop">
+        <router-link class="dashboard-banner box" to="/shop">
             <div class="dashboard-banner-content">
                 <h1 class="title is-5">Customize your profile!</h1>
                 <p class="subtitle is-6">Unlock more skins in the Gamebot shop.</p>
@@ -45,7 +45,7 @@
                     <div class="user-info">
                         <div class="circle"></div> <!-- Replace with image -->
                         <div class="user-info-text">
-                            <h1 class="user-username user-info-row">table salt<span class="user-discriminator">#1234</span></h1>
+                            <h1 class="user-username user-info-row">{{ $store.state.user.username }}</h1>
                             <div class="user-info-tags">
                                 <b-tag rounded>Legend</b-tag>
                                 <b-tag rounded>4K Club</b-tag>
@@ -54,15 +54,13 @@
                     </div>
                     <div class="column user-statistic">
                         <div class="game-circles user-info-row">
-                            <div class="circle">cah</div>
-                            <div class="circle">sus</div>
-                            <div class="circle">ana</div>
+                            <div v-for="game of stats.mostPlayed" :key="game.id" class="circle">{{ game.id }}</div>
                         </div>
                         <p class="statistic-description">Most Played</p>
                     </div>
                     <div class="column user-statistic">
                         <div class="user-info-row">
-                            <p class="statistic-title">69</p>
+                            <p class="statistic-title">{{ stats.totalWins }}</p>
                             <p class="statistic-subtitle" style="margin-bottom: 0;">WINS</p>
                         </div>
                         <p class="statistic-description">Summer 2023</p>
@@ -106,7 +104,7 @@
                                 <img class="currency-icon" src="@/assets/images/currency/credits-display.png" alt="Gamebot Credits" />
                                 <b>Credits</b>
                             </p>
-                            <p class="user-balance-amount">1,000</p>
+                            <p class="user-balance-amount">{{ $store.state.dbInfo.credits }}</p>
                         </div>
 
                         <div class="user-balance-content">
@@ -114,7 +112,7 @@
                                 <img class="currency-icon" src="@/assets/images/currency/coin.png" alt="Gamebot Gold" />
                                 <b>Gold</b>
                             </p>
-                            <p class="user-balance-amount">10</p>
+                            <p class="user-balance-amount">{{ $store.state.dbInfo.gold }}</p>
                         </div>
                     </div>
                 </div>
@@ -183,6 +181,7 @@ $user-info-row-height: 2.5rem;
     align-items: center;
 
     .dashboard-banner {
+        display: block;
         background: url('/img/dashboard-banner.jpg') no-repeat center center;
         background-color: $gold;
         max-width: $dashboard-width;
@@ -276,11 +275,6 @@ $user-info-row-height: 2.5rem;
         align-items: center;
         gap: 0.5rem;
         font-weight: bold;
-    }
-
-    .user-discriminator {
-        font-size: 1rem;
-        color: rgb(201, 199, 199);
     }
 
     .user-info-tags {
@@ -558,24 +552,19 @@ export default {
             guilds: [],
         }
     },
-    methods: {
-        async fetchUser() {
-            let userID = this.$store.getters.getUser.id
-            if(!userID) {
-                return
+    computed: {
+        userID() {
+            let id = this.$route.params.id
+            if(!id || id === 'me') {
+                id = this.$store.getters.getUser.id
             }
-
-            fetch(`/api/userInfo?userId=${userID}`, {
-                method: 'GET',
-                headers: {
-                    authorization: 'Bearer ' + this.$store.getters.getToken
-                }
-            })
-            .then(res => res.json())
-            .then(json => this.user = json)
-            .then(() => console.log(this.user))
-            .catch(console.error)
+            return id
         },
+        stats() {
+            return this.$store.getters.getStats
+        }
+    },
+    methods: {
         async fetchItems() {
             let userID = ''
             if(this.$store.getters.getUser.id) {
@@ -624,12 +613,6 @@ export default {
         }
     },
     mounted() {
-        Promise.all(this.fetchUser)
-        .then(() => {
-            this.loading = false
-            console.log(this.user)
-        })
-        .catch(console.error)
     },
 }
 

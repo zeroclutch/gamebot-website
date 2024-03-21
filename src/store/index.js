@@ -100,7 +100,37 @@ export default new Vuex.Store({
     getdbInfo: state => state.dbInfo,
     getItems: state => state.purchase[state.purchase.modalItems].items,
     getGuilds: state => state.guilds,
+    getStats: state => {
+      /**
+       * @returns {
+       *   mostPlayed: [{ id: string, played: number }]
+       *   totalWins: number
+       *   totalGames: number
+       *   winrate: number
+       * },
+       */
+      if(!state || !state.dbInfo || !state.dbInfo.stats) return { mostPlayed: [], totalWins: 0, totalGames: 0, winrate: 0 }
 
+      let mostPlayed = []
+      let totalWins = 0
+      let totalGames = 0
+      const games = state.dbInfo.stats
+
+      for(const id in games) {
+        totalWins += games[id].wins
+        totalGames += games[id].games
+        mostPlayed.push({ id, played: games[id].games })
+      }
+      
+      mostPlayed = mostPlayed.sort((a, b) => b.played - a.played).slice(0, 3)
+
+      return {
+        mostPlayed,
+        totalWins,
+        totalGames,
+        winrate: (totalWins / totalGames * 100).toFixed(2)
+      }
+    },
   },
   mutations: {
     setToken(state, token) {
@@ -113,6 +143,8 @@ export default new Vuex.Store({
       state.user.username = user.username
     },
     setDBInfo(state, dbInfo) {
+      state.dbInfo = { ...dbInfo }
+      // Add helper fields
       state.dbInfo.credits = dbInfo.balance || 0
       state.dbInfo.gold = dbInfo.goldBalance || 0
     },
