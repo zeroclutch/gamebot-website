@@ -84,6 +84,12 @@ export default new Vuex.Store({
       list: [],
       lastUpdated: null,
     },
+    stats: {
+      mostPlayed: [],
+      totalWins: 0,
+      totalGames: 0,
+      winrate: 0,
+    }
   },
   getters: {
     getToken: state => {
@@ -100,37 +106,7 @@ export default new Vuex.Store({
     getdbInfo: state => state.dbInfo,
     getItems: state => state.purchase[state.purchase.modalItems].items,
     getGuilds: state => state.guilds,
-    getStats: state => {
-      /**
-       * @returns {
-       *   mostPlayed: [{ id: string, played: number }]
-       *   totalWins: number
-       *   totalGames: number
-       *   winrate: number
-       * },
-       */
-      if(!state || !state.dbInfo || !state.dbInfo.stats) return { mostPlayed: [], totalWins: 0, totalGames: 0, winrate: 0 }
-
-      let mostPlayed = []
-      let totalWins = 0
-      let totalGames = 0
-      const games = state.dbInfo.stats
-
-      for(const id in games) {
-        totalWins += games[id].wins
-        totalGames += games[id].games
-        mostPlayed.push({ id, played: games[id].games })
-      }
-      
-      mostPlayed = mostPlayed.sort((a, b) => b.played - a.played).slice(0, 3)
-
-      return {
-        mostPlayed,
-        totalWins,
-        totalGames,
-        winrate: (totalWins / totalGames * 100).toFixed(2)
-      }
-    },
+    getStats: state => state.stats,
   },
   mutations: {
     setToken(state, token) {
@@ -147,6 +123,9 @@ export default new Vuex.Store({
       // Add helper fields
       state.dbInfo.credits = dbInfo.balance || 0
       state.dbInfo.gold = dbInfo.goldBalance || 0
+    },
+    setStats(state, stats) {
+      state.stats = { ...stats }
     },
     togglePurchaseModal(state) {
       state.purchase.modalOpen = !state.purchase.modalOpen
@@ -210,9 +189,24 @@ export default new Vuex.Store({
         context.commit('setDBInfo', response)
       }
     },
+    async fetchStats(context) {
+      if(this.getters.getToken && this.getters.getUser) {
+        let res = await fetch('/api/userStats?userID=' + this.getters.getUser.id, {
+          method: 'GET',
+          headers: {
+              authorization: `Bearer ${this.getters.getToken}`
+          }
+        }).catch(console.error)
+        
+        let response = await res.json()
+        // Update user
+        context.commit('setStats', response)
+      }
+    },
     async fetchAllUserInfo({ dispatch }) {
       await dispatch('fetchUserInfo', false)
       await dispatch('fetchDBInfo')
+      await dispatch('fetchStats')
     },
   },
   modules: {

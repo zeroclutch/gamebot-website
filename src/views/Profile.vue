@@ -121,32 +121,18 @@
                     <div class="current-progress">
                     </div>
                     <p class="xp-progress-label">
-                        <b>Level 27</b>
-                        &nbsp;1.2K / 1.5K Experience
+                        <b>Level {{ this.stats.level }}</b>
+                        &nbsp;{{ displayExperience }} Experience
                     </p>
                 </div>
 
-                <div class="user-experience dashboard-item">    
-                    <div class="rewards-basic rewards-container">
-                        <div class="reward-container">
-                            <div class="reward glass"></div>
-                            <p class="reward-label">27</p>
-                        </div>
-                        <div class="reward-container">
-                            <div class="reward glass"></div>
-                            <p class="reward-label">27</p>
-                        </div>
-                        <div class="reward-container">
-                            <div class="reward glass locked"></div>
-                            <p class="reward-label">27</p>
-                        </div>
-                        <div class="reward-container">
-                            <div class="reward glass locked"></div>
-                            <p class="reward-label">27</p>
-                        </div>
-                        <div class="reward-container">
-                            <div class="reward glass locked"></div>
-                            <p class="reward-label">27</p>
+                <div class="user-experience dashboard-item">
+                    <div class="rewards-container">
+                        <div v-for="(reward, i) in rewards" :key="i" class="reward-container" :class="{ 'locked': rewards.premium && !user.premium }">
+                            <div class="reward glass" :class="{ premium }">
+                                {{ reward.value }} {{ reward.type }}
+                            </div>
+                            <p class="reward-label">{{ i + 1 }}</p>
                         </div>
                     </div>
                 </div>
@@ -157,6 +143,22 @@
                     <div class="user-footer-right">
                         <a class="share has-text-black" href="#">Share</a>
                     </div>
+                </div>
+                
+                <!-- Rewards claimed modal -->
+                <div class="claimed-modal modal" :v-show="claimed.showModal">
+                    <h1>Woohoo!</h1>
+                    <div class="claimed-reward">
+                        <div class="claimed-reward-image">
+                            {{ claimed.image }}
+                        </div>
+                        <div class="claimed-reward-item">
+                            {{ claimed.item }}
+                        </div>
+                    </div>
+                    <button class="claimed-modal-close" @click="claimed.showModal = false">
+                        Hooray
+                    </button>
                 </div>
             </div>
         </main>
@@ -170,6 +172,10 @@ $user-info-row-height: 2.5rem;
 .glass { 
     background-color: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(30px);
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .profile {
@@ -539,6 +545,7 @@ $user-info-row-height: 2.5rem;
 </style>
 
 <script>
+import { XP_LEVELS } from '../assets/js/rewards.js'
 
 export default {
     name: 'Profile',
@@ -550,6 +557,16 @@ export default {
             user: {},
             page: 'Overview',
             guilds: [],
+            rewards: new Array(5).fill({
+                "type": 'credits',
+                "premium": false,
+                "value": 100
+            }),
+            claimed: {
+                showModal: false,
+                item: '',
+                image: ''
+            }
         }
     },
     computed: {
@@ -560,11 +577,19 @@ export default {
             }
             return id
         },
-        stats() {
-            return this.$store.getters.getStats
+        displayExperience() {
+            let currentLevel = this.stats
+            let nextLevel = currentLevel + 1
+
+            console.log(currentLevel)
+
+            let currentXP = this.stats.xp
+            let nextXP = XP_LEVELS[nextLevel]
+
+            return `${currentXP} XP / ${nextXP} XP`
         }
     },
-    methods: {
+    methods: {  
         async fetchItems() {
             let userID = ''
             if(this.$store.getters.getUser.id) {
@@ -580,6 +605,26 @@ export default {
             .then(res => res.json())
             .then(json => this.data = json)
             .catch(console.error)
+        },
+
+        async fetchStats(userID) {
+            let userInfo
+
+            if(!userID || userID === 'me') {
+                userInfo = this.$store.getters.getStats
+            } else {
+                await fetch('/api/userStats?userID=' + userID, {
+                    method: 'GET',
+                    headers: {
+                        authorization: 'Bearer ' + this.$store.getters.getToken
+                    }
+                })
+                .then(res => res.json())
+                .then(json => userInfo = json)
+                .catch(console.error)
+            }
+            
+            return userInfo
         },
 
         async fetchGuilds() {
@@ -606,6 +651,54 @@ export default {
                 this.guilds = this.$store.getters.getGuilds.filter(guild => guild.permissions & PERMISSIONS.MANAGE_SERVER)
             }
 
+        },
+
+        async fetchRewards() {
+            let userID = ''
+            if(this.$store.getters.getUser.id) {
+                userID = `?userId=${this.$store.getters.getUser.id}`
+            }
+
+            fetch('/api/rewards' + userID, {
+                method: 'GET',
+                headers: {
+                    authorization: 'Bearer ' + this.$store.getters.getToken
+                }
+            })
+            .then(res => res.json())
+            .then(json => this.rewards = json)
+            .catch(console.error)
+        },
+
+        async claimReward(level) {
+            let userID = ''
+            if(this.$store.getters.getUser.id) {
+                userID = `?userId=${this.$store.getters.getUser.id}`
+            }
+
+            await fetch('/api/rewards/claim' + userID, {
+                method: 'POST',
+                headers: {
+                    authorization: 'Bearer ' + this.$store.getters.getToken
+                },
+                body: JSON.stringify({
+                    level
+                })
+            })
+            .then(res => res.json())
+            .then(this.displayRewards)
+            .catch(err => {
+                console.error(err)
+                this.$buefy.snackbar.open({
+                    message: err.message,
+                    type: 'is-danger'
+                }) 
+            })
+        },
+
+        async displayRewards() {
+            // Open a popup modal showing the reward that was claimed
+            this.claimed.showModal = true
         },
 
         setPage(page) {
